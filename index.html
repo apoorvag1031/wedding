@@ -1,5 +1,7 @@
 <!doctype html>
 <html lang="en">
+<!-- PRIMARY EDITION: larger Cormorant names, vertical scroll Functions,
+     Jaipur-gate loading screen, and an RSVP-led navigation bar. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +27,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rozha+One&family=Marcellus&family=Mukta:wght@300;400;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Rozha+One&family=Marcellus&family=Mukta:wght@300;400;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
 
 <style>
 /* =============================================================
@@ -1305,9 +1307,221 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   .curtains svg.r{transform:scaleX(-1)!important}
   .band.bleed{margin-top:calc(var(--sp) * -0.4)}
 }
+
+/* =============================================================
+   PRIMARY EDITION: LARGE NAMES + VERTICAL FUNCTIONS
+   This block deliberately comes last so index-vertical.html can remain a
+   readable fork of index.html rather than duplicating every earlier rule.
+   ============================================================= */
+
+/* ---------- Loading view ---------- */
+.site-loader{
+  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(180deg,#68BCE5 0%,#BFE4F1 54%,#EBC49B 100%);
+  color:var(--rani-deep);opacity:1;visibility:visible;pointer-events:all;
+  animation:loaderFailsafe 0s linear 4.2s forwards;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+.site-loader::before,.site-loader::after{
+  content:"";position:absolute;z-index:0;background:rgba(255,253,245,.7);border-radius:50%;filter:blur(1px);
+}
+.site-loader::before{width:58vw;height:10vw;min-height:48px;left:-10%;top:13%;box-shadow:22vw -2vw 0 rgba(255,253,245,.56);animation:loaderCloud 18s linear infinite}
+.site-loader::after{width:48vw;height:8vw;min-height:38px;right:-14%;top:27%;box-shadow:-18vw 2vw 0 rgba(255,253,245,.42);animation:loaderCloud 23s linear infinite reverse}
+.site-ready .site-loader{opacity:0;visibility:hidden;pointer-events:none}
+.loader-sky{position:absolute;inset:0;z-index:0;background:radial-gradient(circle at 78% 18%,rgba(255,244,202,.5),transparent 20%)}
+.loader-gate{
+  position:absolute;z-index:1;left:50%;bottom:0;translate:-50% 0;
+  width:min(78vw,340px);height:min(46vh,390px);
+  background:#C76648;border:5px solid #E6B55F;border-bottom:0;
+  box-shadow:0 -18px 0 #9D4032,inset 0 0 0 5px rgba(122,15,65,.18);
+  animation:loaderGateRise 1.15s cubic-bezier(.16,.82,.22,1) both;
+}
+.loader-dome{
+  position:absolute;left:50%;top:-30%;translate:-50% 0;width:72%;height:42%;
+  border-radius:50% 50% 0 0;background:#D98957;border:5px solid #8F3D2F;
+  box-shadow:inset 0 0 0 8px #F0C875;
+}
+.loader-door{
+  position:absolute;left:50%;bottom:0;translate:-50% 0;width:44%;height:64%;
+  border-radius:50% 50% 0 0;background:#0E6D67;border:7px solid #F0D792;
+  box-shadow:inset 0 0 0 5px rgba(4,50,49,.22);
+}
+.loader-tower{position:absolute;bottom:0;width:22%;height:74%;background:#AE4C3A;border:4px solid #E8B964}
+.loader-tower::before{content:"";position:absolute;left:-12%;right:-12%;top:-14px;height:15px;background:#F0C56B;border:3px solid #84392D}
+.loader-tower.left{left:-18%}.loader-tower.right{right:-18%}
+.loader-monogram{
+  position:absolute;z-index:2;left:50%;bottom:28%;translate:-50% 0;
+  display:grid;place-items:center;width:66px;height:66px;border-radius:50%;
+  color:#FDF6E8;background:var(--rani);border:3px double var(--gold-lt);
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:1.35rem;
+  animation:loaderSeal 2.2s ease-in-out infinite;
+}
+.loader-copy{position:relative;z-index:3;align-self:start;margin-top:13vh;text-align:center;padding-inline:1rem}
+.loader-names{
+  margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;
+  font-size:clamp(2.8rem,12vw,5rem);line-height:.9;letter-spacing:-.045em;
+  text-shadow:0 1px #FFF5DB;
+}
+.loader-names i{font-size:.62em;color:var(--marigold-dp);font-weight:500}
+.loader-copy>p:nth-child(2){margin:.75rem 0 0;font-family:"Marcellus",serif;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase}
+.loader-marigolds{display:flex;justify-content:center;gap:.45rem;margin-top:1rem}
+.loader-marigolds i{width:10px;height:10px;border-radius:50%;background:var(--marigold);box-shadow:inset 0 0 0 3px #D97706;animation:loaderDot 1.3s ease-in-out infinite}
+.loader-marigolds i:nth-child(2){animation-delay:.12s}.loader-marigolds i:nth-child(3){animation-delay:.24s}.loader-marigolds i:nth-child(4){animation-delay:.36s}.loader-marigolds i:nth-child(5){animation-delay:.48s}
+@keyframes loaderFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
+@keyframes loaderCloud{to{transform:translateX(35vw)}}
+@keyframes loaderGateRise{from{transform:translateY(70%)}to{transform:none}}
+@keyframes loaderSeal{0%,100%{transform:scale(.94);box-shadow:0 0 0 0 rgba(242,160,61,.3)}50%{transform:scale(1);box-shadow:0 0 0 12px rgba(242,160,61,0)}}
+@keyframes loaderDot{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-7px);opacity:1}}
+
+/* ---------- Minimal, CTA-led navigation ---------- */
+.nav.nav-minimal{
+  min-height:54px;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.42rem clamp(.85rem,4vw,2.5rem);overflow:visible;
+  background:color-mix(in srgb,var(--plum) 96%,black);
+}
+.nav-minimal .nav-brand{
+  padding:.05rem 0;border:0!important;font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:1.55rem;font-weight:600;letter-spacing:-.06em;color:var(--cream);
+}
+.nav-minimal .nav-brand span{color:var(--marigold);font-size:.72em;margin-inline:.04em}
+.nav-ctas{display:flex;align-items:center;gap:.9rem}
+.nav-ctas>a{padding:.38rem .15rem}
+.nav-ctas .nav-rsvp{
+  padding:.48rem .95rem;color:var(--plum);background:var(--marigold);
+  border:1px solid var(--gold-lt);border-radius:999px;font-weight:600;
+}
+.nav-ctas .nav-rsvp:hover,.nav-ctas .nav-rsvp:focus-visible{color:var(--plum);background:var(--gold-lt);border-bottom-color:var(--gold-lt)}
+.nav-minimal a[aria-current="true"]::before{display:none}
+.nav-minimal .nav-rsvp[aria-current="true"]{box-shadow:0 0 0 3px rgba(242,160,61,.24)}
+.progress{background:rgba(232,206,122,.18)}
+
+/* ---------- Expanded, sentence-case names ---------- */
+.hero-copy.hero-copy-expanded{
+  top:clamp(2.2rem,5.5svh,4.6rem);width:min(96%,64rem);
+  display:grid;justify-items:center;
+}
+.hero-names-alt{
+  margin:.1rem 0 .3rem;display:grid;justify-items:center;gap:0;
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-style:normal;
+  font-size:clamp(4.55rem,22vw,9rem);line-height:.64;letter-spacing:-.065em;
+  color:var(--rani-deep);text-shadow:0 2px 0 rgba(255,248,230,.98),0 8px 28px rgba(80,28,25,.22);
+}
+.hero-names-alt span{display:block}
+.hero-names-alt i{
+  position:relative;z-index:1;display:grid;place-items:center;width:.72em;height:.72em;
+  margin:.08em 0 .05em;border-radius:50%;font-size:.42em;line-height:1;font-style:italic;
+  color:#FFF3CB;background:var(--marigold-dp);border:2px solid #FFF1BD;
+  box-shadow:0 5px 16px rgba(104,48,24,.24);
+}
+.hero-copy-expanded .eyebrow{margin-bottom:.05rem}
+.hero-copy-expanded .hero-dateplate{margin-top:.75rem}
+
+/* ---------- Vertical, scroll-responsive Functions ---------- */
+.vertical-functions .event-toolbar,
+.vertical-functions .event-dots,
+.vertical-functions .event-swipe-hint{display:none!important}
+.vertical-functions #events.function-gallery{overflow:visible;padding-bottom:10vh}
+.vertical-functions .function-wrap{overflow:visible}
+.vertical-functions .event-deck{
+  position:relative;display:block;overflow:visible;width:min(100%,58rem);
+  margin:1.8rem auto 0;padding:0 clamp(1rem,4vw,2rem) 8vh;
+}
+.vertical-functions .event-deck::before{
+  content:"";position:absolute;z-index:0;left:50%;top:-1rem;bottom:2rem;width:1px;
+  background:linear-gradient(transparent,var(--gold) 5%,var(--gold) 95%,transparent);
+  opacity:.32;
+}
+.vertical-functions .event-stage{
+  position:relative;height:120svh;z-index:1;
+}
+.vertical-functions .event-stage:nth-child(1){z-index:1}
+.vertical-functions .event-stage:nth-child(2){z-index:2}
+.vertical-functions .event-stage:nth-child(3){z-index:3}
+.vertical-functions .event-stage:nth-child(4){z-index:4}
+.vertical-functions .event-stage:nth-child(5){z-index:5}
+.vertical-functions .event-stage:nth-child(6){z-index:6;height:calc(min(800px,100svh - 88px) + 2rem)}
+.vertical-functions .event-stage>.event-poster{margin:0 auto}
+.vertical-functions .event-poster{
+  --event-scale:.9;--event-opacity:.55;--event-shift:20px;--event-sat:.7;--event-light:.82;
+  position:sticky;top:70px;width:100%;max-width:52rem;
+  height:min(800px,calc(100svh - 88px));min-height:670px;
+  margin:0 auto 20vh;z-index:1;will-change:transform,opacity,filter;
+  transform:translate3d(0,var(--event-shift),0) scale(var(--event-scale));
+  opacity:1;filter:saturate(var(--event-sat)) brightness(var(--event-light));
+  transform-origin:50% 50%;transition:box-shadow .35s ease;
+}
+.vertical-functions .event-poster:nth-child(1){z-index:1}
+.vertical-functions .event-poster:nth-child(2){z-index:2}
+.vertical-functions .event-poster:nth-child(3){z-index:3}
+.vertical-functions .event-poster:nth-child(4){z-index:4}
+.vertical-functions .event-poster:nth-child(5){z-index:5}
+.vertical-functions .event-poster:nth-child(6){z-index:6;margin-bottom:0}
+.vertical-functions .event-poster:hover{
+  transform:translate3d(0,var(--event-shift),0) scale(var(--event-scale));
+  box-shadow:0 34px 82px -25px rgba(0,0,0,.8);
+}
+.vertical-functions .event-poster::before{box-shadow:inset 0 0 0 3px rgba(122,15,65,.1),0 0 30px rgba(232,206,122,.12)}
+
+/* A small edge label makes the vertical sequence readable without restoring
+   the old toolbar or dots. */
+.vertical-functions .poster-number{
+  top:1.2rem;left:1.25rem;padding:.22rem .46rem;border:1px solid currentColor;border-radius:999px;
+  background:rgba(253,246,232,.16);backdrop-filter:blur(4px);
+}
+
+@media (min-width:53rem){
+  .hero-names-alt{font-size:clamp(6.3rem,9.2vw,8.6rem);line-height:.62}
+  .hero-names-alt i{margin:.07em 0 .04em;width:.68em;height:.68em;font-size:.38em}
+  .hero-copy-expanded .hero-dateplate{margin-top:1rem}
+}
+@media (max-width:52rem){
+  .nav.nav-minimal{justify-content:space-between;padding-inline:.8rem}
+  .nav-ctas{gap:.72rem}
+  .nav-ctas>a{font-size:.65rem;letter-spacing:.14em}
+  .nav-ctas .nav-rsvp{padding:.43rem .76rem}
+  .hero-copy.hero-copy-expanded{top:2.2svh}
+  .hero-names-alt{font-size:clamp(4.65rem,22.5vw,5.75rem)}
+  .hero-copy-expanded .hero-dateplate{margin-top:.7rem}
+  .vertical-functions .function-intro{padding-inline:1rem}
+  .vertical-functions .event-deck{margin-top:1.25rem;padding-inline:.75rem}
+  .vertical-functions .event-stage{height:118svh}
+  .vertical-functions .event-stage:nth-child(6){height:calc(100svh - 76px + 2rem)}
+  .vertical-functions .event-poster{
+    top:62px;width:100%;height:calc(100svh - 76px);min-height:660px;max-height:790px;
+    margin-bottom:18vh;border-radius:10px;
+  }
+  .vertical-functions .poster-copy{min-height:38%;padding-top:1.5rem}
+  .vertical-functions .poster-art{height:48%;bottom:86px}
+}
+@media (prefers-reduced-motion:reduce){
+  .site-loader{animation:loaderFailsafe 0s linear 1.5s forwards!important}
+  .vertical-functions .event-poster{
+    --event-scale:1!important;--event-opacity:1!important;--event-shift:0px!important;
+    --event-sat:1!important;--event-light:1!important;
+  }
+}
 </style>
 </head>
-<body>
+<body class="vertical-functions primary-edition">
+
+<!-- Loading view: present before fonts and the large inline SVG finish painting.
+     CSS has its own 4.2s escape hatch, so even a blocked script can never leave
+     guests trapped behind it. -->
+<div class="site-loader" role="status" aria-live="polite" aria-label="Opening Apoorv and Arushi's wedding invitation">
+  <div class="loader-sky" aria-hidden="true"></div>
+  <div class="loader-gate" aria-hidden="true">
+    <span class="loader-dome"></span>
+    <span class="loader-door"></span>
+    <span class="loader-tower left"></span>
+    <span class="loader-tower right"></span>
+    <span class="loader-monogram">A&amp;A</span>
+  </div>
+  <div class="loader-copy">
+    <p class="loader-names">Apoorv <i>&amp;</i> Arushi</p>
+    <p>Opening the gates to Jaipur</p>
+    <div class="loader-marigolds" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</div>
 
 <!-- scroll progress: the track carries one tick per section, the inner bar fills -->
 <div class="progress" aria-hidden="true"><i></i></div>
@@ -1701,15 +1915,15 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   </defs>
 </svg>
 
-<!-- ============================ NAV ============================ -->
-<nav class="nav" aria-label="Sections">
-  <a href="#countdown">Countdown</a>
-  <a href="#blessings">Blessings</a>
-  <a href="#events">Events</a>
-  <a href="#attire">Attire</a>
-  <a href="#venue">Venue</a>
-  <a href="#stay">Stay</a>
-  <a href="#rsvp">RSVP</a>
+<!-- ============================ NAV ============================
+     Comparison version: the invite is a linear story, so the header keeps
+     only the two things a guest may need to jump to, the schedule and RSVP. -->
+<nav class="nav nav-minimal" aria-label="Primary">
+  <a class="nav-brand" href="#top" aria-label="Back to Apoorv and Arushi">A<span>&amp;</span>A</a>
+  <div class="nav-ctas">
+    <a href="#events">Functions</a>
+    <a class="nav-rsvp" href="#rsvp">RSVP</a>
+  </div>
 </nav>
 
 <!-- ============================ HERO ============================ -->
@@ -1925,9 +2139,11 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   <svg class="hero-jhoomar left" viewBox="0 0 64 112" aria-hidden="true"><use href="#jhoomarSym"/></svg>
   <svg class="hero-jhoomar right" viewBox="0 0 64 112" aria-hidden="true"><use href="#jhoomarSym"/></svg>
 
-  <div class="hero-copy">
+  <div class="hero-copy hero-copy-expanded">
     <p class="eyebrow deva">शुभ विवाह</p>
-    <h1 class="hero-script" data-no-split>Apoorv <span class="amp">&amp;</span> Arushi</h1>
+    <h1 class="hero-names-alt" data-no-split>
+      <span>Apoorv</span><i>&amp;</i><span>Arushi</span>
+    </h1>
     <p class="hero-dateplate">25 &amp; 26 November 2026</p>
     <p class="hero-venue">Aamantran by Mysore Mahal &middot; Jaipur</p>
   </div>
@@ -2706,6 +2922,29 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   "use strict";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- loading view ----------
+     Keep it long enough to register as an intentional opening card, but never
+     hold a fast phone for more than the actual load. CSS independently hides
+     it after 4.2s if this script never executes. */
+  var loaderStarted = performance && performance.now ? performance.now() : Date.now();
+  var loaderDone = false;
+  function dismissLoader(){
+    if(loaderDone) return;
+    loaderDone = true;
+    var now = performance && performance.now ? performance.now() : Date.now();
+    var minimum = reduced ? 300 : 1050;
+    setTimeout(function(){
+      document.body.classList.add("site-ready");
+      setTimeout(function(){
+        var loader = document.querySelector(".site-loader");
+        if(loader){ loader.setAttribute("aria-hidden","true"); }
+      },750);
+    },Math.max(0,minimum-(now-loaderStarted)));
+  }
+  if(document.readyState === "complete"){ dismissLoader(); }
+  else { window.addEventListener("load",dismissLoader,{once:true}); }
+  setTimeout(dismissLoader,3200);
+
   /* ---------- reveal on scroll ----------
      Deliberately NOT IntersectionObserver. IO only samples at frame boundaries,
      so an instant jump (a nav anchor, the End key, a fast trackpad fling) can
@@ -3001,7 +3240,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
      Buttons, dots, keyboard arrows and native swipe all drive the same deck;
      desktop remains a two-column gallery and simply hides these controls. */
   var eventDeck = document.getElementById("eventDeck");
-  if(eventDeck){
+  if(eventDeck && !document.body.classList.contains("vertical-functions")){
     var eventCards = Array.prototype.slice.call(eventDeck.querySelectorAll(".event-poster"));
     var eventDots = Array.prototype.slice.call(document.querySelectorAll("[data-event-dot]"));
     var eventPrev = document.querySelector("[data-event-prev]");
@@ -3050,6 +3289,56 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       dot.addEventListener("click",function(){ goEvent(parseInt(dot.getAttribute("data-event-dot"),10)||0); });
     });
     renderEventNav(0);
+  }
+
+  /* ---------- vertical Functions focus ----------
+     Each poster gets a non-sticky chapter wrapper. The wrapper preserves its
+     true document geometry while the poster pins inside it, avoiding the
+     offsetTop trap where a sticky element reports its pinned coordinate. */
+  var verticalDeck = document.getElementById("eventDeck");
+  var verticalCards = verticalDeck ? Array.prototype.slice.call(verticalDeck.querySelectorAll(".event-poster")) : [];
+  var verticalStages = [];
+  var verticalRaf = 0;
+  function clamp01(n){ return Math.max(0,Math.min(1,n)); }
+  if(verticalDeck && document.body.classList.contains("vertical-functions")){
+    verticalCards.forEach(function(card){
+      var stage = document.createElement("div");
+      stage.className = "event-stage";
+      verticalDeck.insertBefore(stage,card);
+      stage.appendChild(card);
+      verticalStages.push(stage);
+    });
+  }
+  function updateVerticalFunctions(){
+    verticalRaf = 0;
+    if(!verticalStages.length) return;
+    var vh = window.innerHeight || 800;
+    var top = window.innerWidth <= 832 ? 62 : 70;
+    for(var i=0;i<verticalCards.length;i++){
+      var card = verticalCards[i];
+      var stageRect = verticalStages[i].getBoundingClientRect();
+      var cardHeight = card.offsetHeight;
+      /* Grow across the final 55% of the viewport before pinning. Stay at 1
+         while the chapter is being read, then recede over the last 30% of the
+         chapter as the next poster rises. */
+      var entering = clamp01((vh*.9 - stageRect.top) / (vh*.55));
+      var leaving = clamp01((stageRect.bottom - top - cardHeight) / (vh*.3));
+      if(i === verticalCards.length-1){ leaving = 1; }
+      var focus = Math.min(entering,leaving);
+      card.style.setProperty("--event-scale",(.9 + focus*.1).toFixed(3));
+      card.style.setProperty("--event-opacity","1");
+      card.style.setProperty("--event-shift",((1-focus)*20).toFixed(1)+"px");
+      card.style.setProperty("--event-sat",(.66 + focus*.34).toFixed(3));
+      card.style.setProperty("--event-light",(.84 + focus*.16).toFixed(3));
+    }
+  }
+  function queueVerticalFunctions(){
+    if(!verticalRaf){ verticalRaf = requestAnimationFrame(updateVerticalFunctions); }
+  }
+  if(verticalStages.length){
+    window.addEventListener("scroll",queueVerticalFunctions,{passive:true});
+    window.addEventListener("resize",queueVerticalFunctions);
+    updateVerticalFunctions();
   }
 
   /* ---------- what is happening right now ----------
