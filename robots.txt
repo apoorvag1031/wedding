@@ -1,0 +1,7 @@
+# Wedding invitation. Shared by link with invited guests only.
+# Not intended to appear in search results.
+User-agent: *
+Disallow: /
+
+# Note: this is a request, not access control. A free GitHub Pages site is
+# public to anyone who has the URL. Do not treat it as private.
