@@ -72,6 +72,7 @@
    ============================================================= */
 *,*::before,*::after{box-sizing:border-box}
 html{
+  overflow-x:hidden;
   scroll-behavior:smooth;-webkit-text-size-adjust:100%;
   /* The nav is sticky and 51px tall, so a nav click used to land a section's
      top edge UNDERNEATH it and hide whatever hangs there: the bunting, the
@@ -1500,6 +1501,120 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     --event-sat:1!important;--event-light:1!important;
   }
 }
+
+
+/* =============================================================
+   VERSION 1: ALL TEN CINEMATIC UPGRADES
+   This layer makes the primary edition materially different from v2.html.
+   ============================================================= */
+
+/* 01. Names own the sky as path-based, inline vector calligraphy. */
+.hero-copy.hero-copy-cinematic{
+  top:clamp(1.2rem,2.2svh,2.6rem);width:min(98%,68rem);display:grid;justify-items:center;
+}
+.hero-wordmark{width:min(98vw,49rem);height:auto;overflow:visible;filter:drop-shadow(0 3px 0 rgba(255,248,230,.95)) drop-shadow(0 11px 18px rgba(80,28,25,.2))}
+.hero-wordmark .wordmark-ink{fill:none;stroke:#861246;stroke-width:5.7;stroke-linecap:round;stroke-linejoin:round}
+.hero-wordmark .wordmark-gold{fill:none;stroke:#D47C09;stroke-width:1.8;stroke-linecap:round}
+.hero-wordmark .wordmark-seal circle{fill:#D47C09;stroke:#FFF0B5;stroke-width:2}
+.hero-wordmark .wordmark-seal path{fill:none;stroke:#FFF5D7;stroke-width:2.1;stroke-linecap:round}
+.js-reveal .hero-wordmark path{stroke-dasharray:1;stroke-dashoffset:1}
+.site-ready .hero-wordmark path{animation:writeWordmark 1.45s cubic-bezier(.28,.05,.18,1) forwards;animation-delay:.25s}
+.site-ready .hero-wordmark .wordmark-gold path{animation-delay:1.3s}
+.site-ready .hero-wordmark .wordmark-seal path{animation-delay:1.55s}
+@keyframes writeWordmark{to{stroke-dashoffset:0}}
+.hero-copy-cinematic .hero-dateplate{margin-top:-.15rem}
+.hero-copy-cinematic .hero-venue{margin-top:.34rem}
+
+/* 02. The courtyard starts empty; the procession enters only after the names. */
+.hero-scene .elephant-procession{translate:-105vw 0;opacity:0;animation:none}
+.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 2.25s cubic-bezier(.18,.72,.22,1) .82s both}
+@keyframes elephantEntrance{
+  0%{translate:-105vw 5px;opacity:0}
+  12%{opacity:1}
+  72%{translate:18px -5px;opacity:1}
+  86%{translate:-7px 1px;opacity:1}
+  100%{translate:0 0;opacity:1}
+}
+
+/* 03. Far sky, palace, flowers and foreground move as separate depth planes. */
+.hero{--depth-far:0px;--depth-mid:0px;--depth-front:0px;--depth-near:0px}
+.hero-scene .depth-far{translate:0 var(--depth-far)}
+.hero-scene .depth-mid{translate:0 var(--depth-mid)}
+.hero-scene .depth-front{translate:0 var(--depth-front)}
+.hero-scene .depth-near{translate:0 var(--depth-near)}
+.hero-scene .depth-far,.hero-scene .depth-mid,.hero-scene .depth-front,.hero-scene .depth-near{will-change:translate}
+
+/* 04. One visual language for scene changes, cloud banks crossing the camera. */
+.cinematic-mist{
+  --mist-alpha:0;--mist-x:-16%;position:fixed;z-index:55;inset:0;pointer-events:none;
+  opacity:var(--mist-alpha);transform:translateX(var(--mist-x));filter:blur(11px);
+  transition:opacity .08s linear;overflow:hidden;
+}
+.cinematic-mist i{position:absolute;top:28%;width:34vw;min-width:180px;aspect-ratio:1.55;border-radius:50%;background:rgba(255,253,247,.92);box-shadow:0 0 55px 30px rgba(255,253,247,.74)}
+.cinematic-mist i:nth-child(1){left:-8%;top:39%}.cinematic-mist i:nth-child(2){left:16%;top:27%}.cinematic-mist i:nth-child(3){left:39%;top:34%}.cinematic-mist i:nth-child(4){left:62%;top:25%}.cinematic-mist i:nth-child(5){left:83%;top:39%}
+
+/* 05. Every function is a viewport invitation, not a card in a page. */
+.vertical-functions .event-poster{height:calc(100svh - 70px);max-height:860px;min-height:680px;border-radius:0;border-width:0;box-shadow:0 35px 95px -24px rgba(0,0,0,.84)}
+.vertical-functions .event-poster::before{inset:10px;border-radius:0;border:1px solid rgba(255,231,160,.74);box-shadow:inset 0 0 0 3px rgba(122,15,65,.11),inset 0 0 48px rgba(255,225,160,.09)}
+
+/* 06. Details dissolve into each illustrated world instead of sitting in a white pill. */
+.vertical-functions .poster-detail{
+  min-height:104px;padding:2.5rem 1.05rem .9rem;border:0;backdrop-filter:none;
+  background:linear-gradient(0deg,rgba(218,167,111,.98) 0%,rgba(218,167,111,.82) 54%,transparent 100%);
+  color:#4E2634;
+}
+.vertical-functions .poster-sangeet .poster-detail,
+.vertical-functions .poster-reception .poster-detail,
+.vertical-functions .poster-pheras .poster-detail{background:linear-gradient(0deg,rgba(4,12,31,.98),rgba(4,12,31,.72) 58%,transparent);color:#F2E9DA}
+.vertical-functions .poster-baraat .poster-detail{background:linear-gradient(0deg,rgba(87,33,52,.98),rgba(87,33,52,.72) 58%,transparent);color:#FFF0E0}
+.vertical-functions .poster-haldi .poster-detail{background:linear-gradient(0deg,rgba(190,97,65,.97),rgba(190,97,65,.7) 58%,transparent);color:#3E1D21}
+.vertical-functions .poster-detail span.label{color:currentColor;opacity:.72}
+.vertical-functions .poster-art{bottom:0;height:56%}
+
+/* 07 + 08. Six worlds, with the light tracing both wedding days. */
+.vertical-functions .event-stage::before{content:"";position:absolute;z-index:0;inset:-12vh -32vw 4vh;background:var(--ambient);opacity:.8;filter:blur(26px);pointer-events:none;transition:background .6s}
+.vertical-functions .event-stage:nth-child(1){--ambient:radial-gradient(circle,#72C8ED 0%,#F3C37C 28%,transparent 68%)}
+.vertical-functions .event-stage:nth-child(2){--ambient:radial-gradient(circle,#2D4F87 0%,#0A1837 34%,transparent 69%)}
+.vertical-functions .event-stage:nth-child(3){--ambient:radial-gradient(circle,#86D5F2 0%,#F0A15D 30%,transparent 69%)}
+.vertical-functions .event-stage:nth-child(4){--ambient:radial-gradient(circle,#E58B53 0%,#74405F 34%,transparent 69%)}
+.vertical-functions .event-stage:nth-child(5),.vertical-functions .event-stage:nth-child(6){--ambient:radial-gradient(circle,#244D7C 0%,#07152F 36%,transparent 70%)}
+
+/* 09. Foreground objects cross the camera at every handoff. */
+.scene-transition{position:absolute;z-index:12;left:50%;bottom:-8vh;translate:-50% 0;width:min(92vw,50rem);height:24vh;pointer-events:none;overflow:visible}
+.transition-butterfly i{position:absolute;left:48%;top:30%;width:44px;height:32px;background:#168A97;border-radius:80% 15% 80% 20%;filter:drop-shadow(0 8px 9px rgba(0,0,0,.32));animation:transitionFly 3.8s ease-in-out infinite}
+.transition-butterfly i::after{content:"";position:absolute;left:31px;width:44px;height:32px;background:#2FB7C5;border-radius:15% 80% 20% 80%;transform:scaleX(-1)}
+@keyframes transitionFly{0%,100%{transform:translate(-30vw,35px) rotate(-8deg) scale(.72)}50%{transform:translate(26vw,-28px) rotate(9deg) scale(1.08)}}
+.transition-flowers{background:linear-gradient(12deg,transparent 41%,#2D7449 42% 44%,transparent 45%)}
+.transition-flowers i{position:absolute;bottom:14%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#FFD76F 0 12%,#EC8BAA 13% 45%,#B42164 46% 65%,transparent 66%);filter:drop-shadow(0 10px 12px rgba(0,0,0,.24));animation:transitionBloom 4s ease-in-out infinite}
+.transition-flowers i:nth-child(1){left:8%}.transition-flowers i:nth-child(2){left:44%;animation-delay:-1.2s}.transition-flowers i:nth-child(3){right:7%;animation-delay:-2.4s}
+@keyframes transitionBloom{50%{transform:translateY(-18px) rotate(7deg) scale(1.12)}}
+.transition-curtains::before,.transition-curtains::after{content:"";position:absolute;top:-18vh;width:52%;height:40vh;background:linear-gradient(90deg,#5A0915,#B41D31 45%,#6D0B18);border-bottom:5px solid #E9BD66;animation:curtainCross 4.4s ease-in-out infinite}
+.transition-curtains::before{left:-35%;border-radius:0 0 80% 0}.transition-curtains::after{right:-35%;transform:scaleX(-1);border-radius:0 0 80% 0}
+@keyframes curtainCross{45%,55%{translate:28% 0}}
+.transition-fireworks{background:repeating-conic-gradient(from 0deg at 50% 55%,transparent 0 8deg,rgba(255,236,164,.9) 9deg 10deg,transparent 11deg 18deg);mask:radial-gradient(circle,transparent 0 13%,#000 14% 42%,transparent 43%);animation:transitionBurst 2.8s ease-out infinite}
+@keyframes transitionBurst{0%{transform:scale(.2);opacity:0}38%{opacity:1}100%{transform:scale(1.3);opacity:0}}
+
+/* 10. The navigation is invitation chrome: monogram, Functions and RSVP only. */
+.nav.nav-minimal{backdrop-filter:blur(12px);box-shadow:0 10px 32px rgba(36,5,22,.2)}
+.nav-minimal .nav-brand{font-family:Georgia,serif;letter-spacing:-.08em}
+
+@media (max-width:52rem){
+  .hero-copy.hero-copy-cinematic{top:.5svh}
+  .hero-wordmark{width:99vw;max-height:38svh}
+  .hero-copy-cinematic .eyebrow{margin-bottom:-.3rem}
+  .hero-copy-cinematic .hero-dateplate{margin-top:-.45rem}
+  .vertical-functions .event-poster{top:57px;height:calc(100svh - 61px);min-height:700px}
+  .vertical-functions .event-stage{height:122svh}
+  .vertical-functions .poster-copy{min-height:36%;padding-top:1.35rem}
+  .vertical-functions .poster-copy .poster-title{font-size:clamp(2.15rem,10vw,2.8rem)}
+  .vertical-functions .poster-art{height:58%}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-scene .elephant-procession{translate:0 0!important;opacity:1!important;animation:none!important}
+  .hero-wordmark path{stroke-dashoffset:0!important;animation:none!important}
+  .cinematic-mist,.scene-transition{display:none!important}
+}
+
 </style>
 </head>
 <body class="vertical-functions primary-edition">
@@ -1521,6 +1636,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     <p>Opening the gates to Jaipur</p>
     <div class="loader-marigolds" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   </div>
+</div>
+
+<!-- 04. A cinematic mist wipe is reused at the two narrative thresholds:
+     entering Functions, then moving from the daytime Haldi world into Baraat dusk. -->
+<div class="cinematic-mist" id="cinematicMist" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i>
 </div>
 
 <!-- scroll progress: the track carries one tick per section, the inner bar fills -->
@@ -1964,7 +2085,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       </filter>
     </defs>
 
-    <g id="hero-sky">
+    <g id="hero-sky" class="depth-far">
       <rect width="1200" height="900" fill="url(#heroSky)"/>
       <circle cx="1020" cy="150" r="76" fill="#FFF3CE" opacity=".34"/>
       <g class="cloud-a" fill="#FFFDF4" opacity=".68">
@@ -1983,7 +2104,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
     <!-- LEFT PAINTED PALACE: teal fresco arch and jharokha balcony, drawn from
          the reference's left-hand pavilion rather than the old flat skyline. -->
-    <g id="hero-palace-left" class="palace-rise" filter="url(#heroShadow)">
+    <g id="hero-palace-left" class="palace-rise depth-mid" filter="url(#heroShadow)">
       <path d="M0 280h360v390H0z" fill="url(#heroStone)"/>
       <path d="M0 280h360l-24-30H24z" fill="#A94836"/>
       <path d="M32 250Q180 105 328 250z" fill="#C7853D" stroke="#75431C" stroke-width="8"/>
@@ -2012,7 +2133,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
     <!-- RIGHT PALACE: tall gateway and painted balconies from the reference's
          sandstone entrance, kept asymmetrical so the scene feels illustrated. -->
-    <g id="hero-palace-right" class="palace-rise" filter="url(#heroShadow)">
+    <g id="hero-palace-right" class="palace-rise depth-mid" filter="url(#heroShadow)">
       <path d="M842 300h358v370H842z" fill="#C76A48"/>
       <path d="M815 300h385v28H815z" fill="#98402E" stroke="#E5B456" stroke-width="4"/>
       <path d="M880 300v-78h58v78zM1100 300v-78h58v78z" fill="#D47B4E"/>
@@ -2033,7 +2154,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     </g>
 
     <!-- CENTRE COURTYARD: the mobile crop keeps this entire layered façade. -->
-    <g id="hero-palace-centre" class="palace-rise" filter="url(#heroShadow)">
+    <g id="hero-palace-centre" class="palace-rise depth-mid" filter="url(#heroShadow)">
       <path d="M330 510h540v164H330z" fill="#D6754E" stroke="#9B4331" stroke-width="8"/>
       <path d="M390 510V376h420v134z" fill="#C46045" stroke="#E8BC6A" stroke-width="7"/>
       <path d="M430 376V330h340v46z" fill="#9B4331"/>
@@ -2061,7 +2182,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     </g>
 
     <!-- Bougainvillea, the dense pink mid-plane in the reference opening. -->
-    <g id="hero-bougainvillea">
+    <g id="hero-bougainvillea" class="depth-front">
       <g class="hero-bougainvillea" fill="#39713D">
         <path d="M280 590q-40-120 22-213M330 590q12-132 82-216M835 590q-4-128-76-218M900 590q43-118-17-204" fill="none" stroke="#39713D" stroke-width="11"/>
       </g>
@@ -2077,7 +2198,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       </g>
     </g>
 
-    <g id="hero-courtyard-floor">
+    <g id="hero-courtyard-floor" class="depth-near">
       <path d="M0 645h1200v255H0z" fill="url(#heroFloor)"/>
       <path d="M600 645L345 900M600 645l255 255M600 645v255M600 645L60 900M600 645l540 255" fill="none" stroke="#B18F70" stroke-width="3" opacity=".5"/>
       <path d="M0 645h1200" stroke="#825137" stroke-width="13"/>
@@ -2113,7 +2234,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
     <!-- foreground flowers and pavilion corners, deliberately oversized to
          give the scene the same near/mid/far depth as the reference. -->
-    <g id="hero-foreground-flowers">
+    <g id="hero-foreground-flowers" class="depth-near">
       <g fill="#2F7646"><path d="M0 900V758q55 18 92 142M1200 900V742q-72 38-118 158"/><ellipse cx="95" cy="832" rx="28" ry="73" transform="rotate(-28 95 832)"/><ellipse cx="1100" cy="826" rx="26" ry="72" transform="rotate(30 1100 826)"/></g>
       <g class="hero-flower-head" fill="#FDF6E8" stroke="#D6B689" stroke-width="2">
         <circle cx="64" cy="802" r="30"/><circle cx="30" cy="830" r="27"/><circle cx="101" cy="852" r="34"/>
@@ -2139,11 +2260,40 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   <svg class="hero-jhoomar left" viewBox="0 0 64 112" aria-hidden="true"><use href="#jhoomarSym"/></svg>
   <svg class="hero-jhoomar right" viewBox="0 0 64 112" aria-hidden="true"><use href="#jhoomarSym"/></svg>
 
-  <div class="hero-copy hero-copy-expanded">
+  <div class="hero-copy hero-copy-cinematic">
     <p class="eyebrow deva">शुभ विवाह</p>
-    <h1 class="hero-names-alt" data-no-split>
-      <span>Apoorv</span><i>&amp;</i><span>Arushi</span>
-    </h1>
+    <h1 class="sr-only" data-no-split>Apoorv and Arushi</h1>
+    <!-- 01. A true inline SVG wordmark, made from original calligraphic paths.
+         It does not depend on a web font and writes itself across the clean sky. -->
+    <svg class="hero-wordmark" viewBox="0 0 420 258" role="img" aria-label="Apoorv and Arushi">
+      <title>Apoorv and Arushi</title>
+      <g class="wordmark-ink" pathLength="1">
+        <!-- Apoorv -->
+        <path pathLength="1" d="M18 100C35 62 49 28 65 16c2 27 8 57 20 84M31 70c17-9 36-8 52 1M12 101c29-4 55-3 79 0"/>
+        <path pathLength="1" d="M97 57l-3 68M97 69c14-20 35-17 36 4 1 20-21 31-38 15"/>
+        <path pathLength="1" d="M178 75c0-22-35-22-35 1 0 24 35 23 35-1z"/>
+        <path pathLength="1" d="M220 75c0-22-35-22-35 1 0 24 35 23 35-1z"/>
+        <path pathLength="1" d="M231 96l2-38M233 70c10-17 22-19 31-7"/>
+        <path pathLength="1" d="M271 59c8 22 17 37 28 38 11-7 18-22 25-39"/>
+        <path pathLength="1" d="M299 97c35 10 69 5 103-10"/>
+        <!-- Arushi -->
+        <path pathLength="1" d="M23 222c18-39 31-72 47-85 3 28 9 58 21 86M36 191c17-8 36-8 52 1M15 224c30-4 58-3 84 0"/>
+        <path pathLength="1" d="M106 220l2-40M108 192c11-18 23-19 33-7"/>
+        <path pathLength="1" d="M149 181v25c0 22 31 20 32-3l1-23M182 180l-1 41"/>
+        <path pathLength="1" d="M228 187c-8-11-31-8-30 5 1 15 31 9 30 25-1 14-27 15-35 4"/>
+        <path pathLength="1" d="M244 142l-3 80M242 195c7-19 36-24 36 2v24"/>
+        <path pathLength="1" d="M296 181l-2 40M298 160c0 2-2 4-4 4s-4-2-4-4 2-4 4-4 4 2 4 4z"/>
+        <path pathLength="1" d="M294 221c34 8 69 4 108-11"/>
+      </g>
+      <g class="wordmark-gold" aria-hidden="true">
+        <path pathLength="1" d="M106 121c55 10 145 10 201 0"/>
+        <path pathLength="1" d="M102 238c61 10 151 9 215-1"/>
+      </g>
+      <g class="wordmark-seal" aria-hidden="true">
+        <circle cx="210" cy="128" r="17"/>
+        <path d="M202 128c0-8 12-8 12 0 0 8-12 8-12 0m12 0 8-8m-8 8 8 8"/>
+      </g>
+    </svg>
     <p class="hero-dateplate">25 &amp; 26 November 2026</p>
     <p class="hero-venue">Aamantran by Mysore Mahal &middot; Jaipur</p>
   </div>
@@ -2322,9 +2472,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <p class="function-intro-copy">Six moments, each with its own colour, rhythm and Jaipur setting.</p>
     </header>
 
-    <!-- On a phone this becomes a swipeable sequence of full invitation frames,
-         with the next frame deliberately peeking in. Buttons and dots make the
-         gesture discoverable; desktop uses a two-column gallery. -->
+    <!-- 05. Each illustrated invitation now occupies a vertical viewport chapter.
+         The old horizontal controls remain hidden as a no-script compatibility fallback. -->
     <div class="event-toolbar" aria-label="Function navigation">
       <p class="event-position"><b data-event-current>01</b> / 06 &nbsp; <span data-event-name>Maayra</span></p>
       <div class="event-buttons">
@@ -2945,6 +3094,43 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   else { window.addEventListener("load",dismissLoader,{once:true}); }
   setTimeout(dismissLoader,3200);
 
+
+  /* 02 + 03 + 04. Orchestrate the entrance, depth planes and reusable mist. */
+  var cinemaHero = document.querySelector(".hero");
+  var cinemaMist = document.getElementById("cinematicMist");
+  var cinemaEvents = document.getElementById("events");
+  var cinemaRaf = 0;
+  function cinemaClamp(n){ return Math.max(0,Math.min(1,n)); }
+  function updateCinema(){
+    cinemaRaf = 0;
+    var vh = window.innerHeight || 800;
+    if(cinemaHero){
+      var hp = cinemaClamp(-cinemaHero.getBoundingClientRect().top / Math.max(1,cinemaHero.offsetHeight));
+      cinemaHero.style.setProperty("--depth-far",(-hp*8).toFixed(1)+"px");
+      cinemaHero.style.setProperty("--depth-mid",(-hp*24).toFixed(1)+"px");
+      cinemaHero.style.setProperty("--depth-front",(-hp*46).toFixed(1)+"px");
+      cinemaHero.style.setProperty("--depth-near",(-hp*72).toFixed(1)+"px");
+    }
+    if(cinemaMist){
+      var fog = 0;
+      if(cinemaEvents){
+        var eventDistance = Math.abs(cinemaEvents.getBoundingClientRect().top - vh*.48);
+        fog = Math.max(fog,cinemaClamp(1-eventDistance/(vh*.34)));
+      }
+      var stages = document.querySelectorAll(".event-stage");
+      if(stages[3]){
+        var duskDistance = Math.abs(stages[3].getBoundingClientRect().top - vh*.55);
+        fog = Math.max(fog,cinemaClamp(1-duskDistance/(vh*.3)));
+      }
+      cinemaMist.style.setProperty("--mist-alpha",(fog*.82).toFixed(3));
+      cinemaMist.style.setProperty("--mist-x",(-16+fog*16).toFixed(1)+"%");
+    }
+  }
+  function queueCinema(){ if(!cinemaRaf){ cinemaRaf=requestAnimationFrame(updateCinema); } }
+  window.addEventListener("scroll",queueCinema,{passive:true});
+  window.addEventListener("resize",queueCinema);
+  updateCinema();
+
   /* ---------- reveal on scroll ----------
      Deliberately NOT IntersectionObserver. IO only samples at frame boundaries,
      so an instant jump (a nav anchor, the End key, a fast trackpad fling) can
@@ -3306,6 +3492,15 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       stage.className = "event-stage";
       verticalDeck.insertBefore(stage,card);
       stage.appendChild(card);
+      /* 09. A different foreground object bridges each illustrated world. */
+      if(verticalStages.length < verticalCards.length-1){
+        var transition = document.createElement("div");
+        var kinds = ["butterfly","curtains","flowers","curtains","fireworks"];
+        transition.className = "scene-transition transition-" + kinds[verticalStages.length];
+        transition.setAttribute("aria-hidden","true");
+        transition.innerHTML = kinds[verticalStages.length] === "flowers" ? "<i></i><i></i><i></i>" : "<i></i>";
+        stage.appendChild(transition);
+      }
       verticalStages.push(stage);
     });
   }
