@@ -206,6 +206,14 @@ a{color:inherit}
   border:clamp(6px,1.5vw,16px) solid rgba(122,15,65,.16);
   box-shadow:inset 0 0 0 1px rgba(232,206,122,.62),inset 0 0 44px rgba(74,14,46,.16);
 }
+/* Blend the illustrated courtyard into the countdown instead of ending on a
+   hard edge. This static compositor layer replaces a costly scroll effect. */
+.hero::before{
+  content:"";position:absolute;z-index:6;left:0;right:0;bottom:-1px;
+  height:clamp(72px,11svh,116px);pointer-events:none;
+  background:linear-gradient(180deg,transparent 0%,rgba(122,15,65,.16) 42%,rgba(122,15,65,.72) 77%,var(--rani-deep) 100%);
+}
+#countdown{z-index:2;margin-top:-1px;box-shadow:0 -18px 46px rgba(122,15,65,.2)}
 .hero-scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .hero-scene .cloud-a{animation:heroCloud 28s linear infinite}
 .hero-scene .cloud-b{animation:heroCloud 38s linear infinite reverse}
@@ -216,8 +224,8 @@ a{color:inherit}
 .hero-scene .hero-bougainvillea{transform-origin:50% 100%;animation:bougainvilleaSway 7s ease-in-out infinite}
 .hero-scene .hero-bougainvillea:nth-of-type(2n){animation-delay:-2.4s;animation-duration:8.3s}
 .hero-scene .elephant-procession{transform-origin:50% 100%;animation:elephantBob 4.8s ease-in-out infinite}
-.hero-scene .ele-leg-a{transform-origin:50% 0;animation:eleLeg 1.4s ease-in-out infinite alternate}
-.hero-scene .ele-leg-b{transform-origin:50% 0;animation:eleLeg 1.4s ease-in-out infinite alternate-reverse}
+.hero-scene .ele-leg-a{transform-origin:50% 0;animation:eleLeg 2.8s ease-in-out infinite alternate}
+.hero-scene .ele-leg-b{transform-origin:50% 0;animation:eleLeg 2.8s ease-in-out infinite alternate-reverse}
 .hero-scene .hero-birds{animation:birdsCross 17s linear infinite}
 .hero-scene .hero-flower-head{transform-box:fill-box;transform-origin:50% 100%;animation:flowerNod 5s ease-in-out infinite}
 .hero-scene .hero-light{animation:bulbGlow 3.2s ease-in-out infinite}
@@ -226,7 +234,7 @@ a{color:inherit}
 @keyframes palaceRise{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
 @keyframes bougainvilleaSway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
 @keyframes elephantBob{0%,100%{translate:0 0}50%{translate:0 -5px}}
-@keyframes eleLeg{from{transform:rotate(-3deg)}to{transform:rotate(4deg)}}
+@keyframes eleLeg{from{transform:rotate(-1.5deg)}to{transform:rotate(1.8deg)}}
 @keyframes birdsCross{from{transform:translateX(-130px)}to{transform:translateX(1420px)}}
 @keyframes flowerNod{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
 
@@ -1227,7 +1235,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .poster-sangeet .poster-detail,.poster-reception .poster-detail,.poster-pheras .poster-detail{color:#F2E9DA}
 .poster-sangeet .poster-detail span.label,.poster-reception .poster-detail span.label,.poster-pheras .poster-detail span.label{color:var(--gold-lt)}
 .poster-sangeet .poster-copy .poster-place,.poster-reception .poster-copy .poster-place,.poster-pheras .poster-copy .poster-place{border-top-color:rgba(232,206,122,.35)}
-.poster-haldi{background:linear-gradient(180deg,#7FCDEE 0%,#D8F0F8 43%,#E9A56E 68%,#B95E43)}
+.poster-haldi{background:linear-gradient(180deg,#82D0EE 0%,#F8C7DA 40%,#F2A05F 68%,#B94267)}
 .poster-baraat{
   --poster-text:#FFF0CC;--poster-muted:#FFD4A3;--poster-panel:rgba(76,24,47,.93);
   background:linear-gradient(180deg,#5965A0 0%,#D37C72 45%,#D7955C 67%,#6C293C);
@@ -1433,7 +1441,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   opacity:.32;
 }
 .vertical-functions .event-stage{
-  position:relative;height:120svh;z-index:1;
+  position:relative;height:108svh;z-index:1;
 }
 .vertical-functions .event-stage:nth-child(1){z-index:1}
 .vertical-functions .event-stage:nth-child(2){z-index:2}
@@ -1485,7 +1493,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   .hero-copy-expanded .hero-dateplate{margin-top:.7rem}
   .vertical-functions .function-intro{padding-inline:1rem}
   .vertical-functions .event-deck{margin-top:1.25rem;padding-inline:.75rem}
-  .vertical-functions .event-stage{height:118svh}
+  .vertical-functions .event-stage{height:108svh}
   .vertical-functions .event-stage:nth-child(6){height:calc(100svh - 76px + 2rem)}
   .vertical-functions .event-poster{
     top:62px;width:100%;height:calc(100svh - 76px);min-height:660px;max-height:790px;
@@ -1510,10 +1518,19 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
 /* 01. Names own the sky as path-based, inline vector calligraphy. */
 .hero-copy.hero-copy-cinematic{
-  top:clamp(1.2rem,2.2svh,2.6rem);width:min(98%,68rem);display:grid;justify-items:center;
+  top:clamp(1.2rem,2.2svh,2.6rem);width:min(96%,48rem);display:grid;justify-items:center;
+  isolation:isolate;padding:.35rem .55rem .8rem;
 }
-.hero-wordmark{width:min(98vw,49rem);height:auto;overflow:visible;filter:drop-shadow(0 3px 0 rgba(255,248,230,.95)) drop-shadow(0 11px 18px rgba(80,28,25,.2))}
-.hero-wordmark .wordmark-ink{fill:none;stroke:#861246;stroke-width:5.7;stroke-linecap:round;stroke-linejoin:round}
+.hero-copy.hero-copy-cinematic::before{
+  content:"";position:absolute;z-index:0;inset:-.25rem 0 -.55rem;
+  border:1px solid rgba(232,206,122,.55);border-radius:50% 50% 10px 10px / 18% 18% 10px 10px;
+  background:radial-gradient(ellipse at 50% 18%,rgba(255,252,239,.94) 0%,rgba(255,247,224,.8) 48%,rgba(255,242,214,.42) 74%,transparent 100%);
+  box-shadow:0 14px 38px rgba(80,28,25,.12),inset 0 0 34px rgba(255,255,255,.42);
+  backdrop-filter:blur(3px) saturate(.9);
+}
+.hero-copy.hero-copy-cinematic>*{position:relative;z-index:1}
+.hero-wordmark{width:min(94vw,46rem);height:auto;overflow:visible;filter:drop-shadow(0 2px 0 #FFF9EC) drop-shadow(0 5px 0 rgba(255,244,215,.78)) drop-shadow(0 12px 20px rgba(80,28,25,.28))}
+.hero-wordmark .wordmark-ink{fill:none;stroke:#76103E;stroke-width:6.4;stroke-linecap:round;stroke-linejoin:round}
 .hero-wordmark .wordmark-gold{fill:none;stroke:#D47C09;stroke-width:1.8;stroke-linecap:round}
 .hero-wordmark .wordmark-seal circle{fill:#D47C09;stroke:#FFF0B5;stroke-width:2}
 .hero-wordmark .wordmark-seal path{fill:none;stroke:#FFF5D7;stroke-width:2.1;stroke-linecap:round}
@@ -1522,17 +1539,25 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .site-ready .hero-wordmark .wordmark-gold path{animation-delay:1.3s}
 .site-ready .hero-wordmark .wordmark-seal path{animation-delay:1.55s}
 @keyframes writeWordmark{to{stroke-dashoffset:0}}
-.hero-copy-cinematic .hero-dateplate{margin-top:-.15rem}
-.hero-copy-cinematic .hero-venue{margin-top:.34rem}
+.hero-copy-cinematic .hero-dateplate{
+  margin-top:.15rem;padding:.28rem 1rem;border-block:1px solid rgba(122,15,65,.5);
+  background:transparent;backdrop-filter:none;color:#5A1835;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1rem,3.6vw,1.28rem);
+  font-weight:700;letter-spacing:.1em;text-transform:none;
+}
+.hero-copy-cinematic .hero-venue{
+  margin-top:.38rem;padding:.28rem .85rem;border:1px solid rgba(201,139,43,.58);border-radius:3px;
+  color:#64213B;background:rgba(255,249,232,.82);
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(.94rem,3.2vw,1.14rem);
+  font-weight:650;letter-spacing:.035em;text-shadow:none;
+}
 
 /* 02. The courtyard starts empty; the procession enters only after the names. */
 .hero-scene .elephant-procession{translate:-105vw 0;opacity:0;animation:none}
-.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 2.25s cubic-bezier(.18,.72,.22,1) .82s both}
+.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 5.2s cubic-bezier(.2,.64,.26,1) .9s both}
 @keyframes elephantEntrance{
-  0%{translate:-105vw 5px;opacity:0}
-  12%{opacity:1}
-  72%{translate:18px -5px;opacity:1}
-  86%{translate:-7px 1px;opacity:1}
+  0%{translate:-108vw 2px;opacity:0}
+  10%{opacity:1}
   100%{translate:0 0;opacity:1}
 }
 
@@ -1547,9 +1572,10 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 /* 04. One visual language for scene changes, cloud banks crossing the camera. */
 .cinematic-mist{
   --mist-alpha:0;--mist-x:-16%;position:fixed;z-index:55;inset:0;pointer-events:none;
-  opacity:var(--mist-alpha);transform:translateX(var(--mist-x));filter:blur(11px);
-  transition:opacity .08s linear;overflow:hidden;
+  opacity:var(--mist-alpha);transform:translate3d(var(--mist-x),0,0);filter:blur(9px);
+  transition:opacity .12s linear;overflow:hidden;visibility:hidden;will-change:opacity,transform;
 }
+.cinematic-mist.active{visibility:visible}
 .cinematic-mist i{position:absolute;top:28%;width:34vw;min-width:180px;aspect-ratio:1.55;border-radius:50%;background:rgba(255,253,247,.92);box-shadow:0 0 55px 30px rgba(255,253,247,.74)}
 .cinematic-mist i:nth-child(1){left:-8%;top:39%}.cinematic-mist i:nth-child(2){left:16%;top:27%}.cinematic-mist i:nth-child(3){left:39%;top:34%}.cinematic-mist i:nth-child(4){left:62%;top:25%}.cinematic-mist i:nth-child(5){left:83%;top:39%}
 
@@ -1569,7 +1595,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .vertical-functions .poster-baraat .poster-detail{background:linear-gradient(0deg,rgba(87,33,52,.98),rgba(87,33,52,.72) 58%,transparent);color:#FFF0E0}
 .vertical-functions .poster-haldi .poster-detail{background:linear-gradient(0deg,rgba(190,97,65,.97),rgba(190,97,65,.7) 58%,transparent);color:#3E1D21}
 .vertical-functions .poster-detail span.label{color:currentColor;opacity:.72}
-.vertical-functions .poster-art{bottom:0;height:56%}
+.vertical-functions .poster-art{bottom:0;height:66%}
 
 /* 07 + 08. Six worlds, with the light tracing both wedding days. */
 .vertical-functions .event-stage::before{content:"";position:absolute;z-index:0;inset:-12vh -32vw 4vh;background:var(--ambient);opacity:.8;filter:blur(26px);pointer-events:none;transition:background .6s}
@@ -1602,12 +1628,14 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   .hero-copy.hero-copy-cinematic{top:.5svh}
   .hero-wordmark{width:99vw;max-height:38svh}
   .hero-copy-cinematic .eyebrow{margin-bottom:-.3rem}
-  .hero-copy-cinematic .hero-dateplate{margin-top:-.45rem}
+  .hero-copy-cinematic .hero-dateplate{margin-top:.1rem}
+  .hero-copy.hero-copy-cinematic{animation:heroCopyIn 1.2s cubic-bezier(.2,.8,.2,1) .2s both!important}
+  .hero-scene{animation:none!important;contain:paint}
   .vertical-functions .event-poster{top:57px;height:calc(100svh - 61px);min-height:700px}
-  .vertical-functions .event-stage{height:122svh}
-  .vertical-functions .poster-copy{min-height:36%;padding-top:1.35rem}
+  .vertical-functions .event-stage{height:108svh}
+  .vertical-functions .poster-copy{min-height:34%;padding-top:1.2rem}
   .vertical-functions .poster-copy .poster-title{font-size:clamp(2.15rem,10vw,2.8rem)}
-  .vertical-functions .poster-art{height:58%}
+  .vertical-functions .poster-art{height:69%}
 }
 @media (prefers-reduced-motion:reduce){
   .hero-scene .elephant-procession{translate:0 0!important;opacity:1!important;animation:none!important}
@@ -2207,7 +2235,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     <!-- ELEPHANT PROCESSION: the reference opens with a dressed elephant
          crossing the palace court. This is an original geometric animal with
          an embroidered magenta and blue jhul, rider and swaying legs. -->
-    <g id="hero-elephant" class="elephant-procession" transform="translate(438 614)" filter="url(#heroShadow)">
+    <g id="hero-elephant" class="elephant-procession" transform="translate(438 640)" filter="url(#heroShadow)">
       <g fill="#6E716F" stroke="#4E504F" stroke-width="4">
         <ellipse cx="172" cy="92" rx="126" ry="70"/>
         <circle cx="282" cy="82" r="54"/>
@@ -2215,8 +2243,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <path d="M264 72l-42-28 16 48z"/>
         <path d="M311 71l36-25-22 43z"/>
       </g>
-      <g class="ele-leg-a" fill="#666967"><rect x="78" y="130" width="36" height="102" rx="14"/><ellipse cx="96" cy="230" rx="25" ry="10"/></g>
-      <g class="ele-leg-b" fill="#666967"><rect x="202" y="130" width="36" height="102" rx="14"/><ellipse cx="220" cy="230" rx="25" ry="10"/></g>
+      <g class="ele-leg-a" fill="#666967"><rect x="78" y="130" width="38" height="76" rx="16"/><ellipse cx="97" cy="202" rx="23" ry="9"/></g>
+      <g class="ele-leg-b" fill="#666967"><rect x="200" y="130" width="38" height="76" rx="16"/><ellipse cx="219" cy="202" rx="23" ry="9"/></g>
       <path d="M54 63h225v116H54z" fill="url(#heroCloth)" stroke="#F1C24E" stroke-width="7"/>
       <path d="M54 149q112 38 225 0v30H54z" fill="#184E8A" stroke="#F1C24E" stroke-width="5"/>
       <path d="M82 76h168v54H82z" fill="#B51E5C" opacity=".92"/>
@@ -2496,7 +2524,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time">10:00 AM onwards</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="maayra-clouds" class="scene-cloud" fill="#FFFDF5" opacity=".6">
             <ellipse cx="42" cy="28" rx="55" ry="15"/><ellipse cx="91" cy="20" rx="40" ry="24"/><ellipse cx="302" cy="45" rx="68" ry="18"/>
           </g>
@@ -2546,7 +2574,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time">7:00 PM onwards</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="sangeet-stars" fill="#FFF4BE"><circle cx="25" cy="25" r="1.3"/><circle cx="65" cy="54" r="1"/><circle cx="118" cy="24" r="1.2"/><circle cx="176" cy="53" r="1"/><circle cx="232" cy="28" r="1.5"/><circle cx="310" cy="49" r="1.1"/><circle cx="341" cy="20" r="1.3"/></g>
           <g id="sangeet-chandeliers" class="scene-sway" color="#F8D778">
             <use href="#chandelierSym" x="138" y="-8" width="84" height="104"/>
@@ -2562,15 +2590,22 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <g id="sangeet-fountain" class="scene-fountain" fill="none" stroke="#D8F2F1" stroke-width="2" opacity=".78">
             <path d="M285 268q-24-80-49-4M285 268q24-80 49-4M285 268v-93"/><ellipse cx="285" cy="271" rx="45" ry="9" fill="#8CCCD0" opacity=".45"/>
           </g>
-          <g id="sangeet-dancer" class="scene-dancer" transform="translate(128 144)">
+          <g id="sangeet-stage">
+            <ellipse cx="180" cy="286" rx="132" ry="17" fill="#9A664A" opacity=".9"/>
+            <path d="M54 286h252l-18 14H72z" fill="#D9A75D" stroke="#F1D17F" stroke-width="3"/>
+            <ellipse cx="180" cy="283" rx="98" ry="8" fill="#071327" opacity=".35"/>
+          </g>
+          <g id="sangeet-dancer" transform="translate(128 108)">
+            <g class="scene-dancer">
             <circle cx="53" cy="22" r="13" fill="#B97858"/>
             <path d="M40 18q13-22 26 0" fill="#B01E5F"/><path d="M42 36h22l8 51H34z" fill="#216A62" stroke="#F0C55C" stroke-width="3"/>
             <path d="M34 50L4 73M70 49l31 20" stroke="#B97858" stroke-width="7" stroke-linecap="round"/>
             <path d="M34 83Q53 66 72 83l34 93H0z" fill="#1B514C" stroke="#E44E93" stroke-width="5"/>
             <path d="M10 165q43-44 86 0M20 141q33-32 66 0M31 117q22-20 44 0" fill="none" stroke="#F2C95C" stroke-width="4"/>
             <path d="M30 43q-18 32-23 62" fill="none" stroke="#EA4E9C" stroke-width="8"/>
+            </g>
           </g>
-          <g id="sangeet-musician" transform="translate(58 205)">
+          <g id="sangeet-musician" transform="translate(82 196)">
             <circle cx="24" cy="13" r="10" fill="#B97858"/><path d="M13 10q11-18 22 1" fill="#D23A67"/><path d="M10 27h31l10 56H0z" fill="#E7D9C8"/>
             <path d="M17 38l62 1" stroke="#D9B878" stroke-width="5" stroke-linecap="round"/><path d="M23 39q18 12 35 0" fill="none" stroke="#B97858" stroke-width="6"/>
           </g>
@@ -2594,10 +2629,10 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time">11:00 AM onwards</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="haldi-clouds" class="scene-cloud" fill="#FFFDF6" opacity=".58"><ellipse cx="70" cy="28" rx="82" ry="22"/><ellipse cx="160" cy="16" rx="58" ry="30"/><ellipse cx="321" cy="40" rx="71" ry="20"/></g>
           <g id="haldi-facade">
-            <path d="M0 300V173h42v-27h43v-33h45V78h35V50h34v28h35v35h45v33h43v27h40v127z" fill="#C66749" stroke="#863D31" stroke-width="4"/>
+            <path d="M0 300V173h42v-27h43v-33h45V78h35V50h34v28h35v35h45v33h43v27h40v127z" fill="#D45F72" stroke="#833049" stroke-width="4"/>
             <path d="M8 188h344M47 156h266M90 123h180M135 88h90" fill="none" stroke="#FFF3E4" stroke-width="7" stroke-dasharray="5 5"/>
             <path d="M145 300V153a35 35 0 0 1 70 0v147z" fill="#F1D1A0"/>
             <path d="M158 300V164a22 22 0 0 1 44 0v136z" fill="#28766C"/>
@@ -2605,7 +2640,17 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
             <g fill="#F3A12D"><circle cx="146" cy="94" r="6"/><circle cx="162" cy="105" r="6"/><circle cx="180" cy="110" r="6"/><circle cx="198" cy="105" r="6"/><circle cx="214" cy="94" r="6"/></g>
             <path d="M145 92q35 39 70 0" fill="none" stroke="#25714B" stroke-width="3"/>
           </g>
-          <g id="haldi-horses" color="#A9472E">
+          <g id="haldi-gulabi-marigolds">
+            <path d="M32 168Q180 220 328 168" fill="none" stroke="#E2931F" stroke-width="5"/>
+            <g fill="#F3A223" stroke="#C76C12" stroke-width="1.5">
+              <circle cx="48" cy="174" r="8"/><circle cx="73" cy="182" r="8"/><circle cx="99" cy="189" r="8"/><circle cx="126" cy="195" r="8"/><circle cx="153" cy="199" r="8"/><circle cx="180" cy="201" r="9"/><circle cx="207" cy="199" r="8"/><circle cx="234" cy="195" r="8"/><circle cx="261" cy="189" r="8"/><circle cx="287" cy="182" r="8"/><circle cx="312" cy="174" r="8"/>
+            </g>
+            <g fill="#F08AB0" opacity=".95">
+              <circle cx="78" cy="218" r="7"/><circle cx="112" cy="232" r="6"/><circle cx="149" cy="220" r="8"/><circle cx="180" cy="238" r="7"/><circle cx="212" cy="220" r="8"/><circle cx="248" cy="232" r="6"/><circle cx="282" cy="218" r="7"/>
+            </g>
+            <ellipse cx="180" cy="282" rx="88" ry="16" fill="#E96E9C" opacity=".5"/>
+          </g>
+          <g id="haldi-horses" color="#C54866">
             <use href="#clayHorse" x="18" y="174" width="108" height="100"/><use href="#clayHorse" x="234" y="174" width="108" height="100" transform="translate(576 0) scale(-1 1)"/>
           </g>
           <g id="haldi-pots">
@@ -2634,7 +2679,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time">6:00 PM</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="baraat-lights"><path d="M0 37Q180 82 360 37" fill="none" stroke="#51313E" stroke-width="3"/><g class="scene-light" fill="#FFE69B"><circle cx="25" cy="43" r="5"/><circle cx="70" cy="54" r="5"/><circle cx="117" cy="62" r="5"/><circle cx="167" cy="66" r="5"/><circle cx="217" cy="63" r="5"/><circle cx="267" cy="55" r="5"/><circle cx="316" cy="43" r="5"/></g></g>
           <g id="baraat-gate"><path d="M0 300V129h61v-35h48v35h142V94h48v35h61v171z" fill="#A9583E"/><path d="M102 300V143a78 78 0 0 1 156 0v157z" fill="#75384A" stroke="#E5B35E" stroke-width="7"/><path d="M127 300V156a53 53 0 0 1 106 0v144z" fill="#37273E"/><path d="M75 94q17-33 34 0M251 94q24-39 48 0" fill="#CF8050" stroke="#754131" stroke-width="5"/></g>
           <g id="baraat-elephant" class="scene-elephant" transform="translate(51 141) scale(.72)">
@@ -2666,7 +2711,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time">8:00 PM onwards</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="reception-stars" fill="#DDEEFF"><circle cx="22" cy="22" r="1"/><circle cx="74" cy="40" r="1.3"/><circle cx="123" cy="19" r="1"/><circle cx="181" cy="43" r="1.2"/><circle cx="240" cy="23" r="1.1"/><circle cx="322" cy="38" r="1.4"/></g>
           <g id="reception-palace">
             <path d="M0 300V167h76v-44h61v44h85v-70h70v70h68v133z" fill="#81533D" stroke="#D6A756" stroke-width="4"/>
@@ -2698,7 +2743,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <p class="poster-time"><span class="fill">[time]</span></p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
-        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="pheras-stars" fill="#EAF3FF"><circle cx="25" cy="22" r="1.2"/><circle cx="62" cy="44" r="1"/><circle cx="112" cy="20" r="1.3"/><circle cx="179" cy="38" r="1"/><circle cx="233" cy="18" r="1.4"/><circle cx="292" cy="43" r="1"/><circle cx="338" cy="22" r="1.2"/></g>
           <g id="pheras-chhatris" fill="#E7D0A1"><use href="#chhatri" x="-7" y="105" width="104" height="104"/><use href="#chhatri" x="263" y="105" width="104" height="104"/></g>
           <g id="pheras-mandap">
@@ -3101,15 +3146,20 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   var cinemaEvents = document.getElementById("events");
   var cinemaRaf = 0;
   function cinemaClamp(n){ return Math.max(0,Math.min(1,n)); }
+  var cinemaDuskStage = null;
   function updateCinema(){
     cinemaRaf = 0;
     var vh = window.innerHeight || 800;
     if(cinemaHero){
-      var hp = cinemaClamp(-cinemaHero.getBoundingClientRect().top / Math.max(1,cinemaHero.offsetHeight));
-      cinemaHero.style.setProperty("--depth-far",(-hp*8).toFixed(1)+"px");
-      cinemaHero.style.setProperty("--depth-mid",(-hp*24).toFixed(1)+"px");
-      cinemaHero.style.setProperty("--depth-front",(-hp*46).toFixed(1)+"px");
-      cinemaHero.style.setProperty("--depth-near",(-hp*72).toFixed(1)+"px");
+      var heroRect = cinemaHero.getBoundingClientRect();
+      if(heroRect.bottom > 0 && heroRect.top < vh){
+        var hp = cinemaClamp(-heroRect.top / Math.max(1,cinemaHero.offsetHeight));
+        var mobile = window.innerWidth <= 832;
+        cinemaHero.style.setProperty("--depth-far",(-hp*(mobile?2:8)).toFixed(1)+"px");
+        cinemaHero.style.setProperty("--depth-mid",(-hp*(mobile?10:24)).toFixed(1)+"px");
+        cinemaHero.style.setProperty("--depth-front",(-hp*(mobile?19:46)).toFixed(1)+"px");
+        cinemaHero.style.setProperty("--depth-near",(-hp*(mobile?28:72)).toFixed(1)+"px");
+      }
     }
     if(cinemaMist){
       var fog = 0;
@@ -3117,11 +3167,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         var eventDistance = Math.abs(cinemaEvents.getBoundingClientRect().top - vh*.48);
         fog = Math.max(fog,cinemaClamp(1-eventDistance/(vh*.34)));
       }
-      var stages = document.querySelectorAll(".event-stage");
-      if(stages[3]){
-        var duskDistance = Math.abs(stages[3].getBoundingClientRect().top - vh*.55);
+      if(!cinemaDuskStage){ cinemaDuskStage = document.querySelector(".event-stage:nth-child(4)"); }
+      if(cinemaDuskStage){
+        var duskDistance = Math.abs(cinemaDuskStage.getBoundingClientRect().top - vh*.55);
         fog = Math.max(fog,cinemaClamp(1-duskDistance/(vh*.3)));
       }
+      cinemaMist.classList.toggle("active",fog>.025);
       cinemaMist.style.setProperty("--mist-alpha",(fog*.82).toFixed(3));
       cinemaMist.style.setProperty("--mist-x",(-16+fog*16).toFixed(1)+"%");
     }
