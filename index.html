@@ -1562,16 +1562,17 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   box-shadow:none;backdrop-filter:blur(1.2px) saturate(1.02);
 }
 .hero-names-editorial{
-  margin:-.12rem 0 .12rem;display:grid;justify-items:center;gap:0;
+  margin:0 0 .18rem;display:grid;grid-template-rows:auto auto auto;justify-items:center;
+  row-gap:clamp(.16rem,.75svh,.42rem);
   font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(5.2rem,13vw,8.6rem);
-  font-weight:600;line-height:.67;letter-spacing:-.055em;color:#7A0F41;
+  font-weight:600;line-height:1;letter-spacing:-.055em;color:#7A0F41;
   text-shadow:0 1px 0 #FFF7E2,0 3px 0 rgba(255,247,226,.82),0 11px 24px rgba(62,22,32,.24);
 }
-.hero-names-editorial span{display:block}
+.hero-names-editorial span{display:block;line-height:.72}
 .hero-names-editorial i{
-  display:flex;align-items:center;gap:.42rem;margin:.04em 0 .07em;
-  color:#C56B0A;font-family:"Great Vibes",cursive;font-size:.38em;font-weight:400;
-  line-height:.72;letter-spacing:0;text-shadow:0 1px 0 #FFF3CA;
+  display:flex;align-items:center;justify-content:center;gap:.42rem;margin:0;
+  min-height:.64em;color:#C56B0A;font-family:"Great Vibes",cursive;
+  font-size:.34em;font-weight:400;line-height:1;letter-spacing:0;text-shadow:0 1px 0 #FFF3CA;
 }
 .hero-names-editorial i::before,.hero-names-editorial i::after{
   content:"";width:clamp(3.5rem,14vw,7.5rem);height:1px;
@@ -1581,7 +1582,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .site-ready .hero-names-editorial span:last-child{animation-delay:.18s}
 @keyframes nameSettle{from{opacity:.45;transform:translateY(10px);letter-spacing:-.025em}to{opacity:1;transform:none;letter-spacing:-.055em}}
 @media (max-width:52rem){
-  .hero-names-editorial{font-size:clamp(4.75rem,23vw,6.15rem);line-height:.66}
+  .hero-names-editorial{font-size:clamp(4.75rem,23vw,6.15rem);row-gap:clamp(.12rem,.6svh,.3rem)}
   .hero-copy.hero-copy-cinematic::before{inset:.15rem 1% -.2rem;background:radial-gradient(ellipse at 50% 45%,rgba(255,250,234,.57),rgba(255,247,225,.3) 48%,transparent 76%)}
 }
 
@@ -1594,13 +1595,15 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   100%{translate:0 0;opacity:1}
 }
 
-/* 03. Far sky, palace, flowers and foreground move as separate depth planes. */
+/* 03. Keep the illustrated courtyard static while leaving its independent
+   entrance animations intact. Scroll-driven scale and multi-plane writes made
+   the first hero-to-countdown gesture stutter on mobile GPUs. */
 .hero{--depth-far:0px;--depth-mid:0px;--depth-front:0px;--depth-near:0px}
-.hero-scene .depth-far{translate:0 var(--depth-far)}
-.hero-scene .depth-mid{translate:0 var(--depth-mid)}
-.hero-scene .depth-front{translate:0 var(--depth-front)}
-.hero-scene .depth-near{translate:0 var(--depth-near)}
-.hero-scene .depth-far,.hero-scene .depth-mid,.hero-scene .depth-front,.hero-scene .depth-near{will-change:translate}
+.hero-scene{animation:none!important}
+.hero-copy.hero-copy-cinematic{animation:heroCopyIn 1.2s cubic-bezier(.2,.8,.2,1) .2s both!important}
+.hero-scene .depth-far,.hero-scene .depth-mid,.hero-scene .depth-front,.hero-scene .depth-near{
+  translate:0 0;will-change:auto;
+}
 
 /* 04. One visual language for scene changes, cloud banks crossing the camera. */
 .cinematic-mist{
@@ -2725,16 +2728,21 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
             <path d="M91 108q57 26 116 0v38q-58 22-116 0z" fill="#1A4F8E" stroke="#EEC052" stroke-width="4"/>
             <path d="M232 70q25 13 54 0M238 79q20 10 42 0" fill="none" stroke="#D39A25" stroke-width="3"/>
             <circle cx="274" cy="53" r="3.5" fill="#241D1A"/>
-            <g id="baraat-groom" transform="translate(112 -22) scale(.88)">
-              <circle cx="48" cy="27" r="14" fill="#B97858"/>
-              <path d="M31 22q17-28 35 0l-5 10H36z" fill="#B01850" stroke="#EEC052" stroke-width="3"/>
-              <path d="M35 42h29l9 64H24z" fill="#F5E8CC" stroke="#CFA84F" stroke-width="3"/>
-              <path d="M49 43v61M35 59h29" stroke="#D5A74A" stroke-width="2"/>
-              <path d="M28 52L5 87M67 53l34 28" stroke="#F5E8CC" stroke-width="8" stroke-linecap="round"/>
-              <path d="M99 80l30 18" stroke="#7B4F39" stroke-width="5" stroke-linecap="round"/>
-              <path d="M35 101L9 137M62 101l34 31" stroke="#F5E8CC" stroke-width="12" stroke-linecap="round"/>
-              <path d="M4 139h19M90 134h20" stroke="#7A4A32" stroke-width="6" stroke-linecap="round"/>
-              <circle cx="60" cy="17" r="4" fill="#EEC052"/>
+            <g id="baraat-groom" transform="translate(112 -20) scale(.88)">
+              <!-- Profile riding posture: the far leg is hidden by the horse;
+                   one near leg bends naturally from hip to stirrup. -->
+              <path d="M26 86q25-14 57 1l-7 17q-24 8-51-1z" fill="#8E1C50" stroke="#EEC052" stroke-width="4"/>
+              <circle cx="52" cy="27" r="14" fill="#B97858"/>
+              <path d="M35 22q17-28 35 0l-5 10H40z" fill="#B01850" stroke="#EEC052" stroke-width="3"/>
+              <path d="M62 24l8 5-8 4" fill="#B97858"/>
+              <path d="M38 42h28q8 23 5 52-15 10-34 0z" fill="#F5E8CC" stroke="#CFA84F" stroke-width="3"/>
+              <path d="M51 43v49M38 59h29" stroke="#D5A74A" stroke-width="2"/>
+              <path d="M41 52Q30 61 28 76M64 52q20 8 37 27" fill="none" stroke="#F5E8CC" stroke-width="8" stroke-linecap="round"/>
+              <path d="M99 79l30 18" stroke="#7B4F39" stroke-width="5" stroke-linecap="round"/>
+              <path d="M55 91Q75 101 77 116L69 143" fill="none" stroke="#F5E8CC" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M62 144h19" stroke="#70442F" stroke-width="6" stroke-linecap="round"/>
+              <path d="M77 116h10v28" fill="none" stroke="#D4A74B" stroke-width="3"/>
+              <circle cx="64" cy="17" r="4" fill="#EEC052"/>
             </g>
           </g>
           <g id="baraat-drums" transform="translate(16 240)"><ellipse cx="35" cy="24" rx="27" ry="9" fill="#E0A65A" stroke="#6F3B34" stroke-width="3"/><path d="M8 24v42q27 14 54 0V24" fill="#B8583B" stroke="#6F3B34" stroke-width="3"/><path d="M15 34l40 24M55 34L15 58" stroke="#F1C875" stroke-width="3"/></g>
@@ -2776,16 +2784,26 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
               <path d="M30 23q12-22 25 0l-2 20H32z" fill="#251827"/>
               <path d="M28 42h28l8 44H20z" fill="#A71959" stroke="#F0C965" stroke-width="3"/>
               <path d="M20 82q22-17 44 0l26 47H-6z" fill="#B51F61" stroke="#F0C965" stroke-width="4"/>
-              <path d="M27 52l45 23" stroke="#B97858" stroke-width="6" stroke-linecap="round"/>
+              <path d="M29 53L18 75M54 53l19 22" fill="none" stroke="#B97858" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="18" cy="75" r="4" fill="#B97858"/><circle cx="73" cy="75" r="4" fill="#B97858"/>
             </g>
             <g id="reception-groom" transform="translate(150 7)">
               <circle cx="35" cy="25" r="12" fill="#B97858"/>
               <path d="M21 20q14-23 29 0l-4 8H25z" fill="#A71959" stroke="#F0C965" stroke-width="2.5"/>
               <path d="M22 41h28l10 88H12z" fill="#F4E7CF" stroke="#D6B65C" stroke-width="3"/>
-              <path d="M23 53L-7 76" stroke="#F4E7CF" stroke-width="8" stroke-linecap="round"/>
+              <path d="M23 53L-7 76M48 53l22 23" fill="none" stroke="#F4E7CF" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="-7" cy="76" r="4" fill="#B97858"/><circle cx="70" cy="76" r="4" fill="#B97858"/>
             </g>
-            <path d="M76 62q54 54 108 0M80 66q50 43 100 0" fill="none" stroke="#F1AA2F" stroke-width="5" stroke-linecap="round"/>
-            <g fill="#F4C343"><circle cx="87" cy="75" r="5"/><circle cx="103" cy="87" r="5"/><circle cx="121" cy="94" r="5"/><circle cx="139" cy="94" r="5"/><circle cx="157" cy="86" r="5"/><circle cx="173" cy="74" r="5"/></g>
+            <!-- Two separate U-shaped garlands, one held by each person. -->
+            <g id="reception-held-garlands" fill="none" stroke-linecap="round">
+              <path d="M66 81C70 118 108 126 121 81" stroke="#F1AA2F" stroke-width="5"/>
+              <path d="M143 83C150 126 207 126 220 83" stroke="#F1AA2F" stroke-width="5"/>
+              <g fill="#F4C343" stroke="#C87218" stroke-width="1">
+                <circle cx="70" cy="94" r="5"/><circle cx="78" cy="108" r="5"/><circle cx="92" cy="118" r="5"/><circle cx="108" cy="112" r="5"/><circle cx="118" cy="96" r="5"/>
+                <circle cx="147" cy="97" r="5"/><circle cx="158" cy="113" r="5"/><circle cx="177" cy="120" r="5"/><circle cx="198" cy="112" r="5"/><circle cx="216" cy="96" r="5"/>
+              </g>
+              <g fill="#EC7FA5"><circle cx="84" cy="113" r="3.5"/><circle cx="113" cy="105" r="3.5"/><circle cx="167" cy="118" r="3.5"/><circle cx="207" cy="106" r="3.5"/></g>
+            </g>
           </g>
           <g id="reception-balcony-flowers" transform="translate(70 18) scale(.82)"><path d="M178 256q46-67 104-56M176 275q78-36 174-13" fill="none" stroke="#387B48" stroke-width="8"/><g fill="#EC87AA"><circle cx="218" cy="231" r="14"/><circle cx="244" cy="211" r="16"/><circle cx="274" cy="209" r="13"/><circle cx="303" cy="252" r="16"/><circle cx="335" cy="261" r="14"/></g></g>
           <g id="reception-lanterns" color="#F9D980"><use href="#lanternSym" x="18" y="52" width="30" height="78"/><use href="#lanternSym" x="312" y="42" width="30" height="78"/></g>
@@ -3206,8 +3224,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   setTimeout(dismissLoader,3200);
 
 
-  /* 02 + 03 + 04. Orchestrate the entrance, depth planes and reusable mist. */
-  var cinemaHero = document.querySelector(".hero");
+  /* 04. The courtyard remains static during the first handoff. This loop now
+     owns only the two mist thresholds later in the invitation. */
   var cinemaMist = document.getElementById("cinematicMist");
   var cinemaEvents = document.getElementById("events");
   var cinemaRaf = 0;
@@ -3216,17 +3234,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   function updateCinema(){
     cinemaRaf = 0;
     var vh = window.innerHeight || 800;
-    if(cinemaHero){
-      var heroRect = cinemaHero.getBoundingClientRect();
-      if(heroRect.bottom > 0 && heroRect.top < vh){
-        var hp = cinemaClamp(-heroRect.top / Math.max(1,cinemaHero.offsetHeight));
-        var mobile = window.innerWidth <= 832;
-        cinemaHero.style.setProperty("--depth-far",(-hp*(mobile?2:8)).toFixed(1)+"px");
-        cinemaHero.style.setProperty("--depth-mid",(-hp*(mobile?10:24)).toFixed(1)+"px");
-        cinemaHero.style.setProperty("--depth-front",(-hp*(mobile?19:46)).toFixed(1)+"px");
-        cinemaHero.style.setProperty("--depth-near",(-hp*(mobile?28:72)).toFixed(1)+"px");
-      }
-    }
     if(cinemaMist){
       var fog = 0;
       if(cinemaEvents){
@@ -3602,11 +3609,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   var verticalCards = verticalDeck ? Array.prototype.slice.call(verticalDeck.querySelectorAll(".event-poster")) : [];
   var verticalStages = [];
   var verticalRaf = 0;
-  var verticalLastY = window.scrollY || 0;
-  var verticalDirection = 1;
   function clamp01(n){ return Math.max(0,Math.min(1,n)); }
   if(verticalDeck && document.body.classList.contains("vertical-functions")){
     verticalCards.forEach(function(card){
+      /* Function posters have their own continuous geometry. The generic page
+         reveal's translateY(34px) must never compete with that transform. */
+      card.classList.add("in");
       var stage = document.createElement("div");
       stage.className = "event-stage";
       verticalDeck.insertBefore(stage,card);
@@ -3628,29 +3636,26 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     if(!verticalStages.length) return;
     var vh = window.innerHeight || 800;
     var top = window.innerWidth <= 832 ? 62 : 70;
-    var y = window.scrollY || 0;
-    if(y > verticalLastY + .5){ verticalDirection = 1; }
-    else if(y < verticalLastY - .5){ verticalDirection = -1; }
-    verticalLastY = y;
     for(var i=0;i<verticalCards.length;i++){
       var card = verticalCards[i];
       var stage = verticalStages[i];
       var stageRect = stage.getBoundingClientRect();
       var cardHeight = card.offsetHeight;
-      /* Incoming cards sit on top while scrolling down; previous cards sit on
-         top while scrolling back up. The former fixed stack only worked down. */
-      stage.style.zIndex = String(verticalDirection > 0 ? i + 1 : verticalCards.length - i);
-      var entering = clamp01((vh*.9 - stageRect.top) / (vh*.55));
-      var leaving = clamp01((stageRect.bottom - top - cardHeight) / (vh*.3));
-      if(i === verticalCards.length-1){ leaving = 1; }
+      /* Card order is permanent and follows document order. The old direction
+         switch changed every z-index after a half-pixel reversal, which made a
+         paused handoff appear to advance by itself. */
+      stage.style.zIndex = String(i + 1);
+      /* Both values are pure functions of current geometry. There is no stored
+         direction, winner, snap point, or delayed scroll that can resume later. */
+      var entering = clamp01((vh*.88 - stageRect.top) / (vh*.52));
+      var exitRoom = stageRect.bottom - top - cardHeight;
+      var leaving = i === verticalCards.length-1 ? 1 : clamp01(exitRoom / (vh*.24));
       var focus = Math.min(entering,leaving);
       card.style.setProperty("--event-scale",(.9 + focus*.1).toFixed(3));
       card.style.setProperty("--event-opacity","1");
-      card.style.setProperty("--event-shift",((1-focus)*20).toFixed(1)+"px");
+      card.style.setProperty("--event-shift",((1-focus)*14).toFixed(1)+"px");
       card.style.setProperty("--event-sat",(.66 + focus*.34).toFixed(3));
       card.style.setProperty("--event-light",(.84 + focus*.16).toFixed(3));
-      /* Handoff intensity depends only on geometry, so it is symmetric and
-         cannot remain stuck after the user reverses direction. */
       var transition = stage.querySelector(".scene-transition");
       if(transition){
         var handoffLine = top + cardHeight;
