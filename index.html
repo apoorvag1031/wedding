@@ -1552,9 +1552,42 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   font-weight:650;letter-spacing:.035em;text-shadow:none;
 }
 
+/* 01b. Editorial names over a translucent painted-light halo. */
+.hero-copy.hero-copy-cinematic{
+  padding:.2rem .35rem .68rem;width:min(96%,46rem);
+}
+.hero-copy.hero-copy-cinematic::before{
+  inset:-.1rem 4% -.35rem;border:0;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 46%,rgba(255,250,234,.62) 0%,rgba(255,247,225,.42) 42%,rgba(255,244,216,.18) 64%,transparent 79%);
+  box-shadow:none;backdrop-filter:blur(1.2px) saturate(1.02);
+}
+.hero-names-editorial{
+  margin:-.12rem 0 .12rem;display:grid;justify-items:center;gap:0;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(5.2rem,13vw,8.6rem);
+  font-weight:600;line-height:.67;letter-spacing:-.055em;color:#7A0F41;
+  text-shadow:0 1px 0 #FFF7E2,0 3px 0 rgba(255,247,226,.82),0 11px 24px rgba(62,22,32,.24);
+}
+.hero-names-editorial span{display:block}
+.hero-names-editorial i{
+  display:flex;align-items:center;gap:.42rem;margin:.04em 0 .07em;
+  color:#C56B0A;font-family:"Great Vibes",cursive;font-size:.38em;font-weight:400;
+  line-height:.72;letter-spacing:0;text-shadow:0 1px 0 #FFF3CA;
+}
+.hero-names-editorial i::before,.hero-names-editorial i::after{
+  content:"";width:clamp(3.5rem,14vw,7.5rem);height:1px;
+  background:linear-gradient(90deg,transparent,#D49A31 28%,#B77816 72%,transparent);
+}
+.site-ready .hero-names-editorial span{animation:nameSettle 1.35s cubic-bezier(.2,.78,.2,1) both}
+.site-ready .hero-names-editorial span:last-child{animation-delay:.18s}
+@keyframes nameSettle{from{opacity:.45;transform:translateY(10px);letter-spacing:-.025em}to{opacity:1;transform:none;letter-spacing:-.055em}}
+@media (max-width:52rem){
+  .hero-names-editorial{font-size:clamp(4.75rem,23vw,6.15rem);line-height:.66}
+  .hero-copy.hero-copy-cinematic::before{inset:.15rem 1% -.2rem;background:radial-gradient(ellipse at 50% 45%,rgba(255,250,234,.57),rgba(255,247,225,.3) 48%,transparent 76%)}
+}
+
 /* 02. The courtyard starts empty; the procession enters only after the names. */
 .hero-scene .elephant-procession{translate:-105vw 0;opacity:0;animation:none}
-.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 5.2s cubic-bezier(.2,.64,.26,1) .9s both}
+.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 12s cubic-bezier(.18,.52,.28,1) 1.1s both}
 @keyframes elephantEntrance{
   0%{translate:-108vw 2px;opacity:0}
   10%{opacity:1}
@@ -1606,19 +1639,25 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .vertical-functions .event-stage:nth-child(5),.vertical-functions .event-stage:nth-child(6){--ambient:radial-gradient(circle,#244D7C 0%,#07152F 36%,transparent 70%)}
 
 /* 09. Foreground objects cross the camera at every handoff. */
-.scene-transition{position:absolute;z-index:12;left:50%;bottom:-8vh;translate:-50% 0;width:min(92vw,50rem);height:24vh;pointer-events:none;overflow:visible}
-.transition-butterfly i{position:absolute;left:48%;top:30%;width:44px;height:32px;background:#168A97;border-radius:80% 15% 80% 20%;filter:drop-shadow(0 8px 9px rgba(0,0,0,.32));animation:transitionFly 3.8s ease-in-out infinite}
-.transition-butterfly i::after{content:"";position:absolute;left:31px;width:44px;height:32px;background:#2FB7C5;border-radius:15% 80% 20% 80%;transform:scaleX(-1)}
-@keyframes transitionFly{0%,100%{transform:translate(-30vw,35px) rotate(-8deg) scale(.72)}50%{transform:translate(26vw,-28px) rotate(9deg) scale(1.08)}}
-.transition-flowers{background:linear-gradient(12deg,transparent 41%,#2D7449 42% 44%,transparent 45%)}
-.transition-flowers i{position:absolute;bottom:14%;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#FFD76F 0 12%,#EC8BAA 13% 45%,#B42164 46% 65%,transparent 66%);filter:drop-shadow(0 10px 12px rgba(0,0,0,.24));animation:transitionBloom 4s ease-in-out infinite}
-.transition-flowers i:nth-child(1){left:8%}.transition-flowers i:nth-child(2){left:44%;animation-delay:-1.2s}.transition-flowers i:nth-child(3){right:7%;animation-delay:-2.4s}
-@keyframes transitionBloom{50%{transform:translateY(-18px) rotate(7deg) scale(1.12)}}
-.transition-curtains::before,.transition-curtains::after{content:"";position:absolute;top:-18vh;width:52%;height:40vh;background:linear-gradient(90deg,#5A0915,#B41D31 45%,#6D0B18);border-bottom:5px solid #E9BD66;animation:curtainCross 4.4s ease-in-out infinite}
-.transition-curtains::before{left:-35%;border-radius:0 0 80% 0}.transition-curtains::after{right:-35%;transform:scaleX(-1);border-radius:0 0 80% 0}
-@keyframes curtainCross{45%,55%{translate:28% 0}}
-.transition-fireworks{background:repeating-conic-gradient(from 0deg at 50% 55%,transparent 0 8deg,rgba(255,236,164,.9) 9deg 10deg,transparent 11deg 18deg);mask:radial-gradient(circle,transparent 0 13%,#000 14% 42%,transparent 43%);animation:transitionBurst 2.8s ease-out infinite}
-@keyframes transitionBurst{0%{transform:scale(.2);opacity:0}38%{opacity:1}100%{transform:scale(1.3);opacity:0}}
+.scene-transition{
+  --handoff:0;position:absolute;z-index:0;left:50%;bottom:-3vh;translate:-50% 0;
+  width:min(72vw,34rem);height:16vh;pointer-events:none;overflow:visible;
+  opacity:var(--handoff);transform:translateY(calc((1 - var(--handoff))*24px)) scale(calc(.84 + var(--handoff)*.16));
+  transform-origin:50% 50%;will-change:opacity,transform;
+}
+.vertical-functions .event-stage>.event-poster{position:sticky;z-index:2}
+.transition-butterfly i{position:absolute;left:48%;top:30%;width:34px;height:24px;background:#168A97;border-radius:80% 15% 80% 20%;filter:drop-shadow(0 6px 7px rgba(0,0,0,.28));animation:transitionFly 4.8s ease-in-out infinite}
+.transition-butterfly i::after{content:"";position:absolute;left:24px;width:34px;height:24px;background:#2FB7C5;border-radius:15% 80% 20% 80%;transform:scaleX(-1)}
+@keyframes transitionFly{0%,100%{transform:translate(-22vw,25px) rotate(-8deg) scale(.72)}50%{transform:translate(18vw,-20px) rotate(9deg) scale(1)}}
+.transition-flowers{background:none}
+.transition-flowers i{position:absolute;bottom:18%;width:clamp(28px,8vw,42px);height:clamp(28px,8vw,42px);border-radius:50%;background:radial-gradient(circle,#FFD76F 0 12%,#EC8BAA 13% 45%,#B42164 46% 62%,transparent 64%);opacity:.76;filter:drop-shadow(0 7px 8px rgba(0,0,0,.18));animation:transitionBloom 4.8s ease-in-out infinite}
+.transition-flowers i:nth-child(1){left:14%}.transition-flowers i:nth-child(2){left:45%;animation-delay:-1.6s}.transition-flowers i:nth-child(3){right:13%;animation-delay:-3.2s}
+@keyframes transitionBloom{50%{transform:translateY(-9px) rotate(6deg) scale(1.06)}}
+.transition-curtains::before,.transition-curtains::after{content:"";position:absolute;top:-7vh;width:43%;height:25vh;background:linear-gradient(90deg,#5A0915,#B41D31 45%,#6D0B18);border-bottom:3px solid #E9BD66;animation:curtainCross 5.2s ease-in-out infinite}
+.transition-curtains::before{left:-31%;border-radius:0 0 80% 0}.transition-curtains::after{right:-31%;transform:scaleX(-1);border-radius:0 0 80% 0}
+@keyframes curtainCross{45%,55%{translate:18% 0}}
+.transition-fireworks{background:repeating-conic-gradient(from 0deg at 50% 55%,transparent 0 8deg,rgba(255,236,164,.78) 9deg 10deg,transparent 11deg 18deg);mask:radial-gradient(circle,transparent 0 15%,#000 16% 38%,transparent 39%);animation:transitionBurst 3.4s ease-out infinite}
+@keyframes transitionBurst{0%{transform:scale(.3);opacity:0}38%{opacity:.82}100%{transform:scale(1.05);opacity:0}}
 
 /* 10. The navigation is invitation chrome: monogram, Functions and RSVP only. */
 .nav.nav-minimal{backdrop-filter:blur(12px);box-shadow:0 10px 32px rgba(36,5,22,.2)}
@@ -2290,38 +2329,11 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
   <div class="hero-copy hero-copy-cinematic">
     <p class="eyebrow deva">शुभ विवाह</p>
-    <h1 class="sr-only" data-no-split>Apoorv and Arushi</h1>
-    <!-- 01. A true inline SVG wordmark, made from original calligraphic paths.
-         It does not depend on a web font and writes itself across the clean sky. -->
-    <svg class="hero-wordmark" viewBox="0 0 420 258" role="img" aria-label="Apoorv and Arushi">
-      <title>Apoorv and Arushi</title>
-      <g class="wordmark-ink" pathLength="1">
-        <!-- Apoorv -->
-        <path pathLength="1" d="M18 100C35 62 49 28 65 16c2 27 8 57 20 84M31 70c17-9 36-8 52 1M12 101c29-4 55-3 79 0"/>
-        <path pathLength="1" d="M97 57l-3 68M97 69c14-20 35-17 36 4 1 20-21 31-38 15"/>
-        <path pathLength="1" d="M178 75c0-22-35-22-35 1 0 24 35 23 35-1z"/>
-        <path pathLength="1" d="M220 75c0-22-35-22-35 1 0 24 35 23 35-1z"/>
-        <path pathLength="1" d="M231 96l2-38M233 70c10-17 22-19 31-7"/>
-        <path pathLength="1" d="M271 59c8 22 17 37 28 38 11-7 18-22 25-39"/>
-        <path pathLength="1" d="M299 97c35 10 69 5 103-10"/>
-        <!-- Arushi -->
-        <path pathLength="1" d="M23 222c18-39 31-72 47-85 3 28 9 58 21 86M36 191c17-8 36-8 52 1M15 224c30-4 58-3 84 0"/>
-        <path pathLength="1" d="M106 220l2-40M108 192c11-18 23-19 33-7"/>
-        <path pathLength="1" d="M149 181v25c0 22 31 20 32-3l1-23M182 180l-1 41"/>
-        <path pathLength="1" d="M228 187c-8-11-31-8-30 5 1 15 31 9 30 25-1 14-27 15-35 4"/>
-        <path pathLength="1" d="M244 142l-3 80M242 195c7-19 36-24 36 2v24"/>
-        <path pathLength="1" d="M296 181l-2 40M298 160c0 2-2 4-4 4s-4-2-4-4 2-4 4-4 4 2 4 4z"/>
-        <path pathLength="1" d="M294 221c34 8 69 4 108-11"/>
-      </g>
-      <g class="wordmark-gold" aria-hidden="true">
-        <path pathLength="1" d="M106 121c55 10 145 10 201 0"/>
-        <path pathLength="1" d="M102 238c61 10 151 9 215-1"/>
-      </g>
-      <g class="wordmark-seal" aria-hidden="true">
-        <circle cx="210" cy="128" r="17"/>
-        <path d="M202 128c0-8 12-8 12 0 0 8-12 8-12 0m12 0 8-8m-8 8 8 8"/>
-      </g>
-    </svg>
+    <h1 class="hero-names-editorial" data-no-split>
+      <span>Apoorv</span>
+      <i>&amp;</i>
+      <span>Arushi</span>
+    </h1>
     <p class="hero-dateplate">25 &amp; 26 November 2026</p>
     <p class="hero-venue">Aamantran by Mysore Mahal &middot; Jaipur</p>
   </div>
@@ -2590,30 +2602,49 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <g id="sangeet-fountain" class="scene-fountain" fill="none" stroke="#D8F2F1" stroke-width="2" opacity=".78">
             <path d="M285 268q-24-80-49-4M285 268q24-80 49-4M285 268v-93"/><ellipse cx="285" cy="271" rx="45" ry="9" fill="#8CCCD0" opacity=".45"/>
           </g>
+          <g id="sangeet-disco" class="scene-sway">
+            <path d="M180 58v31" stroke="#F2D47E" stroke-width="2"/>
+            <circle cx="180" cy="104" r="18" fill="#DCE8F1" stroke="#F7D87C" stroke-width="3"/>
+            <path d="M162 104h36M180 86v36M167 92l26 24M193 92l-26 24" stroke="#8195B4" stroke-width="1.4" opacity=".8"/>
+            <path d="M164 108L55 222M196 108l109 114M173 119l-31 131M187 119l31 131" stroke="#F8E9B2" stroke-width="9" opacity=".12"/>
+          </g>
           <g id="sangeet-stage">
-            <ellipse cx="180" cy="286" rx="132" ry="17" fill="#9A664A" opacity=".9"/>
-            <path d="M54 286h252l-18 14H72z" fill="#D9A75D" stroke="#F1D17F" stroke-width="3"/>
-            <ellipse cx="180" cy="283" rx="98" ry="8" fill="#071327" opacity=".35"/>
+            <ellipse cx="180" cy="282" rx="142" ry="20" fill="#101729" opacity=".92"/>
+            <path d="M38 274h284l-20 26H58z" fill="#252D4D" stroke="#F1D17F" stroke-width="3"/>
+            <path d="M58 277h244M88 290h184M122 277v18M180 275v23M238 277v18" stroke="#79D4D1" stroke-width="3" opacity=".62"/>
           </g>
-          <g id="sangeet-dancer" transform="translate(128 108)">
-            <g class="scene-dancer">
-            <circle cx="53" cy="22" r="13" fill="#B97858"/>
-            <path d="M40 18q13-22 26 0" fill="#B01E5F"/><path d="M42 36h22l8 51H34z" fill="#216A62" stroke="#F0C55C" stroke-width="3"/>
-            <path d="M34 50L4 73M70 49l31 20" stroke="#B97858" stroke-width="7" stroke-linecap="round"/>
-            <path d="M34 83Q53 66 72 83l34 93H0z" fill="#1B514C" stroke="#E44E93" stroke-width="5"/>
-            <path d="M10 165q43-44 86 0M20 141q33-32 66 0M31 117q22-20 44 0" fill="none" stroke="#F2C95C" stroke-width="4"/>
-            <path d="M30 43q-18 32-23 62" fill="none" stroke="#EA4E9C" stroke-width="8"/>
+          <g id="sangeet-western-party">
+            <g id="sangeet-tux" transform="translate(70 120)">
+              <circle cx="50" cy="23" r="13" fill="#B97858"/>
+              <path d="M37 19q13-18 27 0" fill="#201B25"/>
+              <path d="M31 39h38l13 88H18z" fill="#151823" stroke="#D8C58B" stroke-width="2"/>
+              <path d="M42 40h16l-3 37H45z" fill="#F7F3EC"/>
+              <path d="M43 42l7 7 7-7-7-7z" fill="#B01E5F"/>
+              <path d="M31 48L5 88M69 48l28 28" stroke="#151823" stroke-width="9" stroke-linecap="round"/>
+              <path d="M31 126l-4 45M69 126l7 45" stroke="#151823" stroke-width="13" stroke-linecap="round"/>
             </g>
-          </g>
-          <g id="sangeet-musician" transform="translate(82 196)">
-            <circle cx="24" cy="13" r="10" fill="#B97858"/><path d="M13 10q11-18 22 1" fill="#D23A67"/><path d="M10 27h31l10 56H0z" fill="#E7D9C8"/>
-            <path d="M17 38l62 1" stroke="#D9B878" stroke-width="5" stroke-linecap="round"/><path d="M23 39q18 12 35 0" fill="none" stroke="#B97858" stroke-width="6"/>
+            <g id="sangeet-gown" transform="translate(136 105)">
+              <circle cx="48" cy="24" r="13" fill="#B97858"/>
+              <path d="M34 21q14-25 29 0l-3 19H37z" fill="#271729"/>
+              <path d="M35 41h27l9 53H27z" fill="#B21D70" stroke="#F0C96B" stroke-width="3"/>
+              <path d="M28 88Q48 68 68 88l39 91H-11z" fill="#8F1B67" stroke="#F2C95C" stroke-width="4"/>
+              <path d="M32 53L4 83M65 51l29 25" stroke="#B97858" stroke-width="7" stroke-linecap="round"/>
+              <g fill="#F7D97E"><circle cx="38" cy="61" r="2.5"/><circle cx="55" cy="69" r="2.2"/><circle cx="31" cy="92" r="2.7"/><circle cx="63" cy="105" r="2.4"/><circle cx="19" cy="124" r="2.3"/><circle cx="75" cy="137" r="2.8"/><circle cx="45" cy="151" r="2.4"/></g>
+            </g>
+            <g id="sangeet-silver-dress" transform="translate(245 128)">
+              <circle cx="35" cy="20" r="11" fill="#A96E53"/>
+              <path d="M24 17q11-18 24 0" fill="#241A2D"/>
+              <path d="M24 34h22l9 45H15z" fill="#2B8E98" stroke="#D8EAF0" stroke-width="2.5"/>
+              <path d="M16 75q19-12 38 0l24 75H-8z" fill="#3F9FAA" stroke="#DCEBF1" stroke-width="3"/>
+              <path d="M20 46L0 73M49 45l22 23" stroke="#A96E53" stroke-width="6" stroke-linecap="round"/>
+              <g fill="#EAF7F7"><circle cx="29" cy="54" r="2"/><circle cx="42" cy="65" r="2"/><circle cx="20" cy="88" r="2.2"/><circle cx="51" cy="104" r="2.2"/><circle cx="34" cy="128" r="2.4"/></g>
+            </g>
           </g>
           <g id="sangeet-flowers" fill="#E98CAC"><circle cx="23" cy="272" r="18"/><circle cx="49" cy="284" r="15"/><circle cx="330" cy="270" r="17"/><circle cx="306" cy="287" r="15"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">What to expect</span>Music, performances and both families on the dance floor.</p>
-          <p><span class="label">Attire</span><span class="fill">[dress code]</span></p>
+          <p><span class="label">What to expect</span>Dancing, performances and a black-tie party.</p>
+          <p><span class="label">Attire</span>Tuxedos and flashy evening dresses.</p>
         </footer>
       </article>
 
@@ -2682,19 +2713,35 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="baraat-lights"><path d="M0 37Q180 82 360 37" fill="none" stroke="#51313E" stroke-width="3"/><g class="scene-light" fill="#FFE69B"><circle cx="25" cy="43" r="5"/><circle cx="70" cy="54" r="5"/><circle cx="117" cy="62" r="5"/><circle cx="167" cy="66" r="5"/><circle cx="217" cy="63" r="5"/><circle cx="267" cy="55" r="5"/><circle cx="316" cy="43" r="5"/></g></g>
           <g id="baraat-gate"><path d="M0 300V129h61v-35h48v35h142V94h48v35h61v171z" fill="#A9583E"/><path d="M102 300V143a78 78 0 0 1 156 0v157z" fill="#75384A" stroke="#E5B35E" stroke-width="7"/><path d="M127 300V156a53 53 0 0 1 106 0v144z" fill="#37273E"/><path d="M75 94q17-33 34 0M251 94q24-39 48 0" fill="#CF8050" stroke="#754131" stroke-width="5"/></g>
-          <g id="baraat-elephant" class="scene-elephant" transform="translate(51 141) scale(.72)">
-            <ellipse cx="164" cy="85" rx="105" ry="58" fill="#626666"/><circle cx="256" cy="79" r="46" fill="#626666"/><path d="M283 93q32 18 15 86-5 20-17 30l-11-13q18-23 17-60-1-20-17-28z" fill="#626666"/>
-            <g fill="#555957"><rect x="84" y="123" width="31" height="84" rx="12"/><rect x="191" y="123" width="31" height="84" rx="12"/></g>
-            <path d="M66 58h189v103H66z" fill="#A71651" stroke="#EEC052" stroke-width="7"/><path d="M66 135q95 35 189 0v26H66z" fill="#1A4F8E" stroke="#EEC052" stroke-width="4"/>
-            <text x="160" y="119" text-anchor="middle" font-family="Great Vibes, cursive" font-size="43" fill="#FFE7A3">A&amp;A</text>
-            <circle cx="267" cy="69" r="3.5"/><path d="M245 65l-38-27 15 43z" fill="#737776"/>
-            <g><circle cx="119" cy="20" r="14" fill="#AC7359"/><path d="M105 4q15-19 29 1" fill="#B6194C"/><path d="M104 34h31l13 42H91z" fill="#F1E7D9"/></g>
+          <g id="baraat-horse" class="scene-horse" transform="translate(45 120) scale(.78)">
+            <path d="M72 105Q28 73 18 122q17-22 48 4" fill="none" stroke="#E9E1D2" stroke-width="12" stroke-linecap="round"/>
+            <ellipse cx="150" cy="112" rx="83" ry="43" fill="#EEE7D9" stroke="#8B715D" stroke-width="4"/>
+            <path d="M204 99q16-63 55-65 30-1 33 25-5 25-30 30l-18 35z" fill="#EEE7D9" stroke="#8B715D" stroke-width="4"/>
+            <path d="M257 36l-1-17 13 16M276 38l10-15 2 22" fill="#EEE7D9" stroke="#8B715D" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M247 45q-19 37-20 73" fill="none" stroke="#8D5A3B" stroke-width="11" stroke-linecap="round"/>
+            <g fill="#E9E1D2" stroke="#8B715D" stroke-width="4"><path d="M94 137h24l-4 74H91z"/><path d="M174 137h24l11 74h-24z"/></g>
+            <g fill="#6E5547"><ellipse cx="102" cy="211" rx="17" ry="7"/><ellipse cx="198" cy="211" rx="17" ry="7"/></g>
+            <path d="M79 83q72-35 147 3l-20 67H88z" fill="#A71651" stroke="#EEC052" stroke-width="6"/>
+            <path d="M91 108q57 26 116 0v38q-58 22-116 0z" fill="#1A4F8E" stroke="#EEC052" stroke-width="4"/>
+            <path d="M232 70q25 13 54 0M238 79q20 10 42 0" fill="none" stroke="#D39A25" stroke-width="3"/>
+            <circle cx="274" cy="53" r="3.5" fill="#241D1A"/>
+            <g id="baraat-groom" transform="translate(112 -22) scale(.88)">
+              <circle cx="48" cy="27" r="14" fill="#B97858"/>
+              <path d="M31 22q17-28 35 0l-5 10H36z" fill="#B01850" stroke="#EEC052" stroke-width="3"/>
+              <path d="M35 42h29l9 64H24z" fill="#F5E8CC" stroke="#CFA84F" stroke-width="3"/>
+              <path d="M49 43v61M35 59h29" stroke="#D5A74A" stroke-width="2"/>
+              <path d="M28 52L5 87M67 53l34 28" stroke="#F5E8CC" stroke-width="8" stroke-linecap="round"/>
+              <path d="M99 80l30 18" stroke="#7B4F39" stroke-width="5" stroke-linecap="round"/>
+              <path d="M35 101L9 137M62 101l34 31" stroke="#F5E8CC" stroke-width="12" stroke-linecap="round"/>
+              <path d="M4 139h19M90 134h20" stroke="#7A4A32" stroke-width="6" stroke-linecap="round"/>
+              <circle cx="60" cy="17" r="4" fill="#EEC052"/>
+            </g>
           </g>
           <g id="baraat-drums" transform="translate(16 240)"><ellipse cx="35" cy="24" rx="27" ry="9" fill="#E0A65A" stroke="#6F3B34" stroke-width="3"/><path d="M8 24v42q27 14 54 0V24" fill="#B8583B" stroke="#6F3B34" stroke-width="3"/><path d="M15 34l40 24M55 34L15 58" stroke="#F1C875" stroke-width="3"/></g>
           <g id="baraat-flowers" fill="#F29CB6"><circle cx="286" cy="270" r="22"/><circle cx="323" cy="250" r="18"/><circle cx="342" cy="284" r="24"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">What to expect</span>Band, lights and the groom's procession into Aamantran.</p>
+          <p><span class="label">What to expect</span>Band, lights and the groom's horse procession into Aamantran.</p>
           <p><span class="label">Attire</span><span class="fill">[dress code]</span></p>
         </footer>
       </article>
@@ -2721,11 +2768,30 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
             <g class="scene-light" fill="#FFE386"><circle cx="13" cy="177" r="5"/><circle cx="38" cy="166" r="5"/><circle cx="68" cy="172" r="5"/><circle cx="104" cy="128" r="5"/><circle cx="137" cy="170" r="5"/><circle cx="177" cy="169" r="5"/><circle cx="225" cy="102" r="5"/><circle cx="257" cy="88" r="5"/><circle cx="289" cy="102" r="5"/><circle cx="326" cy="171" r="5"/></g>
           </g>
           <g id="reception-chandeliers" class="scene-sway" color="#F8D778"><use href="#chandelierSym" x="226" y="129" width="62" height="78"/><use href="#chandelierSym" x="48" y="183" width="40" height="52"/><use href="#chandelierSym" x="144" y="191" width="40" height="52"/></g>
-          <g id="reception-balcony-flowers"><path d="M178 256q46-67 104-56M176 275q78-36 174-13" fill="none" stroke="#387B48" stroke-width="8"/><g fill="#EC87AA"><circle cx="218" cy="231" r="14"/><circle cx="244" cy="211" r="16"/><circle cx="274" cy="209" r="13"/><circle cx="303" cy="252" r="16"/><circle cx="335" cy="261" r="14"/></g></g>
+          <g id="reception-varmala" transform="translate(44 140)">
+            <ellipse cx="136" cy="128" rx="118" ry="17" fill="#8E5C45" opacity=".82"/>
+            <path d="M24 128h224l-18 17H42z" fill="#C39355" stroke="#F1CF78" stroke-width="3"/>
+            <g id="reception-bride" transform="translate(48 6)">
+              <circle cx="42" cy="26" r="12" fill="#B97858"/>
+              <path d="M30 23q12-22 25 0l-2 20H32z" fill="#251827"/>
+              <path d="M28 42h28l8 44H20z" fill="#A71959" stroke="#F0C965" stroke-width="3"/>
+              <path d="M20 82q22-17 44 0l26 47H-6z" fill="#B51F61" stroke="#F0C965" stroke-width="4"/>
+              <path d="M27 52l45 23" stroke="#B97858" stroke-width="6" stroke-linecap="round"/>
+            </g>
+            <g id="reception-groom" transform="translate(150 7)">
+              <circle cx="35" cy="25" r="12" fill="#B97858"/>
+              <path d="M21 20q14-23 29 0l-4 8H25z" fill="#A71959" stroke="#F0C965" stroke-width="2.5"/>
+              <path d="M22 41h28l10 88H12z" fill="#F4E7CF" stroke="#D6B65C" stroke-width="3"/>
+              <path d="M23 53L-7 76" stroke="#F4E7CF" stroke-width="8" stroke-linecap="round"/>
+            </g>
+            <path d="M76 62q54 54 108 0M80 66q50 43 100 0" fill="none" stroke="#F1AA2F" stroke-width="5" stroke-linecap="round"/>
+            <g fill="#F4C343"><circle cx="87" cy="75" r="5"/><circle cx="103" cy="87" r="5"/><circle cx="121" cy="94" r="5"/><circle cx="139" cy="94" r="5"/><circle cx="157" cy="86" r="5"/><circle cx="173" cy="74" r="5"/></g>
+          </g>
+          <g id="reception-balcony-flowers" transform="translate(70 18) scale(.82)"><path d="M178 256q46-67 104-56M176 275q78-36 174-13" fill="none" stroke="#387B48" stroke-width="8"/><g fill="#EC87AA"><circle cx="218" cy="231" r="14"/><circle cx="244" cy="211" r="16"/><circle cx="274" cy="209" r="13"/><circle cx="303" cy="252" r="16"/><circle cx="335" cy="261" r="14"/></g></g>
           <g id="reception-lanterns" color="#F9D980"><use href="#lanternSym" x="18" y="52" width="30" height="78"/><use href="#lanternSym" x="312" y="42" width="30" height="78"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">What to expect</span>Dinner, drinks and a late night in the lit palace court.</p>
+          <p><span class="label">What to expect</span>Varmala garland ceremony, dinner, drinks and a late night in the lit palace court.</p>
           <p><span class="label">Attire</span><span class="fill">[dress code]</span></p>
         </footer>
       </article>
@@ -3536,6 +3602,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   var verticalCards = verticalDeck ? Array.prototype.slice.call(verticalDeck.querySelectorAll(".event-poster")) : [];
   var verticalStages = [];
   var verticalRaf = 0;
+  var verticalLastY = window.scrollY || 0;
+  var verticalDirection = 1;
   function clamp01(n){ return Math.max(0,Math.min(1,n)); }
   if(verticalDeck && document.body.classList.contains("vertical-functions")){
     verticalCards.forEach(function(card){
@@ -3560,13 +3628,18 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     if(!verticalStages.length) return;
     var vh = window.innerHeight || 800;
     var top = window.innerWidth <= 832 ? 62 : 70;
+    var y = window.scrollY || 0;
+    if(y > verticalLastY + .5){ verticalDirection = 1; }
+    else if(y < verticalLastY - .5){ verticalDirection = -1; }
+    verticalLastY = y;
     for(var i=0;i<verticalCards.length;i++){
       var card = verticalCards[i];
-      var stageRect = verticalStages[i].getBoundingClientRect();
+      var stage = verticalStages[i];
+      var stageRect = stage.getBoundingClientRect();
       var cardHeight = card.offsetHeight;
-      /* Grow across the final 55% of the viewport before pinning. Stay at 1
-         while the chapter is being read, then recede over the last 30% of the
-         chapter as the next poster rises. */
+      /* Incoming cards sit on top while scrolling down; previous cards sit on
+         top while scrolling back up. The former fixed stack only worked down. */
+      stage.style.zIndex = String(verticalDirection > 0 ? i + 1 : verticalCards.length - i);
       var entering = clamp01((vh*.9 - stageRect.top) / (vh*.55));
       var leaving = clamp01((stageRect.bottom - top - cardHeight) / (vh*.3));
       if(i === verticalCards.length-1){ leaving = 1; }
@@ -3576,6 +3649,14 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       card.style.setProperty("--event-shift",((1-focus)*20).toFixed(1)+"px");
       card.style.setProperty("--event-sat",(.66 + focus*.34).toFixed(3));
       card.style.setProperty("--event-light",(.84 + focus*.16).toFixed(3));
+      /* Handoff intensity depends only on geometry, so it is symmetric and
+         cannot remain stuck after the user reverses direction. */
+      var transition = stage.querySelector(".scene-transition");
+      if(transition){
+        var handoffLine = top + cardHeight;
+        var handoff = clamp01(1 - Math.abs(stageRect.bottom - handoffLine) / (vh*.28));
+        transition.style.setProperty("--handoff",handoff.toFixed(3));
+      }
     }
   }
   function queueVerticalFunctions(){
