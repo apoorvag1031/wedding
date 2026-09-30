@@ -10,11 +10,15 @@ compared on a real phone.
 
 ## How it works
 
-Each file is completely self-contained: all artwork is inline SVG and CSS, so
-there are no images to upload and nothing to build. The only external request is
-to Google Fonts. Editing is a matter of opening the file in any text editor.
+There is nothing to build. `index.html` holds the layout, text and animation;
+its illustrations (palace, elephant, flowers, horses, chandeliers, the Sangeet
+scene and the Reception couple) are transparent WebP files in `assets/`, so that
+folder must be uploaded alongside it. `v2.html` is still all inline SVG and CSS.
+The only external request is to Google Fonts. Editing is a matter of opening the
+file in any text editor.
 
-Roughly 47 KB compressed per page, which is what a guest actually downloads.
+A guest downloads roughly 54 KB of compressed page plus 1.4 MB of artwork
+(19 WebP files).
 
 ## Publishing
 
@@ -34,8 +38,7 @@ URL to share stays the same.
 
 - Pheras time
 - Venue spelling, Aamantran or Aamanatran
-- Parents' names
-- Dress code per function
+- Baraat dress code
 - Google Maps link
 - Contact phone numbers
 - Devanagari proofread
