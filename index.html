@@ -2206,7 +2206,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 }
 .card-mandala .md-lines>*{stroke:currentColor;stroke-width:1.1;stroke-dasharray:1;stroke-dashoffset:1}
 .card-mandala .md-dots{fill:#F2A03D;opacity:0}
-.card-in .card-mandala{animation:mandalaSeal 1.9s ease .1s forwards}
+.card-mandala{display:none!important}   /* flourish retired; the cusped arch stays */
 .card-in .card-mandala .md-lines>*{animation:mandalaDraw .95s cubic-bezier(.4,0,.2,1) .15s forwards}
 .card-in .card-mandala .md-dots{animation:mandalaDots .5s ease .75s forwards}
 @keyframes mandalaSeal{0%{opacity:0;scale:.72}18%{opacity:1}62%{opacity:1;scale:1}100%{opacity:0;scale:1.12}}
@@ -4109,7 +4109,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       /* Function posters have their own continuous geometry. The generic page
          reveal's translateY(34px) must never compete with that transform. */
       card.classList.add("in");
-      if(!card.querySelector(".card-mandala")){ card.insertAdjacentHTML("beforeend", CARD_MANDALA); }
       var stage = document.createElement("div");
       stage.className = "event-stage";
       verticalDeck.insertBefore(stage,card);
@@ -4294,28 +4293,58 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       if(!name){ status.textContent = "Please add your full name."; rf.elements.name.focus(); return; }
       if(!chosen.length && !decline.checked){ status.textContent = "Pick the functions you can join, or let us know you can't make it."; return; }
       if(!RSVP_CONFIG.action){ status.textContent = "RSVP isn't connected yet. Please reach out to the family directly."; return; }
-      var body = new URLSearchParams();
-      body.append(RSVP_CONFIG.fields.name, name);
-      (decline.checked ? ["Not attending"] : chosen).forEach(function(v){ body.append(RSVP_CONFIG.fields.events, v); });
-      body.append(RSVP_CONFIG.fields.guests, decline.checked ? "0" : String(guests));
+      var pairs = [[RSVP_CONFIG.fields.name, name]];
+      (decline.checked ? ["Not attending"] : chosen).forEach(function(v){ pairs.push([RSVP_CONFIG.fields.events, v]); });
+      pairs.push([RSVP_CONFIG.fields.guests, decline.checked ? "0" : String(guests)]);
       var btn = rf.querySelector("button[type=submit]");
       btn.disabled = true; btn.textContent = "Sending\u2026"; status.textContent = "";
-      /* Google Forms sends no CORS headers, so the response is opaque:
-         a resolved request is the success signal, a network error is not. */
-      fetch(RSVP_CONFIG.action, { method: "POST", mode: "no-cors", body: body })
-        .then(function(){
-          var first = name.split(/\s+/)[0];
-          var t = document.getElementById("rsvpThanks");
-          t.querySelector("h3").textContent = decline.checked ? "We'll miss you, " + first + "." : "Thank you, " + first + "!";
-          t.querySelector("p").textContent = decline.checked
-            ? "Thank you for letting us know. You'll be in our thoughts on the day."
-            : "We've saved " + (guests === 1 ? "a place" : guests + " places") + " for you at the " + (chosen.length > 1 ? chosen.slice(0, -1).join(", ") + " and " + chosen[chosen.length - 1] : chosen[0]) + ". See you in Jaipur.";
-          rf.hidden = true; t.hidden = false; t.focus();
-        })
-        .catch(function(){
-          btn.disabled = false; btn.textContent = "Send RSVP";
-          status.textContent = "That didn't go through. Please check your connection and try again.";
-        });
+      function thanks(){
+        var first = name.split(/\s+/)[0];
+        var t = document.getElementById("rsvpThanks");
+        t.querySelector("h3").textContent = decline.checked ? "We'll miss you, " + first + "." : "Thank you, " + first + "!";
+        t.querySelector("p").textContent = decline.checked
+          ? "Thank you for letting us know. You'll be in our thoughts on the day."
+          : "We've saved " + (guests === 1 ? "a place" : guests + " places") + " for you at the " + (chosen.length > 1 ? chosen.slice(0, -1).join(", ") + " and " + chosen[chosen.length - 1] : chosen[0]) + ". See you in Jaipur.";
+        rf.hidden = true; t.hidden = false; t.focus();
+      }
+      function fallback(){
+        /* the page could not confirm delivery: hand the guest the same answers
+           pre-filled in Google's own form, so an RSVP is never lost */
+        var q = pairs.map(function(kv){ return encodeURIComponent(kv[0]) + "=" + encodeURIComponent(kv[1]); }).join("&");
+        var url = RSVP_CONFIG.action.replace(/formResponse$/, "viewform") + "?usp=pp_url&" + q;
+        btn.disabled = false; btn.textContent = "Send RSVP";
+        status.innerHTML = "";
+        status.appendChild(document.createTextNode("We couldn't confirm that went through. "));
+        var a = document.createElement("a");
+        a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Send it on Google Forms instead";
+        a.style.color = "#E8CE7A";
+        status.appendChild(a);
+      }
+      /* A plain HTML form post into a hidden frame. fetch() to Google Forms
+         could hang on some phone browsers (Brave on iOS among them), leaving
+         the button on "Sending" for good. A form post is what Google Forms
+         is built for, and the frame's load event tells us the reply arrived. */
+      var sink = document.getElementById("rsvpSink");
+      if(!sink){
+        sink = document.createElement("iframe");
+        sink.name = sink.id = "rsvpSink"; sink.title = "RSVP delivery"; sink.hidden = true; sink.tabIndex = -1;
+        sink.setAttribute("aria-hidden","true");
+        document.body.appendChild(sink);
+      }
+      var post = document.createElement("form");
+      post.method = "POST"; post.action = RSVP_CONFIG.action; post.target = "rsvpSink"; post.hidden = true;
+      pairs.forEach(function(kv){
+        var i = document.createElement("input"); i.type = "hidden"; i.name = kv[0]; i.value = kv[1]; post.appendChild(i);
+      });
+      document.body.appendChild(post);
+      var settled = false;
+      var timer = setTimeout(function(){ if(!settled){ settled = true; fallback(); } }, 12000);
+      /* attach after a tick so the blank frame's own first load is not mistaken for the reply */
+      setTimeout(function(){
+        sink.onload = function(){ if(settled) return; settled = true; clearTimeout(timer); thanks(); };
+        post.submit();
+        setTimeout(function(){ post.remove(); }, 1000);
+      }, 60);
     });
   }
 
