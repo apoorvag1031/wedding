@@ -1102,7 +1102,7 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
    last panel does not sit on the same plum as everything else */
 .night{background:linear-gradient(180deg,var(--night) 0%,#0A1530 58%,#180C26 100%)}
 /* and the footer continues down out of it rather than jumping hue */
-footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
+footer{background:linear-gradient(180deg,var(--plum) 0%,#2A0A2C 38%,#180C26 68%,#0B1026 100%)}   /* plum under the chhatris, settling into deep navy at the foot */
 
 /* a CSS-only star field: no DOM, no JS, three sizes of dot */
 .starry{
@@ -2236,6 +2236,31 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 @media (max-width:52rem){
   .hero-scene #hero-palace-art{transform-box:view-box;transform-origin:600px 668px;transform:scale(var(--palace-k,.8))}
 }
+/* 17. Jaipur postcards on a phone: two to a row, so six places are three
+   short rows rather than six long ones. The stamp shrinks into the corner
+   and the message sits under the place name. */
+@media (max-width:44rem){
+  .info.sights{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+  .info.sights article.postcard.mini,
+  .info.sights article.postcard.mini:nth-child(even){
+    display:block;position:relative;padding:.85rem .8rem .9rem;text-align:left;rotate:-.5deg;border-width:6px;
+  }
+  .info.sights article.postcard.mini:nth-child(even){rotate:.6deg}
+  .info.sights .postcard.mini .msg{padding:0;border:0}
+  .info.sights .postcard.mini h4{font-size:.98rem;line-height:1.2;padding-right:40px;min-height:2.4em}
+  .info.sights .postcard.mini p{font-size:.8rem;line-height:1.45;margin-top:.35rem}
+  .info.sights .postcard.mini .stamp{position:absolute;top:.55rem;right:.5rem;width:34px;padding:.3rem .2rem;gap:0;outline-width:1.5px;outline-offset:2px}
+  .info.sights .postcard.mini .stamp .ic{width:22px}
+  .info.sights .postcard.mini .stamp span{display:none}
+}
+
+/* 18. Hero type: the ampersand sits optically midway between the two names
+   (the descender of the p in Apoorv pulled it upward), and शुभ विवाह gets
+   breathing room under the nav. */
+.hero-names-editorial i{translate:0 .22em}
+.hero-copy .eyebrow{margin-top:.6rem}
+@media (max-width:52rem){.hero-copy .eyebrow{margin-top:.95rem}}
+
 </style>
 </head>
 <body class="primary-edition">
@@ -2499,6 +2524,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     </pattern>
     <pattern id="pChhatriTeal" width="106" height="104" patternUnits="userSpaceOnUse">
       <use href="#chhatri" x="5" y="8" width="96" height="96" fill="#0A5654"/>
+    </pattern>
+    <pattern id="pChhatriNight" width="106" height="104" patternUnits="userSpaceOnUse">
+      <use href="#chhatri" x="5" y="8" width="96" height="96" fill="#180C26"/>
+    </pattern>
+    <pattern id="pChhatriCream" width="106" height="104" patternUnits="userSpaceOnUse">
+      <use href="#chhatri" x="5" y="8" width="96" height="96" fill="#FDF6E8"/>
     </pattern>
     <pattern id="pChhatriPlum" width="106" height="104" patternUnits="userSpaceOnUse">
       <use href="#chhatri" x="5" y="8" width="96" height="96" fill="#4A0E2E"/>
@@ -3468,6 +3499,126 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   </svg>
 </div>
 
+<!-- ============================ RSVP ============================
+     Built as the film's Reception frame: deep starry navy, velvet curtains
+     framing both sides, festoon bulbs and lanterns overhead, fireflies in the
+     air, and the text set LEFT rather than centred. -->
+<section id="rsvp" class="on-dark night center clipped">
+  <div class="starry" aria-hidden="true" style="position:absolute;inset:0;opacity:.7;z-index:0"></div>
+
+  <!-- velvet swags down both sides -->
+  <div class="curtains" aria-hidden="true">
+    <svg class="l" viewBox="0 0 160 420" preserveAspectRatio="xMinYMin slice"><use href="#curtainSym"/></svg>
+    <svg class="r" viewBox="0 0 160 420" preserveAspectRatio="xMinYMin slice"><use href="#curtainSym"/></svg>
+  </div>
+
+  <!-- festoon bulbs on a sagging wire, two offset tiles so the string
+       twinkles in two phases without one DOM node per bulb -->
+  <div class="festoon" aria-hidden="true">
+    <svg>
+      <rect x="-20" width="130%" height="100%" fill="url(#pFestoon)"/>
+      <rect class="bulb" x="-20" width="130%" height="100%" fill="url(#pFestoonAlt)"/>
+    </svg>
+  </div>
+
+  <div class="hangers" aria-hidden="true" style="height:210px">
+    <svg class="chand c" viewBox="0 0 80 100" style="width:clamp(40px,10vw,66px)"><use href="#chandelierSym"/></svg>
+    <svg class="lantern" viewBox="0 0 48 104" style="left:18%;margin-top:14px"><use href="#lanternSym"/></svg>
+    <svg class="lantern" viewBox="0 0 48 104" style="left:30%;margin-top:42px;animation-duration:8.5s;animation-delay:-2s"><use href="#lanternSym"/></svg>
+    <svg class="lantern" viewBox="0 0 48 104" style="right:18%;margin-top:26px;animation-duration:6.2s;animation-delay:-3s"><use href="#lanternSym"/></svg>
+    <svg class="lantern" viewBox="0 0 48 104" style="right:31%;margin-top:56px;animation-duration:9.4s;animation-delay:-1s"><use href="#lanternSym"/></svg>
+  </div>
+
+  <!-- fireflies in the air, and embers drifting up off the diyas -->
+  <div class="flies" id="flies" aria-hidden="true"></div>
+  <div class="embers" id="embers" aria-hidden="true"></div>
+
+  <div class="narrow framed" style="position:relative;z-index:2;padding:clamp(2rem,6vw,3.5rem);background:rgba(6,12,32,.55);margin-top:3.5rem">
+    <svg class="corner"><use href="#cnr"/></svg><svg class="corner"><use href="#cnr"/></svg>
+    <svg class="corner"><use href="#cnr"/></svg><svg class="corner"><use href="#cnr"/></svg>
+
+    <!-- entrance variant: set LEFT against a gold spine, as the film sets its
+         Reception card, so the last panel does not repeat the centred stack -->
+    <div class="head-left reveal">
+      <div class="poetic">
+        <span class="phrase deva">आपकी प्रतीक्षा रहेगी</span>
+        <span class="roman" style="color:#E8D6C0">Say you&rsquo;ll be there</span>
+      </div>
+      <h2 class="title display sheen reveal" style="margin-top:.4rem">RSVP</h2>
+    </div>
+
+    <p class="reveal d2" style="color:#EEDFCB;margin-top:1.1rem">
+      Let us know which functions you will join us for, so we can plan properly.
+    </p>
+    <form class="rsvp-form reveal d3" id="rsvpForm" novalidate>
+      <div class="field">
+        <label class="lbl" for="rsvpName">Full name</label>
+        <input type="text" id="rsvpName" name="name" autocomplete="name" required placeholder="Your full name">
+      </div>
+      <fieldset class="field">
+        <legend>Joining us for</legend>
+        <div class="rsvp-chips">
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Maayra"><span>Maayra<small>Wed · 10 AM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Sangeet"><span>Sangeet<small>Wed · 7 PM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Haldi"><span>Haldi<small>Thu · 11 AM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Reception"><span>Reception<small>Thu · 8 PM</small></span></label>
+          <label class="rsvp-chip decline"><input type="checkbox" name="decline" value="Not attending"><span>Sadly can&rsquo;t make it</span></label>
+        </div>
+      </fieldset>
+      <div class="rsvp-row">
+        <div class="field rsvp-guests">
+          <span class="lbl" id="rsvpGuestsLbl">Guests, including you</span>
+          <div class="rsvp-step" role="group" aria-labelledby="rsvpGuestsLbl">
+            <button type="button" data-step="-1" aria-label="One fewer guest">&minus;</button>
+            <output id="rsvpGuests" aria-live="polite">1</output>
+            <button type="button" data-step="1" aria-label="One more guest">+</button>
+          </div>
+        </div>
+        <button class="btn" type="submit">Send RSVP</button>
+      </div>
+      <div class="rsvp-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <p class="rsvp-status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="rsvp-thanks" id="rsvpThanks" hidden tabindex="-1">
+      <h3></h3>
+      <p></p>
+    </div>
+    <p class="reveal d3" style="margin-top:1.25rem;font-size:.8rem;color:#C6A98F">
+      Or reach us on <a class="rsvp-tel" href="tel:+919828017487">+91 98280 17487</a>
+      or <a class="rsvp-tel" href="tel:+919818195741">+91 98181 95741</a>
+    </p>
+
+    <!-- three diyas. Each flame has its own duration and offset, so they never
+         pulse in unison, and the embers above rise off them. -->
+    <div class="diyas" aria-hidden="true">
+      <svg viewBox="0 0 64 60">
+        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
+        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
+        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
+        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
+      </svg>
+      <svg viewBox="0 0 64 60">
+        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
+        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
+        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
+        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
+      </svg>
+      <svg viewBox="0 0 64 60">
+        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
+        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
+        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
+        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- the roofline again, cream on the night sky: the RSVP panel sets over the
+     rooftops and the postcards open onto a Jaipur morning below it -->
+<div class="band" style="height:104px;background:#180C26" aria-hidden="true">
+  <svg><rect x="-40" width="130%" height="100%" fill="url(#pChhatriCream)"/></svg>
+</div>
+
 <!-- ============================ STAY ============================ -->
 <section id="stay" class="center tex-paper clipped">
   <div class="petals" id="petals" aria-hidden="true"></div>
@@ -3549,125 +3700,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   </div>
 </section>
 
-<!-- chhatri roofline again, rising into the dark RSVP panel and bleeding up into
-     the section above so its foot is sky rather than flat ground -->
+<!-- chhatri roofline rising out of the Jaipur postcards into the plum footer, whose top matches them,
+     bleeding up into the section above so its foot is sky rather than flat ground -->
 <div class="band bleed" style="height:104px;background:var(--cream)" aria-hidden="true">
   <svg><rect x="-40" width="130%" height="100%" fill="url(#pChhatriPlum)"/></svg>
 </div>
 
-<!-- ============================ RSVP ============================
-     Built as the film's Reception frame: deep starry navy, velvet curtains
-     framing both sides, festoon bulbs and lanterns overhead, fireflies in the
-     air, and the text set LEFT rather than centred. -->
-<section id="rsvp" class="on-dark night center clipped">
-  <div class="starry" aria-hidden="true" style="position:absolute;inset:0;opacity:.7;z-index:0"></div>
-
-  <!-- velvet swags down both sides -->
-  <div class="curtains" aria-hidden="true">
-    <svg class="l" viewBox="0 0 160 420" preserveAspectRatio="xMinYMin slice"><use href="#curtainSym"/></svg>
-    <svg class="r" viewBox="0 0 160 420" preserveAspectRatio="xMinYMin slice"><use href="#curtainSym"/></svg>
-  </div>
-
-  <!-- festoon bulbs on a sagging wire, two offset tiles so the string
-       twinkles in two phases without one DOM node per bulb -->
-  <div class="festoon" aria-hidden="true">
-    <svg>
-      <rect x="-20" width="130%" height="100%" fill="url(#pFestoon)"/>
-      <rect class="bulb" x="-20" width="130%" height="100%" fill="url(#pFestoonAlt)"/>
-    </svg>
-  </div>
-
-  <div class="hangers" aria-hidden="true" style="height:210px">
-    <svg class="chand c" viewBox="0 0 80 100" style="width:clamp(40px,10vw,66px)"><use href="#chandelierSym"/></svg>
-    <svg class="lantern" viewBox="0 0 48 104" style="left:18%;margin-top:14px"><use href="#lanternSym"/></svg>
-    <svg class="lantern" viewBox="0 0 48 104" style="left:30%;margin-top:42px;animation-duration:8.5s;animation-delay:-2s"><use href="#lanternSym"/></svg>
-    <svg class="lantern" viewBox="0 0 48 104" style="right:18%;margin-top:26px;animation-duration:6.2s;animation-delay:-3s"><use href="#lanternSym"/></svg>
-    <svg class="lantern" viewBox="0 0 48 104" style="right:31%;margin-top:56px;animation-duration:9.4s;animation-delay:-1s"><use href="#lanternSym"/></svg>
-  </div>
-
-  <!-- fireflies in the air, and embers drifting up off the diyas -->
-  <div class="flies" id="flies" aria-hidden="true"></div>
-  <div class="embers" id="embers" aria-hidden="true"></div>
-
-  <div class="narrow framed" style="position:relative;z-index:2;padding:clamp(2rem,6vw,3.5rem);background:rgba(6,12,32,.55);margin-top:3.5rem">
-    <svg class="corner"><use href="#cnr"/></svg><svg class="corner"><use href="#cnr"/></svg>
-    <svg class="corner"><use href="#cnr"/></svg><svg class="corner"><use href="#cnr"/></svg>
-
-    <!-- entrance variant: set LEFT against a gold spine, as the film sets its
-         Reception card, so the last panel does not repeat the centred stack -->
-    <div class="head-left reveal">
-      <div class="poetic">
-        <span class="phrase deva">आपका इंतज़ार है</span>
-        <span class="roman" style="color:#E8D6C0">Kindly respond</span>
-      </div>
-      <h2 class="title display sheen reveal" style="margin-top:.4rem">RSVP</h2>
-    </div>
-
-    <p class="reveal d2" style="color:#EEDFCB;margin-top:1.1rem">
-      Let us know which functions you will join us for, so we can plan properly.
-    </p>
-    <form class="rsvp-form reveal d3" id="rsvpForm" novalidate>
-      <div class="field">
-        <label class="lbl" for="rsvpName">Full name</label>
-        <input type="text" id="rsvpName" name="name" autocomplete="name" required placeholder="Your full name">
-      </div>
-      <fieldset class="field">
-        <legend>Joining us for</legend>
-        <div class="rsvp-chips">
-          <label class="rsvp-chip"><input type="checkbox" name="events" value="Maayra"><span>Maayra<small>Wed · 10 AM</small></span></label>
-          <label class="rsvp-chip"><input type="checkbox" name="events" value="Sangeet"><span>Sangeet<small>Wed · 7 PM</small></span></label>
-          <label class="rsvp-chip"><input type="checkbox" name="events" value="Haldi"><span>Haldi<small>Thu · 11 AM</small></span></label>
-          <label class="rsvp-chip"><input type="checkbox" name="events" value="Reception"><span>Reception<small>Thu · 8 PM</small></span></label>
-          <label class="rsvp-chip decline"><input type="checkbox" name="decline" value="Not attending"><span>Sadly can&rsquo;t make it</span></label>
-        </div>
-      </fieldset>
-      <div class="rsvp-row">
-        <div class="field rsvp-guests">
-          <span class="lbl" id="rsvpGuestsLbl">Guests, including you</span>
-          <div class="rsvp-step" role="group" aria-labelledby="rsvpGuestsLbl">
-            <button type="button" data-step="-1" aria-label="One fewer guest">&minus;</button>
-            <output id="rsvpGuests" aria-live="polite">1</output>
-            <button type="button" data-step="1" aria-label="One more guest">+</button>
-          </div>
-        </div>
-        <button class="btn" type="submit">Send RSVP</button>
-      </div>
-      <div class="rsvp-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      <p class="rsvp-status" role="status" aria-live="polite"></p>
-    </form>
-    <div class="rsvp-thanks" id="rsvpThanks" hidden tabindex="-1">
-      <h3></h3>
-      <p></p>
-    </div>
-    <p class="reveal d3" style="margin-top:1.25rem;font-size:.8rem;color:#C6A98F">
-      Or reach us on <a class="rsvp-tel" href="tel:+919828017487">+91 98280 17487</a>
-      or <a class="rsvp-tel" href="tel:+919818195741">+91 98181 95741</a>
-    </p>
-
-    <!-- three diyas. Each flame has its own duration and offset, so they never
-         pulse in unison, and the embers above rise off them. -->
-    <div class="diyas" aria-hidden="true">
-      <svg viewBox="0 0 64 60">
-        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
-        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
-        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
-        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
-      </svg>
-      <svg viewBox="0 0 64 60">
-        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
-        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
-        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
-        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
-      </svg>
-      <svg viewBox="0 0 64 60">
-        <ellipse class="halo" cx="32" cy="22" rx="26" ry="28" fill="url(#halo)"/>
-        <path class="flame" d="M32 28c-7-7-4-16 0-22 4 6 9 15 0 22z" fill="#F9C349"/>
-        <path class="flame" d="M32 28c-3.5-4-2-9 0-12 2 3 4 8 0 12z" fill="#FFF3D0"/>
-        <g transform="translate(0 23)"><use href="#diyaLamp"/></g>
-      </svg>
-    </div>
-  </div>
-</section>
 
 <!-- =========================== FOOTER =========================== -->
 <footer>
@@ -4328,7 +4366,18 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         a.style.color = "#E8CE7A";
         status.appendChild(a);
       }
-      /* A plain HTML form post into a hidden frame. fetch() to Google Forms
+      /* First choice: navigator.sendBeacon. The browser queues the post and
+         delivers it on its own, independent of any frame or CORS reply, which
+         is the one path that has proved dependable on phone browsers. Only if
+         the browser refuses to queue it do we fall back to the frame below. */
+      if(navigator.sendBeacon){
+        var beacon = new URLSearchParams();
+        pairs.forEach(function(kv){ beacon.append(kv[0], kv[1]); });
+        var queued = false;
+        try { queued = navigator.sendBeacon(RSVP_CONFIG.action, beacon); } catch(e){ queued = false; }
+        if(queued){ setTimeout(thanks, 450); return; }
+      }
+      /* Fallback: a plain HTML form post into a hidden frame. fetch() to Google Forms
          could hang on some phone browsers (Brave on iOS among them), leaving
          the button on "Sending" for good. A form post is what Google Forms
          is built for, and the frame's load event tells us the reply arrived. */
@@ -4346,7 +4395,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       });
       document.body.appendChild(post);
       var settled = false;
-      var timer = setTimeout(function(){ if(!settled){ settled = true; fallback(); } }, 12000);
+      var timer = setTimeout(function(){ if(!settled){ settled = true; fallback(); } }, 8000);
       /* attach after a tick so the blank frame's own first load is not mistaken for the reply */
       setTimeout(function(){
         sink.onload = function(){ if(settled) return; settled = true; clearTimeout(timer); thanks(); };
