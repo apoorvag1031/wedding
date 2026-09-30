@@ -933,6 +933,7 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
    Posts to a Google Form behind the scenes (see RSVP_CONFIG in the script),
    so responses land in a Google Sheet with no server to run. */
 .rsvp-form{display:grid;gap:1.35rem;margin-top:1.6rem;text-align:left}
+.rsvp-form[hidden],.rsvp-thanks[hidden]{display:none!important}
 .rsvp-form .field{display:grid;gap:.5rem;margin:0;padding:0;border:0;min-width:0}
 .rsvp-form .lbl,.rsvp-form legend{padding:0;font:400 .72rem/1.2 "Marcellus",serif;letter-spacing:.22em;text-transform:uppercase;color:#E8CE7A}
 .rsvp-form input[type=text]{
@@ -2984,9 +2985,9 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <svg class="ic" style="width:34px" aria-hidden="true"><use href="#paisley"/></svg>
       </div>
       <p style="margin:0;max-width:34rem;margin-inline:auto;color:#6B3140">
-        With the blessings of our elders, two families come together as one.
-        Join us in Jaipur on the 25th and 26th of November to shower Apoorv and
-        Arushi with your love as they begin their journey together.
+        With the blessings of our elders, two families become one.
+        Join us in Jaipur on the 25th and 26th of November, and bless Apoorv
+        and Arushi with your love as they begin their life together.
       </p>
     </div>
   </div>
@@ -3274,15 +3275,14 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
       <!-- 06 PHERAS: the reference wedding frame's floral mandap, paired
            chhatris, tiered audience court and sacred fire. -->
-      <article class="event-poster poster-pheras reveal d2" data-event="Pheras" aria-label="Pheras, timing to be confirmed">
+      <article class="event-poster poster-pheras reveal d2" data-event="Pheras" data-start="2026-11-27T00:00:00+05:30" aria-label="Pheras, Thursday 26 November at midnight">
         <span class="poster-number">06</span>
-        <span class="badge">Time to confirm</span>
         <header class="poster-copy">
           <h3 class="poster-title deva">अनन्त मिलन</h3>
           <svg class="poster-ornament" viewBox="0 0 240 16" aria-hidden="true"><use href="#swashSym"/></svg>
           <p class="poster-roman">Pheras</p>
           <p class="poster-date">Thursday, 26<sup class="ord">th</sup> November 2026</p>
-          <p class="poster-time"><span class="fill">[time]</span></p>
+          <p class="poster-time">12:00 Midnight</p>
           <p class="poster-place">Aamantran by Mysore Mahal &middot; Jaipur</p>
         </header>
         <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -3302,7 +3302,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <g id="pheras-fireworks" class="scene-fountain" fill="none" stroke="#E9F4FF" stroke-width="2"><path d="M43 208l-17-27M43 208l3-34M43 208l21-25M317 208l-17-27M317 208l3-34M317 208l21-25"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">Timing</span><span class="fill">[confirm]</span></p>
+          <p><span class="label">Timing</span>After the Reception,<br>under the stars</p>
         </footer>
       </article>
     </div>
@@ -4351,6 +4351,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         t.querySelector("p").textContent = decline.checked
           ? "Thank you for letting us know. You'll be in our thoughts on the day."
           : "We've saved " + (guests === 1 ? "a place" : guests + " places") + " for you at the " + (chosen.length > 1 ? chosen.slice(0, -1).join(", ") + " and " + chosen[chosen.length - 1] : chosen[0]) + ". See you in Jaipur.";
+        btn.disabled = false; btn.textContent = "Send RSVP";
         rf.hidden = true; t.hidden = false; t.focus();
       }
       function fallback(){
@@ -4366,17 +4367,24 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         a.style.color = "#E8CE7A";
         status.appendChild(a);
       }
-      /* First choice: navigator.sendBeacon. The browser queues the post and
-         delivers it on its own, independent of any frame or CORS reply, which
-         is the one path that has proved dependable on phone browsers. Only if
-         the browser refuses to queue it do we fall back to the frame below. */
-      if(navigator.sendBeacon){
-        var beacon = new URLSearchParams();
-        pairs.forEach(function(kv){ beacon.append(kv[0], kv[1]); });
-        var queued = false;
-        try { queued = navigator.sendBeacon(RSVP_CONFIG.action, beacon); } catch(e){ queued = false; }
-        if(queued){ setTimeout(thanks, 450); return; }
-      }
+      /* First choice: fetch in no-cors mode. The reply is opaque, but the
+         promise only resolves once Google has answered, so a resolve means the
+         RSVP landed. sendBeacon is NOT used: Brave treats beacons as tracking
+         pings and silently drops them while still reporting success. A refused
+         fetch means the request was blocked, and a frame post would be blocked
+         too while still firing "load", so go straight to the pre-filled Google
+         Form link. Only a fetch that hangs past 6s falls through to the frame. */
+      var body = new URLSearchParams();
+      pairs.forEach(function(kv){ body.append(kv[0], kv[1]); });
+      var done = false;
+      var ftimer = setTimeout(function(){ if(!done){ done = true; framePost(); } }, 6000);
+      try {
+        fetch(RSVP_CONFIG.action, { method: "POST", mode: "no-cors", body: body, credentials: "omit", keepalive: true })
+          .then(function(){ if(done) return; done = true; clearTimeout(ftimer); thanks(); },
+                function(){ if(done) return; done = true; clearTimeout(ftimer); fallback(); });
+      } catch(e){ if(!done){ done = true; clearTimeout(ftimer); fallback(); } }
+      return;
+      function framePost(){
       /* Fallback: a plain HTML form post into a hidden frame. fetch() to Google Forms
          could hang on some phone browsers (Brave on iOS among them), leaving
          the button on "Sending" for good. A form post is what Google Forms
@@ -4402,6 +4410,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         post.submit();
         setTimeout(function(){ post.remove(); }, 1000);
       }, 60);
+      }
     });
   }
 
