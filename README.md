@@ -71,5 +71,11 @@ URL to share stays the same.
 
 - Jaipur highlights: swap in your own favourites
 - Devanagari proofread
-- `og-card.png`, the WhatsApp link preview image, is currently a stopgap
-  screenshot that includes the site header
+
+## Link preview (WhatsApp, iMessage, Slack)
+
+The preview image is `og-card-v2.jpg` (1200x630), a capture of the hero without
+the nav bar. WhatsApp caches previews for each URL, so when the card changes,
+save it under a new name (`og-card-v3.jpg`), update the four `og-card` URLs at
+the top of `index.html`, and share the link with a fresh query string, e.g.
+`https://apoorvag1031.github.io/wedding/?v=3`.
