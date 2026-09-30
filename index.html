@@ -1911,7 +1911,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
 /* 02. The courtyard starts empty; the procession enters only after the names. */
 .hero-scene .elephant-procession{translate:-105vw 0;opacity:0;animation:none}
-.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 12s cubic-bezier(.18,.52,.28,1) 1.1s both}
+.site-ready .hero-scene .elephant-procession{animation:elephantEntrance 12s cubic-bezier(.3,.3,.55,1) 1.1s both}
 @keyframes elephantEntrance{
   0%{translate:-108vw 2px;opacity:0}
   10%{opacity:1}
@@ -2120,6 +2120,27 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .vertical-functions .poster-baraat .poster-art{
   height:auto;aspect-ratio:360/300;bottom:96px;
 }
+
+/* 11. Functions on a phone, take two: the cards simply flow. Nothing slides
+   over the card you are reading, so its lower half (scene and attire) is
+   always seen in full. Each card only grows from 95% to full size as it rises
+   into view, fully opaque, which holds still wherever the guest stops. */
+.vertical-functions .event-poster,
+.vertical-functions .event-stage>.event-poster{position:relative!important;top:auto!important;margin-bottom:1.4rem}
+.vertical-functions .event-poster{transform-origin:50% 0}
+
+/* 12. Smooth scrolling. Every looping animation inside the hero and poster
+   illustrations lives in one big SVG, so each frame repaints all of its
+   artwork. They pause while the page is moving and whenever the hero is off
+   screen, and the frosted-glass blurs over the hero are dropped. */
+.is-scrolling .hero-scene *:not(.elephant-procession),
+.is-scrolling .poster-art *,
+.hero-away .hero-scene *{animation-play-state:paused!important}
+.hero-scene .hero-still .elephant-gait,.hero-still .hero-scene .elephant-gait,
+.hero-still .hero-scene .ele-leg-a,.hero-still .hero-scene .ele-leg-b{animation:none!important}
+.hero{contain:paint}
+.hero .hero-when,.hero .hero-scroll,.hero .hero-copy.hero-copy-cinematic::before{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.hero .hero-when{background:rgba(255,249,232,.9)}
 
 </style>
 </head>
@@ -4034,18 +4055,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     var vh = window.innerHeight || 800;
     for(var i=0;i<verticalCards.length;i++){
       var card = verticalCards[i];
-      card.style.zIndex = String(i + 1);
-      var next = verticalCards[i+1];
-      var covered = 0;
-      if(next){
-        /* 0 while the next card is still below the fold, 1 once it has fully
-           slid up over this one. A pure function of geometry, so it holds
-           still wherever the guest stops. */
-        var pin = card.getBoundingClientRect().top;
-        var nextTop = next.getBoundingClientRect().top;
-        covered = clamp01((vh - nextTop) / Math.max(1, vh - pin));
-      }
-      card.style.setProperty("--event-scale",(1 - covered*.05).toFixed(4));
+      var top = card.getBoundingClientRect().top;
+      if(top > vh || top < -card.offsetHeight){ continue; }   /* off screen: leave it */
+      /* 0 as the card's top edge enters at the bottom, 1 once it has risen
+         half a screen. A pure function of position, so it never drifts. */
+      var rise = clamp01((vh - top) / (vh*.5));
+      card.style.setProperty("--event-scale",(.95 + rise*.05).toFixed(4));
     }
   }
   function queueVerticalFunctions(){
@@ -4197,6 +4212,30 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         });
     });
   }
+
+  /* ---------- keep scrolling smooth ----------
+     While the page is moving, and whenever the hero is out of view, the
+     looping SVG animations pause (see CSS block 12). Once the elephant has
+     walked in, its legs stop swinging so the hero settles to a still frame. */
+  (function(){
+    var root = document.documentElement, t = 0, heroEl = document.querySelector(".hero");
+    window.addEventListener("scroll", function(){
+      if(!t){ root.classList.add("is-scrolling"); }
+      clearTimeout(t);
+      t = setTimeout(function(){ root.classList.remove("is-scrolling"); t = 0; }, 160);
+    }, {passive:true});
+    if(heroEl && "IntersectionObserver" in window){
+      new IntersectionObserver(function(entries){
+        root.classList.toggle("hero-away", !entries[0].isIntersecting);
+      }).observe(heroEl);
+    }
+    var walker = document.getElementById("hero-elephant");
+    if(walker){
+      walker.addEventListener("animationend", function(ev){
+        if(ev.animationName === "elephantEntrance"){ root.classList.add("hero-still"); }
+      });
+    }
+  })();
 
   /* ---------- guard the unwired buttons so nothing silently no-ops ---------- */
   document.querySelectorAll("[data-maps]").forEach(function(a){
