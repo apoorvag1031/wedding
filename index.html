@@ -45,7 +45,8 @@
   --teal:        #0E7C7B;   /* peacock, the cool counterweight */
   --teal-deep:   #0A5654;
   --indigo:      #1B2A5B;   /* Bagru dabu indigo */
-  --gold:        #C9A227;
+  --gold:        #B08D57;   /* softer antique gilt for text, lines and UI */
+  --gold-bright: #C9A227;   /* the brighter gold, kept for illustration only */
   --gold-lt:     #E8CE7A;
   --cream:       #FDF6E8;   /* handmade paper ground */
   --cream-dp:    #F4E7CC;
@@ -1376,6 +1377,37 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   background:radial-gradient(circle at 50% 38%,#233D6A,#0B1835 58%,#160C27);
 }
 
+/* ---------- 5b. ONE POSTER SYSTEM ----------
+   The six scenes keep their time-of-day colour; everything AROUND the scene
+   is now identical on every card: the same plum mat and gilt hairline, the
+   same numbered medallion, the same ornament and rule, and the same plum
+   footer that the scene fades into. Before this, the light cards (Maayra,
+   Haldi) had a soft cream rim and footer while the night cards had a crisp
+   dark one, so the set read as six different designs. */
+.event-poster{border:1px solid var(--gold)}
+.event-poster::before{
+  inset:0;border-radius:inherit;border:7px solid #3A0A26;
+  box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 4px rgba(58,10,38,.35);
+}
+.event-poster .poster-number{
+  top:17px;left:17px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--gold);background:rgba(58,10,38,.72);color:#F1DDB0;
+  font-size:.62rem;letter-spacing:.04em;
+}
+.event-poster .poster-ornament{color:var(--gold)}
+.event-poster .poster-copy .poster-place{border-top-color:rgba(176,141,87,.55)}
+.event-poster .poster-detail{
+  inset:auto 7px 7px;border-radius:0 0 5px 5px;
+  background:linear-gradient(180deg,#4A0E2E,#2E0719);color:#F6EBD9;
+  border-top:1px solid var(--gold);backdrop-filter:none;
+}
+.event-poster .poster-detail::before{
+  content:"";position:absolute;left:0;right:0;bottom:100%;height:44px;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(46,7,25,.5));
+}
+.event-poster .poster-detail span.label{color:#D9BC84}
+.event-poster .poster-detail .fill{background:rgba(253,246,232,.08)}
+
 .event-dots{display:none;align-items:center;justify-content:center;gap:.48rem;margin:.5rem 0 0}
 .event-dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(232,206,122,.35);transition:.25s;cursor:pointer}
 .event-dot.active{width:22px;border-radius:999px;background:var(--marigold)}
@@ -1674,6 +1706,33 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   font-weight:650;letter-spacing:.035em;text-shadow:none;
 }
 
+
+/* ---------- 01c. GOLDEN HOUR HERO ----------
+   The palace, elephant and flowers are painted in daylight, so rather than a
+   night scene the sky goes to golden hour: plum at the top of the frame, gold
+   behind the palace, and the sun sitting low so it backlights the centre.
+   Remove the hero--golden class on <header> to return to the daylight sky. */
+.hero.hero--golden{background:linear-gradient(180deg,#3A0A26 0%,#B54A66 42%,#F6B46E 72%,#FAD69A 100%)}
+.hero--golden #hero-sky>rect{fill:url(#heroSkyGolden)}
+.hero--golden #hero-sky>circle{fill:url(#heroSunGolden);opacity:1;cx:600px;cy:520px;r:300px}
+.hero--golden #hero-sky .cloud-a{fill:#E88A8C;opacity:.2}
+.hero--golden #hero-sky .cloud-b{fill:#F29A8E;opacity:.2}
+.hero--golden #hero-sky>path{fill:url(#heroHillsGolden);opacity:1}   /* fades out at its foot: no hard band */
+.hero--golden .hero-birds{stroke:#3A0F24;opacity:.55}
+.hero--golden .hero-mist g{fill:#FFE2C4}
+.hero--golden .hero-copy.hero-copy-cinematic::before{
+  background:radial-gradient(ellipse at 50% 46%,rgba(58,10,38,.34) 0%,rgba(58,10,38,.18) 45%,transparent 76%);
+  backdrop-filter:none;
+}
+.hero--golden .hero-copy .eyebrow{color:#F6CF7E;text-shadow:0 1px 8px rgba(40,6,24,.5)}
+.hero--golden .hero-names-editorial{
+  color:#FFF1D6;
+  text-shadow:0 1px 0 rgba(122,15,65,.9),0 3px 0 rgba(74,14,46,.55),0 12px 30px rgba(30,4,18,.55);
+}
+.hero--golden .hero-names-editorial i{color:#F6C667;text-shadow:0 1px 6px rgba(40,6,24,.6)}
+.hero--golden .hero-names-editorial i::before,.hero--golden .hero-names-editorial i::after{background:linear-gradient(90deg,transparent,#F6C667 28%,#E8A93C 72%,transparent)}
+.hero--golden.hero::after{border-color:rgba(58,10,38,.28)}
+
 /* 01a. Date and venue as ONE plaque: double gold rule, diamond studs on its
    sides, the date in the display serif and the venue in small capitals below a
    hairline. Two separate pills read as two unrelated labels. */
@@ -1799,6 +1858,21 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .vertical-functions .poster-haldi .poster-detail{background:linear-gradient(0deg,rgba(190,97,65,.97),rgba(190,97,65,.7) 58%,transparent);color:#3E1D21}
 .vertical-functions .poster-detail span.label{color:currentColor;opacity:.9}
 .vertical-functions .poster-art{bottom:0;height:66%}
+/* 06b. the full-screen posters take the same frame and footer as the grid:
+   plum mat, gilt hairline, numbered medallion, one plum footer for all six */
+.vertical-functions .event-poster::before{inset:0;border:7px solid #3A0A26;box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 0 4px rgba(58,10,38,.35)}
+.vertical-functions .event-poster .poster-detail,
+.vertical-functions .event-poster.poster-sangeet .poster-detail,
+.vertical-functions .event-poster.poster-reception .poster-detail,
+.vertical-functions .event-poster.poster-pheras .poster-detail,
+.vertical-functions .event-poster.poster-baraat .poster-detail,
+.vertical-functions .event-poster.poster-haldi .poster-detail{
+  inset:auto 7px 7px;border-radius:0;border-top:0;padding-top:2.6rem;
+  background:linear-gradient(0deg,#2E0719 0%,rgba(58,10,38,.94) 52%,transparent 100%);color:#F6EBD9;
+}
+.vertical-functions .event-poster .poster-detail::before{content:none}
+.vertical-functions .event-poster .poster-detail span.label{color:#D9BC84;opacity:1}
+.vertical-functions .event-poster .poster-number{top:17px;left:17px;width:28px;height:28px;padding:0;border:1px solid var(--gold);border-radius:50%;background:rgba(58,10,38,.72);color:#F1DDB0;backdrop-filter:none}
 
 /* 07 + 08. Six worlds, with the light tracing both wedding days. */
 .vertical-functions .event-stage::before{content:"";position:absolute;z-index:0;inset:-12vh -32vw 4vh;background:var(--ambient);opacity:.8;pointer-events:none;transition:background .6s}
@@ -2334,7 +2408,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 </nav>
 
 <!-- ============================ HERO ============================ -->
-<header class="hero" id="top">
+<header class="hero hero--golden" id="top">
   <!-- BRIEF: an original illustrated Jaipur courtyard using the reference
        film's composition language, not a tracing: clean blue sky for the
        names, richly painted terracotta and teal architecture in the middle,
@@ -2345,6 +2419,21 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#54AFE0"/><stop offset=".5" stop-color="#BEE5F2"/><stop offset="1" stop-color="#F7D7B0"/>
       </linearGradient>
+      <!-- golden hour: plum at the zenith, rose and apricot through the middle,
+           warm gold on the horizon behind the palace. Used by .hero--golden -->
+      <linearGradient id="heroSkyGolden" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3A0A26"/><stop offset=".2" stop-color="#6B1A44"/>
+        <stop offset=".42" stop-color="#B54A66"/><stop offset=".6" stop-color="#E8825D"/>
+        <stop offset=".72" stop-color="#F6B46E"/><stop offset="1" stop-color="#FAD69A"/>
+      </linearGradient>
+      <linearGradient id="heroHillsGolden" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6E2248" stop-opacity=".55"/><stop offset=".55" stop-color="#9A3E5A" stop-opacity=".3"/>
+        <stop offset="1" stop-color="#E8825D" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="heroSunGolden">
+        <stop offset="0" stop-color="#FFF1C4" stop-opacity=".95"/><stop offset=".35" stop-color="#FFD891" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#F6A25E" stop-opacity="0"/>
+      </radialGradient>
       <linearGradient id="heroStone" x1="0" y1="0" x2="1" y2="1">
         <stop stop-color="#E48A5C"/><stop offset=".48" stop-color="#C96749"/><stop offset="1" stop-color="#9D3E36"/>
       </linearGradient>
