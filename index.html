@@ -2136,8 +2136,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 .is-scrolling .hero-scene *:not(.elephant-procession),
 .is-scrolling .poster-art *,
 .hero-away .hero-scene *{animation-play-state:paused!important}
-.hero-scene .hero-still .elephant-gait,.hero-still .hero-scene .elephant-gait,
-.hero-still .hero-scene .ele-leg-a,.hero-still .hero-scene .ele-leg-b{animation:none!important}
 .hero{contain:paint}
 .hero .hero-when,.hero .hero-scroll,.hero .hero-copy.hero-copy-cinematic::before{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .hero .hero-when{background:rgba(255,249,232,.9)}
@@ -2227,6 +2225,17 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   .vertical-functions .event-poster{height:calc(var(--lock-h,100svh) - 61px)}
 }
 
+/* phone numbers under the RSVP: tappable to call */
+.rsvp-tel{color:#E8CE7A;text-decoration:none;border-bottom:1px solid rgba(232,206,122,.45);white-space:nowrap}
+.rsvp-tel:hover,.rsvp-tel:focus-visible{color:#FFF1D6;border-bottom-color:#FFF1D6}
+
+/* 16. On a phone the names and date plaque cover the top third of the hero,
+   which is exactly where the palace's centre dome sits. Scale the palace down
+   around its base so the whole facade reads as one building and the dome
+   rises into clear sky below the plaque; the gate tucks behind the elephant. */
+@media (max-width:52rem){
+  .hero-scene #hero-palace-art{transform-box:view-box;transform-origin:600px 668px;transform:scale(var(--palace-k,.8))}
+}
 </style>
 </head>
 <body class="primary-edition">
@@ -3412,8 +3421,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg>
         <svg class="ic" aria-hidden="true"><use href="#nagada"/></svg>
         <h4>Parking &amp; entry</h4>
-        <p>Valet parking at the venue, with space for around 1,000 cars.
-           <span class="fill">[Gate and Baraat assembly point]</span></p>
+        <p>Valet parking at the venue, with space for around 1,000 cars.</p>
       </article>
     </div>
 
@@ -3597,7 +3605,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
     <p class="reveal d2" style="color:#EEDFCB;margin-top:1.1rem">
       Let us know which functions you will join us for, so we can plan properly.
-      <span class="fill">[Respond by DATE.]</span>
     </p>
     <form class="rsvp-form reveal d3" id="rsvpForm" novalidate>
       <div class="field">
@@ -3633,7 +3640,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <p></p>
     </div>
     <p class="reveal d3" style="margin-top:1.25rem;font-size:.8rem;color:#C6A98F">
-      Or reach us on <span class="fill">[phone numbers]</span>
+      Or reach us on <a class="rsvp-tel" href="tel:+919828017487">+91 98280 17487</a>
+      or <a class="rsvp-tel" href="tel:+919818195741">+91 98181 95741</a>
     </p>
 
     <!-- three diyas. Each flame has its own duration and offset, so they never
@@ -4364,12 +4372,32 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         root.classList.toggle("hero-away", !entries[0].isIntersecting);
       }).observe(heroEl);
     }
-    var walker = document.getElementById("hero-elephant");
-    if(walker){
-      walker.addEventListener("animationend", function(ev){
-        if(ev.animationName === "elephantEntrance"){ root.classList.add("hero-still"); }
-      });
+  })();
+
+  /* ---------- phone hero: fit the palace under the date plaque ----------
+     The plaque is set in text, so its height is fixed in pixels, while the
+     illustration scales with the screen height. On a short screen a fixed
+     scale leaves the centre dome behind the plaque, so measure both and shrink
+     the palace (around its base) just enough for the dome to clear it. */
+  (function(){
+    var img = document.getElementById("hero-palace-art");
+    var scene = document.querySelector(".hero-scene");
+    var plaque = document.querySelector(".hero-when");
+    if(!img || !scene || !plaque || !scene.getScreenCTM) return;
+    var TOP = 255, BASE = 668, GAP = 16;
+    function fit(){
+      if(window.innerWidth > 832){ document.documentElement.style.removeProperty("--palace-k"); return; }
+      var m = scene.getScreenCTM(); if(!m) return;
+      var need = (plaque.getBoundingClientRect().bottom + GAP - m.f) / m.d;   /* in scene units */
+      var k = Math.max(.6, Math.min(.85, (BASE - need) / (BASE - TOP)));
+      document.documentElement.style.setProperty("--palace-k", k.toFixed(3));
     }
+    fit();
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fit); }
+    window.addEventListener("load", fit);
+    setTimeout(fit, 1700);   /* after the names have finished settling in */
+    var lastW = window.innerWidth;
+    window.addEventListener("resize", function(){ if(window.innerWidth !== lastW){ lastW = window.innerWidth; fit(); } });
   })();
 
   /* ---------- guard the unwired buttons so nothing silently no-ops ---------- */
