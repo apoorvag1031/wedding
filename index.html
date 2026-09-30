@@ -969,6 +969,11 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
 .rsvp-thanks{margin-top:1.6rem;padding:1.4rem;border:1px solid rgba(232,206,122,.5);text-align:center}
 .rsvp-thanks h3{margin:0 0 .4rem;font-family:"Marcellus",serif;font-size:1.5rem;color:#E8CE7A}
 .rsvp-thanks p{margin:0;color:#EEDFCB}
+.rsvp-thanks:focus{outline:none}   /* focused only so screen readers announce it */
+.rsvp-thanks .rsvp-again-lead{margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(232,206,122,.25);font-size:.82rem;color:#C6A98F}
+.rsvp-again{margin-top:.6rem;min-height:44px;padding:.55rem 1.4rem;border:1px solid rgba(232,206,122,.7);border-radius:999px;background:transparent;
+  color:#E8CE7A;font:400 .74rem/1 "Marcellus",serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.rsvp-again:hover,.rsvp-again:focus-visible{background:rgba(232,206,122,.12);outline:none}
 .rsvp-form.is-declined .rsvp-guests{opacity:.4;pointer-events:none}
 @media (max-width:40rem){.rsvp-chip{flex:1 1 calc(50% - .3rem)}.rsvp-chip span{width:100%;min-width:0}.rsvp-chip.decline{flex-basis:100%}}
 /* stepped mehrab: the tiered facade behind the Functions, three niches
@@ -3547,9 +3552,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <h2 class="title display sheen reveal" style="margin-top:.4rem">RSVP</h2>
     </div>
 
-    <p class="reveal d2" style="color:#EEDFCB;margin-top:1.1rem">
-      Let us know which functions you will join us for, so we can plan properly.
-    </p>
     <form class="rsvp-form reveal d3" id="rsvpForm" novalidate>
       <div class="field">
         <label class="lbl" for="rsvpName">Full name</label>
@@ -3582,6 +3584,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     <div class="rsvp-thanks" id="rsvpThanks" hidden tabindex="-1">
       <h3></h3>
       <p></p>
+      <p class="rsvp-again-lead">Plans changed, or replying for someone else?</p>
+      <button type="button" class="rsvp-again" id="rsvpAgain">Fill it in again</button>
     </div>
     <p class="reveal d3" style="margin-top:1.25rem;font-size:.8rem;color:#C6A98F">
       Or reach us on <a class="rsvp-tel" href="tel:+919828017487">+91 98280 17487</a>
@@ -4305,7 +4309,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
      must use a checkbox question whose options are exactly: Maayra, Sangeet,
      Haldi, Reception, Not attending. */
   var RSVP_CONFIG = {
-    action: "https://docs.google.com/forms/d/e/1FAIpQLSfs_[REDACTED: credential]",
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSfs_WwaBZGNfF419cYa9mGXNCCwyS5C9f9vMZu36dhIwOgY0w/formResponse",
     fields: { name: "entry.1278450785", events: "entry.1335389302", guests: "entry.1554589807" }
   };
   var rf = document.getElementById("rsvpForm");
@@ -4331,6 +4335,15 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     evBoxes.forEach(function(c){ c.addEventListener("change", function(){
       if(c.checked && decline.checked){ decline.checked = false; rf.classList.remove("is-declined"); }
     }); });
+    document.getElementById("rsvpAgain").addEventListener("click", function(){
+      rf.reset();
+      evBoxes.forEach(function(c){ c.checked = false; });
+      decline.checked = false; rf.classList.remove("is-declined");
+      setGuests(1); status.textContent = "";
+      document.getElementById("rsvpThanks").hidden = true;
+      rf.hidden = false;
+      rf.elements.name.focus();
+    });
     rf.addEventListener("submit", function(ev){
       ev.preventDefault();
       var name = rf.elements.name.value.trim();
