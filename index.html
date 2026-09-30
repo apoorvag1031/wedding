@@ -797,7 +797,7 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
 /* ---------- 2a. ATTIRE: one dress card per function ----------
    Each card is a tailor's swatch card: a tile of the fabric that suits the
    function on the left, the dress code and a palette on the right. The
-   Baraat tile carries the safa that the family ties for every baarati. */
+   Baraat tile carries a leheriya safa. */
 .venue-landmark{margin:.35rem 0 0;font-size:.86rem;opacity:.85}
 .dress-intro{margin:1.4rem auto 0;max-width:34rem;color:#5A2A36;font-size:1rem;line-height:1.6}
 .dress-intro em{font-family:"Cormorant Garamond",serif;font-size:1.12em;color:var(--rani-deep)}
@@ -895,6 +895,24 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
 @media (max-width:40rem){
   .info article.postcard{grid-template-columns:1fr;justify-items:center;text-align:center}
   .postcard .msg{padding:0 0 1.2rem;border-right:0;border-bottom:1px solid rgba(143,63,36,.28)}
+}
+
+/* Jaipur highlights: six small postcards, tilted alternately like a stack
+   pinned to a board. Keeps the stamp beside the message even on a phone. */
+.info.sights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem;max-width:58rem;margin-inline:auto}
+@media (max-width:44rem){.info.sights{grid-template-columns:1fr}}
+.info.sights article.postcard.mini{padding:1.15rem 1.25rem;gap:1.1rem;rotate:-.6deg}
+.info.sights article.postcard.mini:nth-child(even){rotate:.7deg}
+.info.sights article.postcard.mini:hover{rotate:0deg}
+.postcard.mini h4{margin:0 0 .3rem;color:var(--rani-deep);font-size:1.12rem}
+.postcard.mini p{margin:0;color:#6B3140;font-size:.92rem;line-height:1.5}
+.postcard.mini .msg{padding-right:1.1rem}
+.postcard.mini .stamp{width:78px;padding:.6rem .4rem .5rem}
+.postcard.mini .stamp .ic{width:34px}
+.postcard.mini .stamp span{font-size:.56rem;letter-spacing:.14em;text-align:center;line-height:1.2}
+@media (max-width:40rem){
+  .info.sights article.postcard.mini{grid-template-columns:1fr auto;justify-items:stretch;text-align:left}
+  .info.sights .postcard.mini .msg{padding:0 1rem 0 0;border-right:1px solid rgba(143,63,36,.28);border-bottom:0}
 }
 /* stepped mehrab: the tiered facade behind the Functions, three niches
    high in the middle and stepping down either side */
@@ -1871,6 +1889,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   background:linear-gradient(0deg,#2E0719 0%,rgba(58,10,38,.94) 52%,transparent 100%);color:#F6EBD9;
 }
 .vertical-functions .event-poster .poster-detail::before{content:none}
+/* the Baraat horse stands on a floor, so keep that floor above the footer */
+.vertical-functions .poster-baraat .poster-art{bottom:78px;height:calc(66% - 78px)}
 .vertical-functions .event-poster .poster-detail span.label{color:#D9BC84;opacity:1}
 .vertical-functions .event-poster .poster-number{top:17px;left:17px;width:28px;height:28px;padding:0;border:1px solid var(--gold);border-radius:50%;background:rgba(58,10,38,.72);color:#F1DDB0;backdrop-filter:none}
 
@@ -2603,9 +2623,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <div><b data-m>--</b><small>Minutes</small></div>
     </div>
     <p class="sleeps reveal d3" data-sleeps></p>
-    <p class="reveal d3" style="margin-top:.5rem;color:#F6E3CF;font-size:.9rem;letter-spacing:.03em">
-      Wednesday 25<sup class="ord">th</sup> and Thursday 26<sup class="ord">th</sup> November 2026
-    </p>
   </div>
 </section>
 
@@ -2713,7 +2730,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <span class="phrase deva">उत्सव के दो दिन</span>
         <svg class="swash" viewBox="0 0 240 16" aria-hidden="true" style="width:clamp(90px,22vw,170px)"><use href="#swashSym"/></svg>
       </div>
-      <p class="function-intro-copy">Six moments, each with its own colour, rhythm and Jaipur setting.</p>
     </header>
 
     <!-- 05. Each illustrated invitation now occupies a vertical viewport chapter.
@@ -2876,18 +2892,52 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <svg class="poster-art" viewBox="0 0 360 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
           <g id="baraat-lights"><path d="M0 37Q180 82 360 37" fill="none" stroke="#51313E" stroke-width="3"/><g class="scene-light" fill="#FFE69B"><circle cx="25" cy="43" r="5"/><circle cx="70" cy="54" r="5"/><circle cx="117" cy="62" r="5"/><circle cx="167" cy="66" r="5"/><circle cx="217" cy="63" r="5"/><circle cx="267" cy="55" r="5"/><circle cx="316" cy="43" r="5"/></g></g>
           <g id="baraat-gate"><path d="M0 300V129h61v-35h48v35h142V94h48v35h61v171z" fill="#A9583E"/><path d="M102 300V143a78 78 0 0 1 156 0v157z" fill="#75384A" stroke="#E5B35E" stroke-width="7"/><path d="M127 300V156a53 53 0 0 1 106 0v144z" fill="#37273E"/><path d="M75 94q17-33 34 0M251 94q24-39 48 0" fill="#CF8050" stroke="#754131" stroke-width="5"/></g>
-          <g id="baraat-horse" class="scene-horse" transform="translate(45 120) scale(.78)">
-            <path d="M72 105Q28 73 18 122q17-22 48 4" fill="none" stroke="#E9E1D2" stroke-width="12" stroke-linecap="round"/>
-            <ellipse cx="150" cy="112" rx="83" ry="43" fill="#EEE7D9" stroke="#8B715D" stroke-width="4"/>
-            <path d="M204 99q16-63 55-65 30-1 33 25-5 25-30 30l-18 35z" fill="#EEE7D9" stroke="#8B715D" stroke-width="4"/>
-            <path d="M257 36l-1-17 13 16M276 38l10-15 2 22" fill="#EEE7D9" stroke="#8B715D" stroke-width="4" stroke-linejoin="round"/>
-            <path d="M247 45q-19 37-20 73" fill="none" stroke="#8D5A3B" stroke-width="11" stroke-linecap="round"/>
-            <g fill="#E9E1D2" stroke="#8B715D" stroke-width="4"><path d="M94 137h24l-4 74H91z"/><path d="M174 137h24l11 74h-24z"/></g>
-            <g fill="#6E5547"><ellipse cx="102" cy="211" rx="17" ry="7"/><ellipse cx="198" cy="211" rx="17" ry="7"/></g>
+          <!-- courtyard floor, so the horse and the dhol stand on something -->
+          <g id="baraat-floor">
+            <path d="M0 250h360v50H0z" fill="#C98B5A"/>
+            <path d="M180 250L70 300M180 250l110 50M180 250v50M180 250L0 286M180 250l180 36" stroke="#9A5F3F" stroke-width="1.6" opacity=".45"/>
+            <path d="M0 250h360" stroke="#7A3F2E" stroke-width="4"/>
+            <ellipse cx="166" cy="259" rx="86" ry="6.5" fill="#3A1420" opacity=".32"/>
+          </g>
+          <!-- the ghodi, drawn in profile: long head angled down, pricked ears,
+               a brown mane down the crest, and four legs planted on the floor -->
+          <g id="baraat-horse" class="scene-horse" transform="translate(52 104) scale(.72)">
+            <!-- tail -->
+            <path d="M72 100C44 96 30 128 36 170c8-26 16-40 38-50z" fill="#E6DDCC" stroke="#8B715D" stroke-width="3.5" stroke-linejoin="round"/>
+            <!-- far legs, a shade darker, behind the body -->
+            <g fill="#D9CDB9" stroke="#8B715D" stroke-width="3.5" stroke-linejoin="round">
+              <path d="M112 132c-2 18 6 30 10 42l-2 32h12l3-32c2-16-1-30 1-42z"/>
+              <path d="M178 136h17v40l-2 30h-12l-1-30z"/>
+            </g>
+            <g fill="#4E3A31"><path d="M118 204h16l2 10h-20z"/><path d="M179 204h16l2 10h-20z"/></g>
+            <!-- body -->
+            <path d="M70 100C70 72 110 66 150 70c35 2 55 2 72 16 14 14 10 50-12 60-40 10-90 10-122 0-20-8-22-28-18-46z" fill="#EEE7D9" stroke="#8B715D" stroke-width="4"/>
+            <!-- neck and head -->
+            <path d="M200 92c12-24 26-46 44-62l24 10c-6 20-18 44-40 80z" fill="#EEE7D9" stroke="#8B715D" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M246 30c6-12 20-16 30-10l30 42c8 10 4 22-8 22-8 0-14-4-22-10-10-4-18-8-24-16-8-8-10-18-6-28z" fill="#EEE7D9" stroke="#8B715D" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M250 24l0-18 10 14M259 20l4-18 7 16" fill="#EEE7D9" stroke="#8B715D" stroke-width="3.5" stroke-linejoin="round"/>
+            <!-- mane down the crest, and a forelock -->
+            <path d="M248 28c-12 14-26 34-42 56 8-4 12-5 16-4 4-12 10-22 18-30-2 8-2 12 0 16 6-12 12-24 18-32z" fill="#8D5A3B"/>
+            <path d="M256 20c6 2 10 6 12 12-6-2-10-4-12-12z" fill="#8D5A3B"/>
+            <!-- eye, nostril, mouth -->
+            <path d="M266 36q5-4 10 0q-5 4-10 0z" fill="#241D1A"/>
+            <path d="M300 66q4 2 3 7" fill="none" stroke="#6B5344" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M290 80q7 1 12-3" fill="none" stroke="#6B5344" stroke-width="2" stroke-linecap="round"/>
+            <!-- gold bridle and rein back to the groom -->
+            <g fill="none" stroke="#D39A25" stroke-width="3" stroke-linecap="round">
+              <path d="M258 22l14 40M280 50c8 8 16 12 24 12M272 62l20 14"/>
+              <path d="M292 76C270 92 250 98 232 98"/>
+            </g>
+            <circle cx="272" cy="62" r="3.2" fill="#EEC052"/>
+            <!-- near legs, planted -->
+            <g fill="#EEE7D9" stroke="#8B715D" stroke-width="4" stroke-linejoin="round">
+              <path d="M90 130c-2 20 8 32 12 44l-2 32h13l4-32c2-18-2-32 0-44z"/>
+              <path d="M196 136h18v40l-2 30h-13l-2-30z"/>
+            </g>
+            <g fill="#4E3A31"><path d="M98 204h17l2 10h-21z"/><path d="M197 204h17l2 10h-21z"/></g>
+            <!-- saddle cloth -->
             <path d="M79 83q72-35 147 3l-20 67H88z" fill="#A71651" stroke="#EEC052" stroke-width="6"/>
             <path d="M91 108q57 26 116 0v38q-58 22-116 0z" fill="#1A4F8E" stroke="#EEC052" stroke-width="4"/>
-            <path d="M232 70q25 13 54 0M238 79q20 10 42 0" fill="none" stroke="#D39A25" stroke-width="3"/>
-            <circle cx="274" cy="53" r="3.5" fill="#241D1A"/>
             <g id="baraat-groom" transform="translate(112 -20) scale(.88)">
               <!-- Profile riding posture: the far leg is hidden by the horse;
                    one near leg bends naturally from hip to stirrup. -->
@@ -2909,7 +2959,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <g id="baraat-flowers"><image href="assets/floral-corner-right.webp" x="276" y="212" width="90" height="95"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">Attire</span>Festive Indian &middot; Safa provided</p>
+          <p><span class="label">Attire</span>Festive Indian</p>
         </footer>
       </article>
 
@@ -2992,7 +3042,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <button class="event-dot" type="button" data-event-dot="4" aria-label="Show Reception"></button>
       <button class="event-dot" type="button" data-event-dot="5" aria-label="Show Pheras"></button>
     </div>
-    <p class="event-swipe-hint">Swipe for the next function</p>
   </div>
 </section>
 
@@ -3013,9 +3062,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <span class="roman">What to wear</span>
     </div>
 
-    <p class="dress-intro reveal d2">Two days, six moods. Each function has its own dress code, with a
-      palette if you'd like the photographs to sit together. <em>Jaipur in late November is around 25&deg;C
-      by day and close to 10&deg;C after dark</em>, so bring a shawl or jacket for the evenings.</p>
+    <p class="dress-intro reveal d2"><em>Jaipur in late November is around 25&deg;C by day and close to
+      10&deg;C after dark</em>, so bring a shawl or jacket for the evenings.</p>
 
     <!-- the Jaipur fabrics that used to sit here as loose swatches now dress
          each card: bandhani, leheriya, gota patti and Sanganeri block print -->
@@ -3072,10 +3120,9 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           </svg></div>
         <div>
           <p class="dc-when">Baraat &middot; 6 PM</p>
-          <h3>Festive Indian, crowned in a safa</h3>
-          <p class="dc-note">Come in your brightest kurta, bandhgala, saree or lehenga. We&rsquo;ll tie a Rajasthani leheriya safa for every baarati before the procession sets off.</p>
+          <h3>Festive Indian</h3>
+          <p class="dc-note">Your brightest kurta, bandhgala, saree or lehenga, and a safa if you have one. It&rsquo;s a procession, so wear shoes you can dance in.</p>
           <p class="dc-palette" role="img" aria-label="Suggested palette: saffron, rani and turmeric"><i style="background:#E9632B"></i><i style="background:#C2185B"></i><i style="background:#F6C24A"></i><small>Palette</small></p>
-          <span class="dc-badge">Safa provided</span>
         </div>
       </article>
       <article class="dcard">
@@ -3244,44 +3291,74 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     <div class="poetic reveal">
       <span class="phrase deva">पधारो म्हारे देस</span>
       <svg class="swash" viewBox="0 0 240 16" aria-hidden="true"><use href="#swashSym"/></svg>
-      <span class="roman">Travel &amp; stay</span>
+      <span class="roman">Jaipur highlights</span>
     </div>
-    <h2 class="title display reveal d1" style="margin-top:.6rem">Coming to Jaipur</h2>
+    <h2 class="title display reveal d1" style="margin-top:.6rem">Make a trip of it</h2>
 
-    <div class="info arched stay-grid" style="margin-top:2.5rem">
-      <article class="arch reveal d1" style="background:rgba(176,30,95,.07);border-color:rgba(176,30,95,.45)">
-        <svg class="ic rani" aria-hidden="true"><use href="#haveli"/></svg>
-        <h4 style="color:var(--rani-deep)">Hotel block</h4>
-        <p style="color:#6B3140"><span class="fill">[Hotel names, the booking code, and the
-          date by which guests must book to get the rate.]</span></p>
-      </article>
-      <article class="arch reveal d2" style="background:rgba(14,124,123,.07);border-color:rgba(14,124,123,.45)">
-        <svg class="ic teal" aria-hidden="true"><use href="#gate"/></svg>
-        <h4 style="color:var(--teal-deep)">Shuttles</h4>
-        <p style="color:#6B3140"><span class="fill">[Whether you are running transport between
-          the hotels and the venue, and the pickup times.]</span></p>
-      </article>
-      <!-- the sightseeing note is a postcard home from Jaipur: airmail border,
-           message on the left, a stamp and postmark on the right -->
-      <article class="postcard wide reveal d3">
+    <!-- a few Jaipur favourites for guests travelling in, each one a postcard -->
+    <div class="info sights" style="margin-top:2.5rem">
+      <article class="postcard mini reveal">
         <div class="msg">
-          <h4 style="color:var(--marigold-dp)">While you are here</h4>
-          <p style="color:#6B3140"><span class="fill">[Amer Fort, Hawa Mahal, City Palace,
-            Patrika Gate, Johari Bazaar. Two or three recommendations for guests arriving
-            early, plus where to eat.]</span></p>
+          <h4>Amer Fort</h4>
+          <p>Go early, before the crowds and the midday sun, and don&rsquo;t miss the Sheesh Mahal, the hall of mirrors.</p>
         </div>
         <div class="stamp" aria-hidden="true">
           <svg class="ic" aria-hidden="true"><use href="#fort"/></svg>
-          <span>Jaipur</span>
-          <i class="postmark">25 · XI · 2026</i>
+          <span>Amer</span>
+        </div>
+      </article>
+      <article class="postcard mini reveal">
+        <div class="msg">
+          <h4>Hawa Mahal</h4>
+          <p>The Palace of Winds and its 953 little windows. Best seen in morning light from a rooftop caf&eacute; across the road.</p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#jharokha"/></svg>
+          <span>Hawa Mahal</span>
+        </div>
+      </article>
+      <article class="postcard mini reveal">
+        <div class="msg">
+          <h4>City Palace &amp; Jantar Mantar</h4>
+          <p>The royal residence, and next door the old observatory with the world&rsquo;s largest stone sundial.</p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#chhatri"/></svg>
+          <span>City Palace</span>
+        </div>
+      </article>
+      <article class="postcard mini reveal">
+        <div class="msg">
+          <h4>Patrika Gate</h4>
+          <p>The most colourful gateway in the city, painted from floor to ceiling. Bring your camera.</p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#gate"/></svg>
+          <span>Patrika Gate</span>
+        </div>
+      </article>
+      <article class="postcard mini reveal">
+        <div class="msg">
+          <h4>Sunset at Nahargarh</h4>
+          <p>The hilltop fort where the whole Pink City turns gold at dusk.</p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#diyaLamp"/></svg>
+          <span>Nahargarh</span>
+        </div>
+      </article>
+      <article class="postcard mini reveal">
+        <div class="msg">
+          <h4>Bazaars &amp; a bite</h4>
+          <p>Johari Bazaar for jewellery, Bapu Bazaar for juttis and block prints. Refuel with a pyaaz kachori at Rawat Mishthan Bhandar.</p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#kathputli"/></svg>
+          <span>Old City</span>
         </div>
       </article>
     </div>
 
-    <p class="reveal d4" style="margin-top:2rem;font-size:.88rem;color:#8A5A48">
-      The 25<sup class="ord">th</sup> is a Wednesday. Guests travelling in will need to plan
-      leave, so this section is worth filling in before the invite goes out.
-    </p>
   </div>
 </section>
 
@@ -3550,7 +3627,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     if(left <= 0){
       put(out.d,"0"); put(out.h,"00"); put(out.m,"00"); put(out.s,"00");
       if(sleepsEl && lastDays !== 0){
-        sleepsEl.innerHTML = "<b>Today.</b> See you at Aamantran.";
+        sleepsEl.innerHTML = "<b>Today!</b> Dhol&rsquo;s tuned. See you at Aamantran.";
         lastDays = 0;
       }
       return;
@@ -3564,7 +3641,16 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     /* the same number said in human terms. Rewritten only when the day rolls
        over, not once a second. */
     if(sleepsEl && days !== lastDays){
-      sleepsEl.textContent = "until the Maayra, 10 AM on Wednesday 25th November";
+      /* a line in human terms that changes with the distance. The dates
+         themselves are in the hero and on every card, so none are repeated here. */
+      var b = "<b>" + days + "</b>", wk = Math.round(days/7), line;
+      if(days > 60)      line = b + " sleeps to go. Plenty of time, says every tailor ever.";
+      else if(days > 28) line = b + " sleeps, or about " + wk + " weeks of &lsquo;what are you wearing?&rsquo; in the family group chat.";
+      else if(days > 7)  line = b + " sleeps. Book the tailor, then start practising the Sangeet steps.";
+      else if(days > 1)  line = "Only " + b + " sleeps. Somewhere, a safa is being starched.";
+      else if(days === 1) line = "<b>One</b> more sleep. Charge your phone, rest your dancing feet.";
+      else               line = "<b>Hours</b> to go. The dhol is warming up.";
+      sleepsEl.innerHTML = line;
       lastDays = days;
     }
   }
