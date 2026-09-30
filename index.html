@@ -27,7 +27,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Great+Vibes&family=Rozha+One&family=Marcellus&family=Mukta:wght@300;400;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Marcellus&family=Mukta:wght@300;400;600&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+<!-- thin engraving script, subset to the three glyphs of the A&A monogram -->
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&text=A%26&display=swap" rel="stylesheet">
 
 <style>
 /* =============================================================
@@ -72,7 +74,9 @@
    ============================================================= */
 *,*::before,*::after{box-sizing:border-box}
 html{
-  overflow-x:hidden;
+  /* clip, not hidden: hidden turns html/body into scroll containers, which
+     silently stopped the sticky nav from ever sticking */
+  overflow-x:hidden;overflow-x:clip;
   scroll-behavior:smooth;-webkit-text-size-adjust:100%;
   /* The nav is sticky and 51px tall, so a nav click used to land a section's
      top edge UNDERNEATH it and hide whatever hangs there: the bunting, the
@@ -87,14 +91,14 @@ body{
   font-weight:300;
   font-size:clamp(1rem,.95rem + .25vw,1.125rem);
   line-height:1.7;
-  overflow-x:hidden;
+  overflow-x:hidden;overflow-x:clip;
 }
 img,svg{display:block;max-width:100%}
 h1,h2,h3{margin:0;font-weight:400;line-height:1.1}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--marigold);outline-offset:3px;border-radius:2px}
 
-.display{font-family:"Rozha One",Georgia,serif;letter-spacing:.01em}
+.display{font-family:"Marcellus",Georgia,serif;letter-spacing:.02em}
 .serif{font-family:"Marcellus",Georgia,serif;letter-spacing:.06em}
 .deva{font-family:"Tiro Devanagari Hindi","Mukta",serif}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
@@ -245,11 +249,11 @@ a{color:inherit}
   animation:heroCopyIn 1.2s cubic-bezier(.2,.8,.2,1) .2s both;
 }
 .hero-copy .eyebrow{
-  margin:0 0 .08rem;font-size:clamp(.96rem,3vw,1.35rem);color:var(--marigold-dp);
+  margin:0 0 .08rem;font-size:clamp(.96rem,3vw,1.35rem);color:#9A5B0A;
   letter-spacing:.16em;text-shadow:0 1px rgba(255,255,255,.7);
 }
 .hero h1.hero-script{
-  margin:0;font-family:"Great Vibes","Tiro Devanagari Hindi",cursive;font-weight:400;
+  margin:0;font-family:"Cormorant Garamond","Tiro Devanagari Hindi",serif;font-style:italic;font-weight:500;
   font-size:clamp(3.15rem,12.5vw,7.4rem);line-height:1.03;color:var(--rani-deep);
   text-shadow:0 2px 0 rgba(255,248,230,.95),0 7px 24px rgba(80,28,25,.22);
   white-space:nowrap;
@@ -286,12 +290,15 @@ a{color:inherit}
 .hero-jhoomar.right{right:clamp(1rem,4vw,4rem);animation-delay:-2.7s;animation-duration:8.4s}
 .hero-scroll{
   position:absolute;z-index:8;bottom:.72rem;left:50%;translate:-50% 0;
-  display:grid;justify-items:center;gap:.15rem;color:#5E2436;
-  font-family:"Marcellus",serif;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;
-  text-shadow:0 1px rgba(255,255,255,.8);
+  display:flex;align-items:center;gap:.55rem;white-space:nowrap;color:var(--gold-lt);
+  font-family:"Marcellus",serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+  padding:.42rem 1rem .42rem 1.1rem;border:1px solid rgba(232,206,122,.7);border-radius:999px;
+  background:rgba(59,10,33,.92);backdrop-filter:blur(4px);
+  box-shadow:0 0 0 3px rgba(59,10,33,.35),0 8px 18px -8px rgba(30,4,16,.7);
 }
-.hero-scroll span{width:1px;height:22px;background:linear-gradient(transparent,var(--rani-deep));animation:drop 2.1s ease-in-out infinite}
-@keyframes drop{0%,100%{opacity:.25;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+/* a small chevron after the words, bobbing, instead of a line through them */
+.hero-scroll span{order:2;width:.42rem;height:.42rem;border-right:1.5px solid var(--gold-lt);border-bottom:1.5px solid var(--gold-lt);rotate:45deg;translate:0 -.12rem;animation:drop 2.1s ease-in-out infinite}
+@keyframes drop{0%,100%{opacity:.45;transform:translate(0,0)}50%{opacity:1;transform:translate(.14rem,.14rem)}}
 
 @supports (animation-timeline: scroll()){
   .hero-copy{animation-name:heroCopyIn,heroCopyParallax;animation-duration:1.2s,1s;animation-delay:.2s,0s;animation-fill-mode:both;animation-timing-function:cubic-bezier(.2,.8,.2,1),linear;animation-timeline:auto,scroll(root);animation-range:normal,0 80svh}
@@ -341,7 +348,7 @@ h2.title + .deva{color:var(--marigold);font-size:1.15rem;letter-spacing:.06em}
 .count{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(.6rem,3vw,2rem);margin-top:2rem}
 .count div{min-width:5.2rem}
 .count b{
-  display:block;font-family:"Rozha One",serif;font-weight:400;
+  display:block;font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;
   font-size:clamp(2.3rem,8vw,3.6rem);color:var(--marigold);line-height:1;
 }
 .count small{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-lt)}
@@ -372,7 +379,7 @@ h2.title + .deva{color:var(--marigold);font-size:1.15rem;letter-spacing:.06em}
   font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;
   color:var(--teal);margin-bottom:.35rem;
 }
-.ev h3{font-family:"Rozha One",serif;font-size:1.9rem;color:var(--rani-deep)}
+.ev h3{font-family:"Marcellus",serif;font-size:1.9rem;color:var(--rani-deep)}
 .ev .hi{display:block;font-family:"Tiro Devanagari Hindi",serif;font-size:1rem;color:var(--marigold-dp);margin-top:.1rem}
 .ev .time{
   align-self:center;                            /* stop the pill stretching as a flex child */
@@ -416,7 +423,7 @@ h2.title + .deva{color:var(--marigold);font-size:1.15rem;letter-spacing:.06em}
 .blessing{padding:clamp(2rem,5vw,3.25rem) clamp(1.25rem,4vw,3rem);background:var(--cream);margin-top:2.5rem}
 .parents{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));margin-top:1.5rem}
 .parents h4{margin:0 0 .3rem;font-family:"Marcellus",serif;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal)}
-.parents p{margin:0;font-size:1.15rem;font-family:"Rozha One",serif;color:var(--rani-deep)}
+.parents p{margin:0;font-size:1.3rem;font-weight:600;font-family:"Cormorant Garamond",Georgia,serif;color:var(--rani-deep)}
 
 /* =============================================================
    11. VENUE / INFO
@@ -424,7 +431,7 @@ h2.title + .deva{color:var(--marigold);font-size:1.15rem;letter-spacing:.06em}
 .info{display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));margin-top:2.5rem;text-align:left}
 .info article{padding:1.5rem;border:1px solid rgba(201,162,39,.55);background:rgba(253,246,232,.06)}
 .on-teal .info article,.on-dark .info article{background:rgba(253,246,232,.07)}
-.info h4{margin:0 0 .5rem;font-family:"Rozha One",serif;font-size:1.3rem;color:var(--gold-lt)}
+.info h4{margin:0 0 .5rem;font-family:"Marcellus",serif;font-size:1.3rem;color:var(--gold-lt)}
 .info p{margin:0;font-size:.92rem;color:#EEDFCB}
 
 .btn{
@@ -455,8 +462,8 @@ h2.title + .deva{color:var(--marigold);font-size:1.15rem;letter-spacing:.06em}
    13. FOOTER
    ============================================================= */
 footer{background:var(--plum);color:var(--gold-lt);text-align:center;padding:3.5rem 1.25rem 2.5rem}
-footer .names{font-family:"Rozha One",serif;font-size:2rem;color:var(--cream)}
-footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;opacity:.7}
+footer .names{font-family:"Marcellus",serif;font-size:2rem;color:var(--cream)}
+footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em;color:var(--gold-lt);opacity:1}
 
 /* =============================================================
    13b. ICONOGRAPHY
@@ -542,6 +549,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
   color:var(--gold-lt);opacity:.26;
 }
 .mandana svg{width:100%;height:100%}
+#countdown .mandana,#countdown .mandana.in{opacity:.16!important}   /* the counter now sits over its centre */
 .mandana .spin{animation:spin 110s linear infinite;transform-origin:100px 100px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -554,7 +562,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 /* --- arch bands between sections, drifting on a view() timeline so the
        page gains depth without a scroll handler --- */
 .band{position:relative;line-height:0;overflow:hidden;height:clamp(58px,8vw,96px)}
-.band svg{width:116%;height:100%;margin-left:-8%}
+.band svg{width:116%;max-width:none;height:100%;margin-left:-8%}   /* the global svg max-width:100% cut the right edge short */
 .band.up svg{transform:scaleY(-1)}
 @supports (animation-timeline: view()){
   .band svg{animation:drift linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
@@ -633,12 +641,14 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 }
 
 /* --- fabric swatches: leheriya, bandhani, gota. Hover to enlarge. --- */
-.swatches{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(.9rem,3vw,1.75rem);margin-top:2rem}
+.swatches{display:grid;grid-template-columns:repeat(4,auto);justify-content:center;gap:clamp(.9rem,3vw,1.75rem);margin-top:2rem}
+@media (max-width:40rem){.swatches{grid-template-columns:repeat(2,auto)}}
 .swatches figure{margin:0;text-align:center}
 .sw{
-  display:block;width:clamp(58px,15vw,86px);aspect-ratio:1;
-  border:1px solid var(--gold);border-radius:7px;background-color:var(--cream-dp);
-  box-shadow:0 8px 20px -12px rgba(74,14,46,.55);
+  display:block;width:clamp(120px,34vw,128px);aspect-ratio:1;
+  border:1.5px solid #9A7A3C;border-radius:9px;background-color:var(--cream-dp);
+  box-shadow:0 0 0 4px var(--cream),0 0 0 5px rgba(154,122,60,.45),0 14px 28px -14px rgba(74,14,46,.6);
+  filter:contrast(1.18) saturate(1.12);
   animation:breathe 7s ease-in-out infinite;
   transition:transform .45s cubic-bezier(.2,.8,.2,1);
 }
@@ -647,7 +657,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 .swatches figure:hover .sw{transform:scale(1.1) rotate(-3deg)}
 @keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .swatches figcaption{
-  margin-top:.5rem;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);
+  margin-top:.75rem;font-family:"Marcellus",serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-deep);
 }
 /* gota patti: the gold zari trim on a Rajasthani lehenga */
 .tex-gota{
@@ -717,7 +727,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 .poetic .phrase{
   font-family:"Tiro Devanagari Hindi",serif;
   font-size:clamp(1.75rem,6vw,3.2rem);line-height:1.4;
-  color:var(--gold);
+  color:#9A7A3C;                 /* antique gilt: 3.7:1 on cream, the large-text bar */
 }
 .poetic .roman{
   font-family:"Marcellus",serif;font-size:clamp(.74rem,2vw,.95rem);
@@ -745,7 +755,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 
 /* number-led: the countdown leads with the number, not with a title */
 .head-num .lead{
-  font-family:"Rozha One",serif;line-height:.86;
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:.86;
   font-size:clamp(4.5rem,22vw,11rem);color:var(--marigold);
   text-shadow:0 2px 0 rgba(255,255,255,.18),0 18px 44px rgba(0,0,0,.35);
 }
@@ -782,6 +792,57 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 .arch:hover{transform:translateY(-7px);box-shadow:0 24px 54px -22px rgba(0,0,0,.55)}
 .arch .ic{margin-inline:auto!important}
 .info.arched{text-align:center}
+
+/* ---------- 2b. VENUE & STAY CARD FAMILY ----------
+   Six identical arches under an arched photo read as one repeated stamp.
+   Each card now takes the shape of its job: primary facts get a wide plaque,
+   secondary notes get cornered frames, and the leisure note a postcard. */
+.info.venue-grid,.info.stay-grid{grid-template-columns:repeat(2,minmax(0,1fr));text-align:center}
+.info .wide{grid-column:1/-1}
+@media (max-width:40rem){.info.venue-grid,.info.stay-grid{grid-template-columns:1fr}}
+
+.info article.plaque{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.5rem;
+  padding:1.5rem 1.9rem;text-align:left;border:1px solid var(--gold);
+  outline:1px solid rgba(232,206,122,.5);outline-offset:-8px;
+  background:linear-gradient(90deg,rgba(253,246,232,.12),rgba(253,246,232,.04));
+}
+.plaque .medallion{
+  display:grid;place-items:center;width:72px;height:72px;border-radius:50%;
+  border:1px solid var(--gold);box-shadow:0 0 0 5px rgba(201,162,39,.16);
+}
+.plaque .medallion .ic{margin:0;width:40px}
+.plaque .btn{margin:0;white-space:nowrap}
+@media (max-width:40rem){
+  .info article.plaque{grid-template-columns:1fr;justify-items:center;text-align:center;gap:1rem}
+}
+.info article.cornered{padding:1.9rem 1.6rem 1.7rem}
+.info .cornered .ic{margin-inline:auto}
+
+.info article.postcard{
+  position:relative;display:grid;grid-template-columns:1fr auto;gap:1.6rem;align-items:center;
+  padding:1.7rem 1.9rem;text-align:left;background:#FFFBF2;rotate:-.6deg;
+  border:7px solid transparent;
+  border-image:repeating-linear-gradient(135deg,var(--rani) 0 12px,#FFFBF2 12px 22px,var(--teal) 22px 34px,#FFFBF2 34px 44px) 7;
+  box-shadow:var(--shadow-warm);
+}
+.info article.postcard:hover{rotate:0deg}
+.postcard .msg{padding-right:1.6rem;border-right:1px solid rgba(143,63,36,.28)}
+.postcard .stamp{
+  position:relative;display:grid;justify-items:center;gap:.25rem;width:104px;padding:.8rem .5rem .6rem;
+  background:var(--cream-dp);outline:2px dashed rgba(143,63,36,.45);outline-offset:3px;rotate:3deg;
+}
+.postcard .stamp .ic{margin:0;width:44px;color:var(--terracotta)}
+.postcard .stamp span{font-family:"Marcellus",serif;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--terracotta-d)}
+.postcard .postmark{
+  position:absolute;left:-2.4rem;bottom:-1.1rem;display:grid;place-items:center;width:76px;height:76px;
+  border:1.5px solid rgba(74,14,46,.42);border-radius:50%;rotate:-14deg;
+  font:normal .56rem/1 "Marcellus",serif;letter-spacing:.12em;color:rgba(74,14,46,.55);
+}
+@media (max-width:40rem){
+  .info article.postcard{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .postcard .msg{padding:0 0 1.2rem;border-right:0;border-bottom:1px solid rgba(143,63,36,.28)}
+}
 /* stepped mehrab: the tiered facade behind the Functions, three niches
    high in the middle and stepping down either side */
 .stepped{
@@ -814,7 +875,7 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 .monogram{width:clamp(74px,19vw,124px);height:auto;color:var(--gold)}
 .monogram .ring{animation:spin 90s linear infinite;transform-origin:60px 60px}
 .monogram .mono-txt{
-  font-family:"Rozha One",serif;font-size:31px;fill:var(--rani-deep);
+  font-family:"Pinyon Script","Cormorant Garamond",serif;font-size:36px;fill:var(--rani-deep);
   text-anchor:middle;dominant-baseline:central;
 }
 /* the two names now sit either side of a shared gold spine */
@@ -843,6 +904,8 @@ footer small{display:block;margin-top:.9rem;font-size:.7rem;letter-spacing:.2em;
 .pj-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .photo-jaali .screen{position:absolute;inset:0;opacity:.72;mix-blend-mode:screen}
 .photo-jaali .screen svg{width:100%;height:100%}
+/* the venue illustration is shown clean; the lattice only dresses the empty fallback */
+.photo-jaali:has(.pj-img) .screen{display:none}
 .photo-jaali figcaption{
   position:absolute;inset-inline:0;bottom:0;padding:1.4rem .9rem .7rem;
   background:linear-gradient(transparent,rgba(12,2,8,.85));
@@ -1004,6 +1067,8 @@ footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
   z-index:3;pointer-events:none;opacity:.92;
   filter:drop-shadow(0 12px 26px rgba(0,0,0,.28));
 }
+/* the loose daisies and the butterfly read as stray stickers, not composition */
+.bloom,.flit{display:none!important}
 .bloom.l{left:-5%;transform:rotate(-8deg)}
 .bloom.r{right:-5%;transform:rotate(9deg) scaleX(-1)}
 @supports (animation-timeline: view()){
@@ -1013,7 +1078,7 @@ footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
 
 /* bunting: the triangular flag string over the film's Mayra courtyard */
 .bunting{position:absolute;inset-inline:0;top:0;height:60px;z-index:4;pointer-events:none;overflow:hidden}
-.bunting svg{width:118%;height:100%;margin-left:-9%}
+.bunting svg{width:118%;max-width:none;height:100%;margin-left:-9%}
 .bunting g{transform-origin:50% 0;animation:sway 10s ease-in-out infinite}
 
 /* ---------- 7. TOUCH AND HOVER RESPONSE ----------
@@ -1054,8 +1119,8 @@ footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
 }
 /* the countdown gains a human reading of the same number */
 .sleeps{
-  margin-top:1.1rem;font-family:"Marcellus",serif;
-  font-size:clamp(.78rem,2.3vw,.95rem);letter-spacing:.2em;color:#FBE7D2;
+  margin-top:1.1rem;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
+  font-size:clamp(1.05rem,2.8vw,1.25rem);letter-spacing:0;color:#FBE7D2;
 }
 .sleeps b{color:var(--marigold);font-weight:400}
 
@@ -1068,6 +1133,12 @@ footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
 .band.bleed-dn{margin-bottom:calc(var(--sp) * -0.55);z-index:2}
 .band{overflow:visible}
 .band > svg{position:relative;z-index:1}
+/* the pattern never divides evenly into the viewport, so the ends fade out
+   rather than stopping on half a chhatri or a sliver of a lantern */
+.band > svg:first-child{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+}
 
 /* a butterfly crossing the band, as in the film's transition frame */
 .flit{
@@ -1105,7 +1176,7 @@ footer{background:linear-gradient(180deg,#180C26,var(--plum) 55%)}
 sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform:uppercase}
 
 /* garland swag draped over an arch, rather than a straight run */
-.swag{position:absolute;inset-inline:-2%;top:-14px;height:46px;z-index:2;pointer-events:none}
+.swag{position:absolute;inset-inline:-6px;top:-14px;height:46px;z-index:2;pointer-events:none}
 .swag svg{width:100%;height:100%}
 
 /* sections that carry hanging ornaments must clip them */
@@ -1551,6 +1622,40 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   font-weight:650;letter-spacing:.035em;text-shadow:none;
 }
 
+/* 01a. Date and venue as ONE plaque: double gold rule, diamond studs on its
+   sides, the date in the display serif and the venue in small capitals below a
+   hairline. Two separate pills read as two unrelated labels. */
+.hero-copy .hero-when{
+  position:relative;display:grid;justify-items:center;gap:.32rem;margin-top:.55rem;
+  padding:.6rem clamp(1.3rem,4.5vw,2.4rem) .62rem;
+  background:rgba(255,249,232,.84);border:1px solid rgba(201,162,39,.8);
+  outline:1px solid rgba(201,162,39,.45);outline-offset:3px;
+  box-shadow:0 12px 26px -16px rgba(80,28,25,.45);backdrop-filter:blur(4px);
+}
+.hero-copy .hero-when::before,.hero-copy .hero-when::after{
+  content:"";position:absolute;top:50%;width:9px;height:9px;background:var(--gold);rotate:45deg;translate:0 -50%;
+}
+.hero-copy .hero-when::before{left:-9px}
+.hero-copy .hero-when::after{right:-9px}
+.hero-copy .hero-when .hero-dateplate{
+  margin:0;padding:0;border:0;background:none;backdrop-filter:none;color:#5A1835;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1.08rem,3.7vw,1.4rem);
+  font-weight:700;letter-spacing:.12em;text-transform:none;
+}
+.hero-copy .hero-when .hero-dateplate::before,.hero-copy .hero-when .hero-dateplate::after{content:none}
+.hero-when-rule{
+  position:relative;display:block;width:78%;height:1px;
+  background:linear-gradient(90deg,transparent,#C9A227 22%,#C9A227 78%,transparent);
+}
+.hero-when-rule::after{
+  content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;background:#C56B0A;rotate:45deg;translate:-50% -50%;
+}
+.hero-copy .hero-when .hero-venue{
+  margin:0;padding:0;border:0;border-radius:0;background:none;backdrop-filter:none;color:#6A2A35;
+  font-family:"Marcellus",serif;font-size:clamp(.66rem,2.1vw,.82rem);font-weight:400;
+  letter-spacing:.24em;text-transform:uppercase;text-shadow:none;
+}
+
 /* 01b. Editorial names over a translucent painted-light halo. */
 .hero-copy.hero-copy-cinematic{
   padding:.2rem .35rem .68rem;width:min(96%,46rem);
@@ -1564,14 +1669,14 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   margin:0 0 .18rem;display:grid;grid-template-rows:auto auto auto;justify-items:center;
   row-gap:clamp(.16rem,.75svh,.42rem);
   font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(5.2rem,13vw,8.6rem);
-  font-weight:600;line-height:1;letter-spacing:-.055em;color:#7A0F41;
+  font-weight:600;line-height:1;letter-spacing:.03em;color:#7A0F41;
   text-shadow:0 1px 0 #FFF7E2,0 3px 0 rgba(255,247,226,.82),0 11px 24px rgba(62,22,32,.24);
 }
 .hero-names-editorial span{display:block;line-height:.72}
 .hero-names-editorial i{
   display:flex;align-items:center;justify-content:center;gap:.42rem;margin:0;
-  min-height:.64em;color:#C56B0A;font-family:"Great Vibes",cursive;
-  font-size:.34em;font-weight:400;line-height:1;letter-spacing:0;text-shadow:0 1px 0 #FFF3CA;
+  min-height:.64em;color:#B8741A;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;
+  font-size:.4em;font-weight:400;line-height:1;letter-spacing:0;text-shadow:0 1px 0 #FFF3CA;
 }
 .hero-names-editorial i::before,.hero-names-editorial i::after{
   content:"";width:clamp(3.5rem,14vw,7.5rem);height:1px;
@@ -1579,9 +1684,9 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 }
 .site-ready .hero-names-editorial span{animation:nameSettle 1.35s cubic-bezier(.2,.78,.2,1) both}
 .site-ready .hero-names-editorial span:last-child{animation-delay:.18s}
-@keyframes nameSettle{from{opacity:.45;transform:translateY(10px);letter-spacing:-.025em}to{opacity:1;transform:none;letter-spacing:-.055em}}
+@keyframes nameSettle{from{opacity:.45;transform:translateY(10px);letter-spacing:0}to{opacity:1;transform:none;letter-spacing:.03em}}
 @media (max-width:52rem){
-  .hero-names-editorial{font-size:clamp(4.75rem,23vw,6.15rem);row-gap:clamp(.12rem,.6svh,.3rem)}
+  .hero-names-editorial{font-size:clamp(4.1rem,19.5vw,5.6rem);row-gap:clamp(.12rem,.6svh,.3rem)}
   .hero-copy.hero-copy-cinematic::before{inset:.15rem 1% -.2rem;background:radial-gradient(ellipse at 50% 45%,rgba(255,250,234,.57),rgba(255,247,225,.3) 48%,transparent 76%)}
 }
 
@@ -1675,6 +1780,71 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 /* 10. The navigation is invitation chrome: monogram, Functions and RSVP only. */
 .nav.nav-minimal{backdrop-filter:blur(12px);box-shadow:0 10px 32px rgba(36,5,22,.2)}
 .nav-minimal .nav-brand{font-family:Georgia,serif;letter-spacing:-.08em}
+
+/* 11. Toran navigation. A flat plum strip read as a website header; this one
+   is dressed like the invitation: double gold rule, monogram medallion and a
+   hanging bead string. */
+.nav.nav-toran{
+  min-height:58px;gap:1.2rem;
+  background:
+    linear-gradient(rgba(232,206,122,.5),rgba(232,206,122,.5)) left 0 bottom 4px/100% 1px no-repeat,
+    radial-gradient(120% 180% at 50% -40%,#7A1A4B,transparent 60%),
+    linear-gradient(180deg,#56113A,#360821);
+  border-bottom:1px solid var(--gold);
+  box-shadow:0 12px 30px -10px rgba(36,5,22,.45);
+}
+.nav.nav-toran::after{
+  content:"";position:absolute;left:0;right:0;top:100%;height:12px;pointer-events:none;
+  background:
+    radial-gradient(circle at 12px 4px,var(--marigold) 0 4px,transparent 4.6px) 0 0/24px 12px repeat-x,
+    radial-gradient(circle at 0 2px,var(--rani) 0 2.4px,transparent 3px) 0 0/24px 12px repeat-x;
+  filter:drop-shadow(0 2px 2px rgba(36,5,22,.35));
+}
+.nav-toran .nav-brand{
+  display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;
+  font:400 1.22rem/1 "Pinyon Script","Cormorant Garamond",serif!important;letter-spacing:0!important;color:var(--gold-lt);padding-top:.12rem!important;
+  border:1px solid var(--gold)!important;
+  box-shadow:0 0 0 3px rgba(201,162,39,.16),inset 0 0 0 3px #4A0E2E,inset 0 0 0 4px rgba(232,206,122,.55);
+}
+.nav-toran .nav-brand:hover{color:var(--cream)}
+.nav-toran .nav-brand span{font-size:.62em;margin:0 .02em;translate:0 -.08em}
+.nav-toran .nav-date{
+  position:absolute;left:50%;translate:-50% 0;margin:0;display:flex;align-items:center;gap:.9rem;
+  font-family:"Marcellus",serif;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(232,206,122,.82);white-space:nowrap;pointer-events:none;
+}
+.nav-toran .nav-date i,.nav-toran .nav-sep{
+  display:block;width:5px;height:5px;rotate:45deg;background:var(--gold);opacity:.8;
+}
+.nav-toran .nav-ctas{gap:1.1rem}
+.nav-toran .nav-ctas>a:not(.nav-rsvp){
+  position:relative;padding:.5rem .15rem;border-bottom:0;
+  font-family:"Marcellus",serif;font-size:.76rem;letter-spacing:.22em;color:var(--gold-lt);
+}
+.nav-toran .nav-ctas>a:not(.nav-rsvp)::after{
+  content:"";position:absolute;left:50%;bottom:-1px;width:6px;height:6px;
+  translate:-50% 0;rotate:45deg;background:var(--marigold);opacity:0;transition:opacity .25s;
+}
+.nav-toran .nav-ctas>a:not(.nav-rsvp):hover::after,
+.nav-toran .nav-ctas>a[aria-current="true"]:not(.nav-rsvp)::after{opacity:1}
+.nav-toran .nav-ctas .nav-rsvp{
+  padding:.3rem 1.05rem .26rem;line-height:1.1;margin-left:.3rem;font-family:"Marcellus",serif;font-size:.74rem;letter-spacing:.22em;
+  color:var(--plum);border:1px solid var(--gold-lt);
+  background:linear-gradient(180deg,#EBD493,#C9A45E);
+  box-shadow:none;   /* no halo: let the plum breathe around a slim pill */
+}
+/* the pill is slim, but the tap target stays 44px tall */
+.nav-toran .nav-ctas .nav-rsvp{position:relative}
+.nav-toran .nav-ctas .nav-rsvp::before{content:"";position:absolute;inset:-11px -4px}
+@media (max-width:60rem){.nav-toran .nav-date{display:none}}
+@media (max-width:52rem){
+  .nav.nav-toran{min-height:54px;padding-inline:.7rem}
+  .nav-toran .nav-brand{width:40px;height:40px;font-size:1.1rem!important}
+  .nav-toran .nav-ctas{gap:.7rem}
+  .nav-toran .nav-ctas>a:not(.nav-rsvp){font-size:.64rem;letter-spacing:.14em}
+  .nav-toran .nav-ctas .nav-rsvp{padding:.26rem .72rem .22rem;margin-left:0;font-size:.66rem;letter-spacing:.16em}
+  .nav-toran .nav-sep{width:4px;height:4px}
+}
 
 @media (max-width:52rem){
   .hero-copy.hero-copy-cinematic{top:.5svh}
@@ -2079,9 +2249,9 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 
     <!-- bunting: the flag string over the film's courtyard -->
     <pattern id="pBunting" width="48" height="58" patternUnits="userSpaceOnUse">
-      <path d="M0 6Q24 18 48 6" fill="none" stroke="#9D1B54" stroke-width="2.2"/>
-      <path d="M4 8l18 5-9 26z" fill="#E0479A"/>
-      <path d="M26 13l18-5-2 26z" fill="#7C4DD0"/>
+      <path d="M0 6Q24 18 48 6" fill="none" stroke="#9A7A3C" stroke-width="1.6"/>
+      <path d="M4 8l18 5-9 26z" fill="#7A0F41"/>
+      <path d="M26 13l18-5-2 26z" fill="#C5A572"/>
     </pattern>
 
     <!-- marigold garland DRAPED as a swag, not run straight -->
@@ -2097,12 +2267,16 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 </svg>
 
 <!-- ============================ NAV ============================
-     Comparison version: the invite is a linear story, so the header keeps
-     only the two things a guest may need to jump to, the schedule and RSVP. -->
-<nav class="nav nav-minimal" aria-label="Primary">
+     A toran bar: monogram medallion, the dates in the middle on wide screens,
+     the three places a guest jumps to (Functions, Venue, RSVP), and a string of
+     marigold and rani beads hanging from its lower edge. -->
+<nav class="nav nav-minimal nav-toran" aria-label="Primary">
   <a class="nav-brand" href="#top" aria-label="Back to Apoorv and Arushi">A<span>&amp;</span>A</a>
+  <p class="nav-date" aria-hidden="true">25 &amp; 26 November 2026<i></i>Jaipur</p>
   <div class="nav-ctas">
     <a href="#events">Functions</a>
+    <i class="nav-sep" aria-hidden="true"></i>
+    <a href="#venue">Venue</a>
     <a class="nav-rsvp" href="#rsvp">RSVP</a>
   </div>
 </nav>
@@ -2220,8 +2394,12 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <i>&amp;</i>
       <span>Arushi</span>
     </h1>
-    <p class="hero-dateplate">25 &amp; 26 November 2026</p>
-    <p class="hero-venue">Aamantran by Mysore Mahal &middot; Jaipur</p>
+    <!-- when and where, set as one framed invitation plaque -->
+    <div class="hero-when">
+      <p class="hero-dateplate">25 &amp; 26 November 2026</p>
+      <i class="hero-when-rule" aria-hidden="true"></i>
+      <p class="hero-venue">Aamantran by Mysore Mahal &middot; Jaipur</p>
+    </div>
   </div>
 
   <div class="hero-scroll" aria-hidden="true"><span></span>Enter the celebration</div>
@@ -2274,19 +2452,17 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   <div class="narrow" style="position:relative">
     <!-- entrance variant: the NUMBER leads. Every other section used to open
          with the same kicker / title / Devanagari stack. -->
+    <!-- one counter in reading order: heading, then Days / Hours / Minutes -->
     <div class="head-num reveal">
-      <p class="lead" data-d>--</p>
-      <p class="lead-sub">days to the Maayra</p>
-      <h2 class="title display">The wedding begins in</h2>
+      <h2 class="title display">The celebrations begin in</h2>
     </div>
-    <!-- Days has moved up into the lead, so the row below carries the rest -->
     <div class="count reveal d2" id="count" aria-live="off">
+      <div><b data-d>--</b><small>Days</small></div>
       <div><b data-h>--</b><small>Hours</small></div>
       <div><b data-m>--</b><small>Minutes</small></div>
-      <div><b data-s>--</b><small>Seconds</small></div>
     </div>
     <p class="sleeps reveal d3" data-sleeps></p>
-    <p class="reveal d3" style="margin-top:.5rem;color:#F6E3CF;font-size:.9rem;letter-spacing:.1em">
+    <p class="reveal d3" style="margin-top:.5rem;color:#F6E3CF;font-size:.9rem;letter-spacing:.03em">
       Wednesday 25<sup class="ord">th</sup> and Thursday 26<sup class="ord">th</sup> November 2026
     </p>
   </div>
@@ -2696,7 +2872,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <span class="roman">What to wear</span>
     </div>
 
-    <p class="reveal d2" style="margin-top:1.5rem;color:#6B3140">
+    <p class="reveal d2" style="margin:1.5rem auto 0;max-width:38rem;text-align:left;color:#6B3140">
       <span class="fill">[Fill in per function. Jaipur in late November sits around 25&deg;C
       by day and drops to roughly 10&deg;C at night, so tell guests to bring something warm
       for the Baraat and Reception. Worth naming a colour palette per event if you want the
@@ -2726,7 +2902,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <figcaption>Gota Patti</figcaption>
       </figure>
     </div>
-    <p class="reveal d4" style="margin-top:1rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal)">
+    <p class="reveal d4" style="margin-top:1.2rem;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-deep)">
       Tap a swatch to see the weave
     </p>
   </div>
@@ -2786,39 +2962,41 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
          TO ADD IT: save a 1600px-wide WebP or JPG next to this file and
          uncomment the <img> line. Nothing else needs changing. -->
     <figure class="photo-jaali reveal d2" style="margin-bottom:.5rem">
-      <!-- <img class="pj-img" src="us.webp" alt="Apoorv and Arushi"> -->
+      <img class="pj-img" src="assets/venue-courtyard.webp" alt="The courtyard at Aamantran by Mysore Mahal at dusk" width="1200" height="896" loading="lazy">
       <div class="screen" aria-hidden="true">
         <svg preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#jaaliFine)"/></svg>
       </div>
       <figcaption>Aamantran by Mysore Mahal</figcaption>
     </figure>
 
-    <!-- the info cards now carry the mehrab arch and gold finial that the six
-         event cards had to themselves. They were plain rectangles, which read
-         as a form rather than as part of an invitation. -->
-    <div class="info arched">
-      <article class="arch reveal d1">
-        <svg class="ic" aria-hidden="true"><use href="#gate"/></svg>
-        <h4>Address</h4>
-        <p><span class="fill">[Full street address and landmark]</span></p>
+    <!-- One shape per role: the photo above keeps the arch, the address is a wide
+         double-ruled plaque carrying the Maps button, and the two travel notes sit
+         in cornered frames. -->
+    <div class="info venue-grid">
+      <article class="plaque wide reveal d1">
+        <span class="medallion"><svg class="ic" aria-hidden="true"><use href="#gate"/></svg></span>
+        <div>
+          <h4>Address</h4>
+          <p><span class="fill">[Full street address and landmark]</span></p>
+        </div>
+        <a class="btn" href="https://maps.app.goo.gl/rNp1YopPnMBKkcmF9" target="_blank" rel="noopener" data-maps>Open in Google Maps</a>
       </article>
-      <article class="arch reveal d2">
+      <article class="framed cornered reveal d2">
+        <svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg>
         <svg class="ic" aria-hidden="true"><use href="#haveli"/></svg>
         <h4>Getting there</h4>
         <p>Jaipur International Airport (JAI) is the nearest airport.
            <span class="fill">[Approximate drive time from the airport and from the railway
            station.]</span></p>
       </article>
-      <article class="arch reveal d3">
+      <article class="framed cornered reveal d3">
+        <svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg>
         <svg class="ic" aria-hidden="true"><use href="#nagada"/></svg>
         <h4>Parking &amp; entry</h4>
         <p><span class="fill">[Parking, which gate, whether there is valet, and any
            instructions for the Baraat route.]</span></p>
       </article>
     </div>
-
-    <!-- Replace with the real Google Maps share link -->
-    <a class="btn" href="#" data-maps>Open in Google Maps</a>
 
     <div class="mirrors reveal d4" aria-hidden="true">
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -2877,7 +3055,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     </div>
     <h2 class="title display reveal d1" style="margin-top:.6rem">Coming to Jaipur</h2>
 
-    <div class="info arched" style="margin-top:2.5rem">
+    <div class="info arched stay-grid" style="margin-top:2.5rem">
       <article class="arch reveal d1" style="background:rgba(176,30,95,.07);border-color:rgba(176,30,95,.45)">
         <svg class="ic rani" aria-hidden="true"><use href="#haveli"/></svg>
         <h4 style="color:var(--rani-deep)">Hotel block</h4>
@@ -2890,12 +3068,20 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <p style="color:#6B3140"><span class="fill">[Whether you are running transport between
           the hotels and the venue, and the pickup times.]</span></p>
       </article>
-      <article class="arch reveal d3" style="background:rgba(242,160,61,.12);border-color:rgba(242,160,61,.6)">
-        <svg class="ic" aria-hidden="true"><use href="#fort"/></svg>
-        <h4 style="color:var(--marigold-dp)">While you are here</h4>
-        <p style="color:#6B3140"><span class="fill">[Amer Fort, Hawa Mahal, City Palace,
-          Patrika Gate, Johari Bazaar. Two or three recommendations for guests arriving
-          early, plus where to eat.]</span></p>
+      <!-- the sightseeing note is a postcard home from Jaipur: airmail border,
+           message on the left, a stamp and postmark on the right -->
+      <article class="postcard wide reveal d3">
+        <div class="msg">
+          <h4 style="color:var(--marigold-dp)">While you are here</h4>
+          <p style="color:#6B3140"><span class="fill">[Amer Fort, Hawa Mahal, City Palace,
+            Patrika Gate, Johari Bazaar. Two or three recommendations for guests arriving
+            early, plus where to eat.]</span></p>
+        </div>
+        <div class="stamp" aria-hidden="true">
+          <svg class="ic" aria-hidden="true"><use href="#fort"/></svg>
+          <span>Jaipur</span>
+          <i class="postmark">25 · XI · 2026</i>
+        </div>
       </article>
     </div>
 
@@ -3185,9 +3371,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     /* the same number said in human terms. Rewritten only when the day rolls
        over, not once a second. */
     if(sleepsEl && days !== lastDays){
-      var wk = Math.round(days/7);
-      sleepsEl.innerHTML = days + " sleeps, about <b>" + wk + "</b> week" +
-        (wk === 1 ? "" : "s") + ", until the Chak Bhaat.";
+      sleepsEl.textContent = "until the Maayra, 10 AM on Wednesday 25th November";
       lastDays = days;
     }
   }
