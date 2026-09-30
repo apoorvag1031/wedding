@@ -793,6 +793,58 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
 .arch .ic{margin-inline:auto!important}
 .info.arched{text-align:center}
 
+/* ---------- 2a. ATTIRE: one dress card per function ----------
+   Each card is a tailor's swatch card: a tile of the fabric that suits the
+   function on the left, the dress code and a palette on the right. The
+   Baraat tile carries the safa that the family ties for every baarati. */
+.venue-landmark{margin:.35rem 0 0;font-size:.86rem;opacity:.85}
+.dress-intro{margin:1.4rem auto 0;max-width:34rem;color:#5A2A36;font-size:1rem;line-height:1.6}
+.dress-intro em{font-family:"Cormorant Garamond",serif;font-size:1.12em;color:var(--rani-deep)}
+.dress-day{margin-top:2.2rem}
+.dress-day-h{
+  display:flex;align-items:center;gap:.9rem;justify-content:center;margin:0 0 1rem;
+  font:400 .78rem/1 "Marcellus",serif;letter-spacing:.26em;text-transform:uppercase;color:#80612A;
+}
+.dress-day-h::before,.dress-day-h::after{content:"";flex:0 1 5rem;height:3px;border-block:1px solid rgba(154,122,60,.6)}
+.dress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;max-width:46rem;margin-inline:auto}
+@media (max-width:44rem){
+  .dress-grid{grid-template-columns:1fr}
+  .dress-day-h{white-space:nowrap;letter-spacing:.18em;gap:.6rem}
+  .dress-day-h::before,.dress-day-h::after{flex-basis:2.5rem}
+  .dress-grid .dcard{grid-template-columns:72px 1fr;gap:.85rem}
+}
+.dcard{
+  display:grid;grid-template-columns:92px 1fr;gap:1rem;text-align:left;
+  padding:.75rem .9rem .75rem .75rem;background:var(--cream);border-radius:4px;
+  border:1px solid rgba(154,122,60,.55);outline:1px solid rgba(154,122,60,.22);outline-offset:3px;
+  box-shadow:0 16px 30px -22px rgba(74,14,46,.6);
+}
+.dc-tile{position:relative;overflow:hidden;min-height:124px;border-radius:3px;border:1px solid rgba(154,122,60,.6);box-shadow:inset 0 0 0 3px rgba(255,250,240,.35)}
+.dc-tile svg{position:absolute;inset:0;width:100%;height:100%}
+.dc-tile.t-maayra{background-color:#F6DDB0}
+.dc-tile.t-sangeet{background:
+  radial-gradient(circle,rgba(232,206,122,.95) .8px,transparent 1.2px) 0 0/9px 9px,
+  radial-gradient(circle,rgba(255,255,255,.7) .6px,transparent 1px) 4px 5px/13px 13px,
+  linear-gradient(160deg,#2A2340,#15111F)}
+.dc-tile.t-haldi{background-color:#F8D2DB}
+.dc-tile.t-haldi.tex-leheriya{background-image:repeating-linear-gradient(48deg,rgba(176,18,91,.28) 0 9px,transparent 9px 20px,rgba(231,84,128,.3) 20px 28px,transparent 28px 42px)}
+.dc-tile.t-baraat{background-color:#F7D38A}
+.dc-tile.t-reception{background-color:#6E0E3A}
+.dc-tile.t-reception.tex-gota{background-size:14px 14px}
+.dc-tile.t-pheras{background-color:var(--cream-dp)}
+.dc-when{margin:.15rem 0 0;font:400 .7rem/1.3 "Marcellus",serif;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-deep)}
+.dcard h3{margin:.3rem 0 0;font-family:"Marcellus",serif;font-size:1.32rem;line-height:1.15;color:var(--rani-deep)}
+.dc-note{margin:.4rem 0 .6rem;font-size:.92rem;line-height:1.5;color:#5A2A36}
+.dc-palette{display:flex;align-items:center;gap:.4rem;margin:0}
+.dc-palette i{width:15px;height:15px;border-radius:50%;box-shadow:0 0 0 1.5px var(--cream),0 0 0 2.5px rgba(154,122,60,.55)}
+.dc-palette small{margin-left:.35rem;font:400 .68rem/1 "Marcellus",serif;letter-spacing:.16em;text-transform:uppercase;color:#80612A}
+.dc-badge{
+  display:inline-block;margin:.45rem 0 0;padding:.22rem .6rem .18rem;border-radius:999px;
+  font:400 .66rem/1.2 "Marcellus",serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cream);background:var(--rani-deep);
+}
+.dcard.feature{background:linear-gradient(180deg,#FFF6E6,var(--cream));border-color:rgba(176,18,91,.45)}
+
 /* ---------- 2b. VENUE & STAY CARD FAMILY ----------
    Six identical arches under an arched photo read as one repeated stamp.
    Each card now takes the shape of its job: primary facts get a wide plaque,
@@ -2768,7 +2820,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
           <g id="baraat-flowers"><image href="assets/floral-corner-right.webp" x="276" y="212" width="90" height="95"/></g>
         </svg>
         <footer class="poster-detail">
-          <p><span class="label">Attire</span><span class="fill">[dress code]</span></p>
+          <p><span class="label">Attire</span>Festive Indian &middot; Safa provided</p>
         </footer>
       </article>
 
@@ -2872,39 +2924,91 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       <span class="roman">What to wear</span>
     </div>
 
-    <p class="reveal d2" style="margin:1.5rem auto 0;max-width:38rem;text-align:left;color:#6B3140">
-      <span class="fill">[Fill in per function. Jaipur in late November sits around 25&deg;C
-      by day and drops to roughly 10&deg;C at night, so tell guests to bring something warm
-      for the Baraat and Reception. Worth naming a colour palette per event if you want the
-      photographs to hold together.]</span>
-    </p>
+    <p class="dress-intro reveal d2">Two days, six moods. Each function has its own dress code, with a
+      palette if you'd like the photographs to sit together. <em>Jaipur in late November is around 25&deg;C
+      by day and close to 10&deg;C after dark</em>, so bring a shawl or jacket for the evenings.</p>
 
-    <!-- the four Jaipur textiles, as swatches a guest can actually recognise
-         in a shop. Tap one to open it wide: :hover alone did nothing on a
-         phone, which is where most of these guests will be. -->
-    <div class="swatches reveal d3" id="swatches">
-      <figure>
-        <span class="sw tex-leheriya drift" role="button" tabindex="0" aria-label="Leheriya, tap to enlarge"></span>
-        <figcaption>Leheriya</figcaption>
-      </figure>
-      <figure>
-        <span class="sw tex-bandhani" role="button" tabindex="0" aria-label="Bandhani, tap to enlarge"></span>
-        <figcaption>Bandhani</figcaption>
-      </figure>
-      <figure>
-        <svg class="sw" viewBox="0 0 120 120" preserveAspectRatio="none" role="button" tabindex="0" aria-label="Sanganeri, tap to enlarge">
-          <rect width="120" height="120" fill="url(#sanganeri)"/>
-        </svg>
-        <figcaption>Sanganeri</figcaption>
-      </figure>
-      <figure>
-        <span class="sw tex-gota" role="button" tabindex="0" aria-label="Gota patti, tap to enlarge"></span>
-        <figcaption>Gota Patti</figcaption>
-      </figure>
+    <!-- the Jaipur fabrics that used to sit here as loose swatches now dress
+         each card: bandhani, leheriya, gota patti and Sanganeri block print -->
+    <div class="dress-day reveal d2">
+      <h3 class="dress-day-h">Wednesday &middot; 25 November</h3>
+      <div class="dress-grid">
+      <article class="dcard">
+        <div class="dc-tile t-maayra tex-bandhani" aria-hidden="true"></div>
+        <div>
+          <p class="dc-when">Maayra &middot; 10 AM</p>
+          <h3>Indian Traditional</h3>
+          <p class="dc-note">Kurtas, sarees and anarkalis for a morning in the courtyard. Cottons and light silks in sunny, festive shades.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: marigold, saffron and leaf green"><i style="background:#F2A03D"></i><i style="background:#D9602A"></i><i style="background:#5E8C3A"></i><small>Palette</small></p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="dc-tile t-sangeet" aria-hidden="true"></div>
+        <div>
+          <p class="dc-when">Sangeet &middot; 7 PM</p>
+          <h3>Glitter &amp; Shine</h3>
+          <p class="dc-note">Black tie with sparkle: gowns, sequins, velvet and satin, or a sharp tuxedo. Metallics are very welcome.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: midnight black, champagne gold and rani pink"><i style="background:#16121F"></i><i style="background:#C9A45E"></i><i style="background:#B0125B"></i><small>Palette</small></p>
+        </div>
+      </article>
+      </div>
     </div>
-    <p class="reveal d4" style="margin-top:1.2rem;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-deep)">
-      Tap a swatch to see the weave
-    </p>
+
+    <div class="dress-day reveal d3">
+      <h3 class="dress-day-h">Thursday &middot; 26 November</h3>
+      <div class="dress-grid">
+      <article class="dcard">
+        <div class="dc-tile t-haldi tex-leheriya" aria-hidden="true"></div>
+        <div>
+          <p class="dc-when">Haldi &middot; 11 AM</p>
+          <h3>Gulabi Pink</h3>
+          <p class="dc-note">Every shade of pink, blush to rani. Pick something you don&rsquo;t mind getting a little haldi on.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: blush, gulabi and rani"><i style="background:#F4B6C2"></i><i style="background:#E75480"></i><i style="background:#B0125B"></i><small>Palette</small></p>
+        </div>
+      </article>
+      <article class="dcard feature">
+        <div class="dc-tile t-baraat" aria-hidden="true"><svg viewBox="0 0 92 124" preserveAspectRatio="xMidYMid meet">
+            <defs><pattern id="safaLeher" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+              <rect width="10" height="10" fill="#E9632B"/><rect width="4" height="10" fill="#C2185B"/><rect x="6" width="1.6" height="10" fill="#F6C24A"/>
+            </pattern></defs>
+            <!-- tail (pench) falling behind -->
+            <path d="M64 66c9 8 12 22 9 40l-8 1c2-14 0-26-7-33z" fill="url(#safaLeher)" stroke="#7A2E1D" stroke-width="1.4"/>
+            <!-- the wrapped crown -->
+            <path d="M14 70c-2-24 14-40 34-40s35 13 32 38c-1 8-12 11-33 11s-32-2-33-9z" fill="url(#safaLeher)" stroke="#7A2E1D" stroke-width="1.6"/>
+            <path d="M17 60c17-12 42-15 61-4M16 68c19-9 45-10 63-2M24 46c14-8 34-9 49-1" fill="none" stroke="#7A2E1D" stroke-width="1.2" opacity=".55"/>
+            <!-- kalgi: brooch and plume -->
+            <path d="M47 38c-3-10 2-19 9-24-1 9 1 16-4 24z" fill="#FFF3D6" stroke="#B8923A" stroke-width="1.2"/>
+            <circle cx="48" cy="41" r="5" fill="#E8CE7A" stroke="#8B6A2B" stroke-width="1.2"/><circle cx="48" cy="41" r="2" fill="#0F5E4A"/>
+            <circle cx="44" cy="49" r="1.4" fill="#FFF8EC"/><circle cx="48" cy="50" r="1.4" fill="#FFF8EC"/><circle cx="52" cy="49" r="1.4" fill="#FFF8EC"/>
+          </svg></div>
+        <div>
+          <p class="dc-when">Baraat &middot; 6 PM</p>
+          <h3>Festive Indian, crowned in a safa</h3>
+          <p class="dc-note">Come in your brightest kurta, bandhgala, saree or lehenga. We&rsquo;ll tie a Rajasthani leheriya safa for every baarati before the procession sets off.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: saffron, rani and turmeric"><i style="background:#E9632B"></i><i style="background:#C2185B"></i><i style="background:#F6C24A"></i><small>Palette</small></p>
+          <span class="dc-badge">Safa provided</span>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="dc-tile t-reception tex-gota" aria-hidden="true"></div>
+        <div>
+          <p class="dc-when">Reception &middot; 8 PM</p>
+          <h3>Royal &amp; Ceremonial</h3>
+          <p class="dc-note">Your finest: sherwanis and bandhgalas, heavy silks, lehengas and heirloom jewellery. The night turns cool.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: royal maroon, emerald and antique gold"><i style="background:#7A0F41"></i><i style="background:#0F5E4A"></i><i style="background:#B8923A"></i><small>Palette</small></p>
+        </div>
+      </article>
+      <article class="dcard">
+        <div class="dc-tile t-pheras" aria-hidden="true"><svg viewBox="0 0 92 124" preserveAspectRatio="none"><rect width="92" height="124" fill="url(#sanganeri)"/></svg></div>
+        <div>
+          <p class="dc-when">Pheras &middot; Late evening</p>
+          <h3>Stay in your Reception finery</h3>
+          <p class="dc-note">The pheras follow the Reception, so there is nothing to change. Keep a shawl close as the night gets cold.</p>
+          <p class="dc-palette" role="img" aria-label="Suggested palette: maroon, marigold and ivory"><i style="background:#7A0F41"></i><i style="background:#F2A03D"></i><i style="background:#FFF3D6"></i><small>Palette</small></p>
+        </div>
+      </article>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2977,7 +3081,8 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <span class="medallion"><svg class="ic" aria-hidden="true"><use href="#gate"/></svg></span>
         <div>
           <h4>Address</h4>
-          <p><span class="fill">[Full street address and landmark]</span></p>
+          <p><strong>Aamantran by Mysore Mahal</strong><br>Mysore Palace, 5 Roshan Nagar, near Kanakpura,<br>Sirsi Road, Jaipur, Rajasthan 302012</p>
+          <p class="venue-landmark">Landmark: Pink City College, by Kanakpura railway station</p>
         </div>
         <a class="btn" href="https://maps.app.goo.gl/rNp1YopPnMBKkcmF9" target="_blank" rel="noopener" data-maps>Open in Google Maps</a>
       </article>
@@ -2985,16 +3090,15 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
         <svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg>
         <svg class="ic" aria-hidden="true"><use href="#haveli"/></svg>
         <h4>Getting there</h4>
-        <p>Jaipur International Airport (JAI) is the nearest airport.
-           <span class="fill">[Approximate drive time from the airport and from the railway
-           station.]</span></p>
+        <p>About 30 minutes by car from Jaipur International Airport (JAI), and a short
+           drive from Jaipur Junction. Kanakpura is the nearest local railway station.</p>
       </article>
       <article class="framed cornered reveal d3">
         <svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg><svg class="corner" aria-hidden="true"><use href="#cnr"/></svg>
         <svg class="ic" aria-hidden="true"><use href="#nagada"/></svg>
         <h4>Parking &amp; entry</h4>
-        <p><span class="fill">[Parking, which gate, whether there is valet, and any
-           instructions for the Baraat route.]</span></p>
+        <p>Valet parking at the venue, with space for around 1,000 cars.
+           <span class="fill">[Gate and Baraat assembly point]</span></p>
       </article>
     </div>
 
