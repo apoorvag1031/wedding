@@ -914,6 +914,62 @@ footer small{display:block;margin-top:.9rem;font-size:.8rem;letter-spacing:.16em
   .info.sights article.postcard.mini{grid-template-columns:1fr auto;justify-items:stretch;text-align:left}
   .info.sights .postcard.mini .msg{padding:0 1rem 0 0;border-right:1px solid rgba(143,63,36,.28);border-bottom:0}
 }
+
+/* three postcard palettes, cycling so no two neighbours match:
+   rani + teal airmail, marigold + indigo, and teal + terracotta */
+.info.sights .postcard.mini{--pc-a:var(--rani);--pc-b:var(--teal);--pc-bg:#FFFBF2;--pc-h:var(--rani-deep);--pc-stamp:var(--cream-dp);--pc-ic:var(--terracotta);--pc-ink:var(--terracotta-d)}
+.info.sights .postcard.mini:nth-child(3n+2){--pc-a:var(--marigold-dp);--pc-b:var(--indigo);--pc-bg:#FFF6E6;--pc-h:var(--indigo);--pc-stamp:#FBE3B8;--pc-ic:var(--marigold-dp);--pc-ink:#8A4B06}
+.info.sights .postcard.mini:nth-child(3n){--pc-a:var(--teal);--pc-b:var(--terracotta);--pc-bg:#F4F8F1;--pc-h:var(--teal-deep);--pc-stamp:#DDEDE6;--pc-ic:var(--teal-deep);--pc-ink:var(--teal-deep)}
+.info.sights article.postcard.mini{
+  background:var(--pc-bg);
+  border-image:repeating-linear-gradient(135deg,var(--pc-a) 0 12px,var(--pc-bg) 12px 22px,var(--pc-b) 22px 34px,var(--pc-bg) 34px 44px) 7;
+}
+.info.sights .postcard.mini h4{color:var(--pc-h)}
+.info.sights .postcard.mini .stamp{background:var(--pc-stamp)}
+.info.sights .postcard.mini .stamp .ic{color:var(--pc-ic)}
+.info.sights .postcard.mini .stamp span{color:var(--pc-ink)}
+
+/* ---------- RSVP form, inline ----------
+   Posts to a Google Form behind the scenes (see RSVP_CONFIG in the script),
+   so responses land in a Google Sheet with no server to run. */
+.rsvp-form{display:grid;gap:1.35rem;margin-top:1.6rem;text-align:left}
+.rsvp-form .field{display:grid;gap:.5rem;margin:0;padding:0;border:0;min-width:0}
+.rsvp-form .lbl,.rsvp-form legend{padding:0;font:400 .72rem/1.2 "Marcellus",serif;letter-spacing:.22em;text-transform:uppercase;color:#E8CE7A}
+.rsvp-form input[type=text]{
+  width:100%;padding:.8rem .95rem;border:1px solid rgba(232,206,122,.55);border-radius:4px;
+  background:rgba(253,246,232,.07);color:var(--cream);font:inherit;font-size:1.02rem;
+}
+.rsvp-form input[type=text]::placeholder{color:rgba(238,223,203,.5)}
+.rsvp-form input[type=text]:focus-visible,.rsvp-chip input:focus-visible+span,.rsvp-step button:focus-visible{outline:2px solid var(--marigold);outline-offset:2px}
+.rsvp-chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.rsvp-chip{position:relative;cursor:pointer}
+.rsvp-chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.rsvp-chip span{
+  display:inline-flex;flex-direction:column;align-items:center;gap:.1rem;min-width:6.4rem;padding:.5rem .85rem;
+  border:1px solid rgba(232,206,122,.5);border-radius:999px;color:#EEDFCB;
+  font:400 .86rem/1.15 "Marcellus",serif;letter-spacing:.06em;transition:background .2s,color .2s,border-color .2s;
+}
+.rsvp-chip small{font:400 .64rem/1 "Mukta",sans-serif;letter-spacing:.08em;opacity:.75}
+.rsvp-chip input:checked+span{background:linear-gradient(180deg,#EBD493,#C9A45E);border-color:#EBD493;color:var(--plum)}
+.rsvp-chip.decline span{border-style:dashed;min-width:0;justify-content:center}
+.rsvp-row{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1.2rem}
+.rsvp-step{justify-self:start;width:max-content;display:inline-flex;align-items:center;border:1px solid rgba(232,206,122,.55);border-radius:999px;overflow:hidden}
+.rsvp-step button{
+  width:44px;height:44px;border:0;background:rgba(253,246,232,.06);color:#E8CE7A;
+  font:400 1.4rem/1 "Cormorant Garamond",serif;cursor:pointer;
+}
+.rsvp-step button:hover:not(:disabled){background:rgba(232,206,122,.18)}
+.rsvp-step button:disabled{opacity:.35;cursor:default}
+.rsvp-step output{min-width:3.2rem;text-align:center;font:600 1.35rem/1 "Cormorant Garamond",serif;color:var(--cream)}
+.rsvp-form .btn{margin:0;cursor:pointer}
+.rsvp-form .btn[disabled]{opacity:.6;cursor:progress}
+.rsvp-status{min-height:1.2em;margin:0;font-size:.9rem;color:#F6B9C8}
+.rsvp-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.rsvp-thanks{margin-top:1.6rem;padding:1.4rem;border:1px solid rgba(232,206,122,.5);text-align:center}
+.rsvp-thanks h3{margin:0 0 .4rem;font-family:"Marcellus",serif;font-size:1.5rem;color:#E8CE7A}
+.rsvp-thanks p{margin:0;color:#EEDFCB}
+.rsvp-form.is-declined .rsvp-guests{opacity:.4;pointer-events:none}
+@media (max-width:40rem){.rsvp-chip{flex:1 1 calc(50% - .3rem)}.rsvp-chip span{width:100%;min-width:0}.rsvp-chip.decline{flex-basis:100%}}
 /* stepped mehrab: the tiered facade behind the Functions, three niches
    high in the middle and stepping down either side */
 .stepped{
@@ -3159,29 +3215,6 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 <section id="venue" class="on-teal center clipped">
   <div class="wrap" style="position:relative">
 
-    <!-- peacock: the tail fans open feather by feather from the centre out -->
-    <div class="reveal" style="margin-bottom:.75rem">
-      <svg class="peacock" viewBox="0 0 120 116" aria-hidden="true"
-           fill="none" stroke="currentColor" stroke-width="1.5">
-        <g class="feather" style="--a:-75deg;--i:5"><path d="M60 88V36"/><ellipse cx="60" cy="28" rx="7" ry="10"/><circle cx="60" cy="28" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:-60deg;--i:4"><path d="M60 88V32"/><ellipse cx="60" cy="24" rx="7" ry="10"/><circle cx="60" cy="24" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:-45deg;--i:3"><path d="M60 88V28"/><ellipse cx="60" cy="20" rx="7" ry="10"/><circle cx="60" cy="20" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:-30deg;--i:2"><path d="M60 88V24"/><ellipse cx="60" cy="16" rx="7" ry="10"/><circle cx="60" cy="16" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:-15deg;--i:1"><path d="M60 88V20"/><ellipse cx="60" cy="12" rx="7" ry="10"/><circle cx="60" cy="12" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:0deg;--i:0"><path d="M60 88V18"/><ellipse cx="60" cy="10" rx="7" ry="10"/><circle cx="60" cy="10" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:15deg;--i:1"><path d="M60 88V20"/><ellipse cx="60" cy="12" rx="7" ry="10"/><circle cx="60" cy="12" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:30deg;--i:2"><path d="M60 88V24"/><ellipse cx="60" cy="16" rx="7" ry="10"/><circle cx="60" cy="16" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:45deg;--i:3"><path d="M60 88V28"/><ellipse cx="60" cy="20" rx="7" ry="10"/><circle cx="60" cy="20" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:60deg;--i:4"><path d="M60 88V32"/><ellipse cx="60" cy="24" rx="7" ry="10"/><circle cx="60" cy="24" r="2.6" fill="currentColor"/></g>
-        <g class="feather" style="--a:75deg;--i:5"><path d="M60 88V36"/><ellipse cx="60" cy="28" rx="7" ry="10"/><circle cx="60" cy="28" r="2.6" fill="currentColor"/></g>
-        <!-- body, neck, crest -->
-        <path d="M60 104c-6 0-10-4-10-9s4-9 10-9 10 4 10 9-4 9-10 9z"/>
-        <path d="M60 86c0-5-1-9-1-13"/>
-        <circle cx="59" cy="68" r="5"/>
-        <path d="M59 63v-6M55.5 63.5l-2.5-5M62.5 63.5l2.5-5"/>
-        <path d="M54 70l-5 2"/>
-      </svg>
-    </div>
 
     <!-- entrance variant: LEFT-ALIGNED against a gold spine. The film's
          Reception card breaks its run of centred panels the same way. -->
@@ -3420,9 +3453,39 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       Let us know which functions you will join us for, so we can plan properly.
       <span class="fill">[Respond by DATE.]</span>
     </p>
-    <!-- Wire to a Google Form or a Sheets-backed endpoint. Must capture attendance
-         per function, not one yes/no, because this is a five-event wedding. -->
-    <a class="btn reveal d3" href="#" data-rsvp>Open the RSVP form</a>
+    <form class="rsvp-form reveal d3" id="rsvpForm" novalidate>
+      <div class="field">
+        <label class="lbl" for="rsvpName">Full name</label>
+        <input type="text" id="rsvpName" name="name" autocomplete="name" required placeholder="Your full name">
+      </div>
+      <fieldset class="field">
+        <legend>Joining us for</legend>
+        <div class="rsvp-chips">
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Maayra"><span>Maayra<small>Wed · 10 AM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Sangeet"><span>Sangeet<small>Wed · 7 PM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Haldi"><span>Haldi<small>Thu · 11 AM</small></span></label>
+          <label class="rsvp-chip"><input type="checkbox" name="events" value="Reception"><span>Reception<small>Thu · 8 PM</small></span></label>
+          <label class="rsvp-chip decline"><input type="checkbox" name="decline" value="Not attending"><span>Sadly can&rsquo;t make it</span></label>
+        </div>
+      </fieldset>
+      <div class="rsvp-row">
+        <div class="field rsvp-guests">
+          <span class="lbl" id="rsvpGuestsLbl">Guests, including you</span>
+          <div class="rsvp-step" role="group" aria-labelledby="rsvpGuestsLbl">
+            <button type="button" data-step="-1" aria-label="One fewer guest">&minus;</button>
+            <output id="rsvpGuests" aria-live="polite">1</output>
+            <button type="button" data-step="1" aria-label="One more guest">+</button>
+          </div>
+        </div>
+        <button class="btn" type="submit">Send RSVP</button>
+      </div>
+      <div class="rsvp-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <p class="rsvp-status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="rsvp-thanks" id="rsvpThanks" hidden tabindex="-1">
+      <h3></h3>
+      <p></p>
+    </div>
     <p class="reveal d3" style="margin-top:1.25rem;font-size:.8rem;color:#C6A98F">
       Or reach us on <span class="fill">[phone numbers]</span>
     </p>
@@ -4066,8 +4129,75 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     });
   }
 
+
+  /* ---------- RSVP: inline form posting to a Google Form ----------
+     GitHub Pages is static, so the form sends its answers to a Google Form,
+     which writes them to a Google Sheet. Fill in RSVP_CONFIG with the form's
+     "formResponse" URL and its three entry IDs (see README). The Google Form
+     must use a checkbox question whose options are exactly: Maayra, Sangeet,
+     Haldi, Reception, Not attending. */
+  var RSVP_CONFIG = {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSfs_[REDACTED: credential]",
+    fields: { name: "entry.1278450785", events: "entry.1335389302", guests: "entry.1554589807" }
+  };
+  var rf = document.getElementById("rsvpForm");
+  if(rf){
+    var gOut = document.getElementById("rsvpGuests"), guests = 1, MAXG = 10;
+    var stepBtns = rf.querySelectorAll("[data-step]");
+    var decline = rf.querySelector("input[name=decline]");
+    var evBoxes = rf.querySelectorAll("input[name=events]");
+    var status = rf.querySelector(".rsvp-status");
+    function setGuests(n){
+      guests = Math.max(1, Math.min(MAXG, n));
+      gOut.textContent = String(guests);
+      stepBtns[0].disabled = guests <= 1;
+      stepBtns[1].disabled = guests >= MAXG;
+    }
+    stepBtns.forEach(function(b){ b.addEventListener("click", function(){ setGuests(guests + Number(b.dataset.step)); }); });
+    setGuests(1);
+    /* "can't make it" clears the functions, and picking a function clears it */
+    decline.addEventListener("change", function(){
+      if(decline.checked){ evBoxes.forEach(function(c){ c.checked = false; }); }
+      rf.classList.toggle("is-declined", decline.checked);
+    });
+    evBoxes.forEach(function(c){ c.addEventListener("change", function(){
+      if(c.checked && decline.checked){ decline.checked = false; rf.classList.remove("is-declined"); }
+    }); });
+    rf.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var name = rf.elements.name.value.trim();
+      var chosen = Array.prototype.filter.call(evBoxes, function(c){ return c.checked; }).map(function(c){ return c.value; });
+      if(rf.elements.website.value){ return; }                         /* a bot filled the honeypot */
+      if(!name){ status.textContent = "Please add your full name."; rf.elements.name.focus(); return; }
+      if(!chosen.length && !decline.checked){ status.textContent = "Pick the functions you can join, or let us know you can't make it."; return; }
+      if(!RSVP_CONFIG.action){ status.textContent = "RSVP isn't connected yet. Please reach out to the family directly."; return; }
+      var body = new URLSearchParams();
+      body.append(RSVP_CONFIG.fields.name, name);
+      (decline.checked ? ["Not attending"] : chosen).forEach(function(v){ body.append(RSVP_CONFIG.fields.events, v); });
+      body.append(RSVP_CONFIG.fields.guests, decline.checked ? "0" : String(guests));
+      var btn = rf.querySelector("button[type=submit]");
+      btn.disabled = true; btn.textContent = "Sending\u2026"; status.textContent = "";
+      /* Google Forms sends no CORS headers, so the response is opaque:
+         a resolved request is the success signal, a network error is not. */
+      fetch(RSVP_CONFIG.action, { method: "POST", mode: "no-cors", body: body })
+        .then(function(){
+          var first = name.split(/\s+/)[0];
+          var t = document.getElementById("rsvpThanks");
+          t.querySelector("h3").textContent = decline.checked ? "We'll miss you, " + first + "." : "Thank you, " + first + "!";
+          t.querySelector("p").textContent = decline.checked
+            ? "Thank you for letting us know. You'll be in our thoughts on the day."
+            : "We've saved " + (guests === 1 ? "a place" : guests + " places") + " for you at the " + (chosen.length > 1 ? chosen.slice(0, -1).join(", ") + " and " + chosen[chosen.length - 1] : chosen[0]) + ". See you in Jaipur.";
+          rf.hidden = true; t.hidden = false; t.focus();
+        })
+        .catch(function(){
+          btn.disabled = false; btn.textContent = "Send RSVP";
+          status.textContent = "That didn't go through. Please check your connection and try again.";
+        });
+    });
+  }
+
   /* ---------- guard the unwired buttons so nothing silently no-ops ---------- */
-  document.querySelectorAll("[data-rsvp],[data-maps]").forEach(function(a){
+  document.querySelectorAll("[data-maps]").forEach(function(a){
     a.addEventListener("click", function(ev){
       if(a.getAttribute("href") === "#"){
         ev.preventDefault();
