@@ -2192,6 +2192,41 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   .js-reveal .vertical-functions .event-poster .poster-art{transform:none!important}
 }
 
+/* 14. The jharokha window is now a cusped Rajput arch: seven scalloped lobes
+   over the scene, which open out to the whole card. Same polygon point count
+   at both ends so the browser can morph one into the other. As it opens, a
+   gilt mandala draws itself over the centre and fades, like a seal pressed
+   onto the invitation. */
+.js-reveal .vertical-functions .event-poster{clip-path:polygon(13.00% 93.00%,13.00% 40.00%,14.59% 38.58%,13.81% 37.31%,13.53% 36.18%,13.63% 35.16%,13.95% 34.22%,14.40% 33.35%,15.07% 32.55%,16.08% 31.89%,17.49% 31.40%,18.89% 30.96%,18.64% 29.89%,18.82% 28.94%,19.40% 28.14%,20.27% 27.46%,21.30% 26.85%,22.42% 26.30%,23.72% 25.85%,25.26% 25.57%,27.05% 25.51%,28.58% 25.31%,29.28% 24.39%,30.28% 23.65%,31.55% 23.12%,32.98% 22.73%,34.49% 22.41%,36.06% 22.16%,37.71% 22.05%,39.45% 22.14%,41.26% 22.48%,42.86% 22.41%,44.28% 21.74%,45.84% 21.30%,47.48% 21.08%,49.16% 21.01%,50.84% 21.01%,52.52% 21.08%,54.16% 21.30%,55.72% 21.74%,57.14% 22.41%,58.74% 22.48%,60.55% 22.14%,62.29% 22.05%,63.94% 22.16%,65.51% 22.41%,67.02% 22.73%,68.45% 23.12%,69.72% 23.65%,70.72% 24.39%,71.42% 25.31%,72.95% 25.51%,74.74% 25.57%,76.28% 25.85%,77.58% 26.30%,78.70% 26.85%,79.73% 27.46%,80.60% 28.14%,81.18% 28.94%,81.36% 29.89%,81.11% 30.96%,82.51% 31.40%,83.92% 31.89%,84.93% 32.55%,85.60% 33.35%,86.05% 34.22%,86.37% 35.16%,86.47% 36.18%,86.19% 37.31%,85.41% 38.58%,87.00% 40.00%,87.00% 93.00%)}
+.js-reveal .vertical-functions .event-poster.card-in{clip-path:polygon(0.00% 100.00%,0.00% 0.00%,1.45% 0.00%,2.90% 0.00%,4.35% 0.00%,5.80% 0.00%,7.25% 0.00%,8.70% 0.00%,10.14% 0.00%,11.59% 0.00%,13.04% 0.00%,14.49% 0.00%,15.94% 0.00%,17.39% 0.00%,18.84% 0.00%,20.29% 0.00%,21.74% 0.00%,23.19% 0.00%,24.64% 0.00%,26.09% 0.00%,27.54% 0.00%,28.99% 0.00%,30.43% 0.00%,31.88% 0.00%,33.33% 0.00%,34.78% 0.00%,36.23% 0.00%,37.68% 0.00%,39.13% 0.00%,40.58% 0.00%,42.03% 0.00%,43.48% 0.00%,44.93% 0.00%,46.38% 0.00%,47.83% 0.00%,49.28% 0.00%,50.72% 0.00%,52.17% 0.00%,53.62% 0.00%,55.07% 0.00%,56.52% 0.00%,57.97% 0.00%,59.42% 0.00%,60.87% 0.00%,62.32% 0.00%,63.77% 0.00%,65.22% 0.00%,66.67% 0.00%,68.12% 0.00%,69.57% 0.00%,71.01% 0.00%,72.46% 0.00%,73.91% 0.00%,75.36% 0.00%,76.81% 0.00%,78.26% 0.00%,79.71% 0.00%,81.16% 0.00%,82.61% 0.00%,84.06% 0.00%,85.51% 0.00%,86.96% 0.00%,88.41% 0.00%,89.86% 0.00%,91.30% 0.00%,92.75% 0.00%,94.20% 0.00%,95.65% 0.00%,97.10% 0.00%,98.55% 0.00%,100.00% 0.00%,100.00% 100.00%)}
+.card-mandala{
+  position:absolute;z-index:7;left:50%;top:47%;width:min(68vw,270px);aspect-ratio:1;
+  translate:-50% -50%;pointer-events:none;opacity:0;color:#E8CE7A;
+  filter:drop-shadow(0 0 6px rgba(58,10,38,.55));
+}
+.card-mandala .md-lines>*{stroke:currentColor;stroke-width:1.1;stroke-dasharray:1;stroke-dashoffset:1}
+.card-mandala .md-dots{fill:#F2A03D;opacity:0}
+.card-in .card-mandala{animation:mandalaSeal 1.9s ease .1s forwards}
+.card-in .card-mandala .md-lines>*{animation:mandalaDraw .95s cubic-bezier(.4,0,.2,1) .15s forwards}
+.card-in .card-mandala .md-dots{animation:mandalaDots .5s ease .75s forwards}
+@keyframes mandalaSeal{0%{opacity:0;scale:.72}18%{opacity:1}62%{opacity:1;scale:1}100%{opacity:0;scale:1.12}}
+@keyframes mandalaDraw{to{stroke-dashoffset:0}}
+@keyframes mandalaDots{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.card-mandala{display:none}}
+
+/* 15. A height that does not breathe with the browser chrome. In Chrome and
+   Brave on iOS the toolbars collapsing on scroll resizes the whole page, so
+   every svh-based height grew mid-scroll: the hero got taller, its
+   illustration (scaled to cover the hero) zoomed in and repainted, and the
+   phone function cards resized with it. --lock-h is the screen height taken
+   once at load and only re-taken when the WIDTH changes (a rotation). */
+.hero{min-height:calc(var(--lock-h,100svh) - 52px)}
+.hero::before{height:clamp(72px,calc(var(--lock-h,100svh) * .11),116px)}
+@media (max-width:52rem){
+  .hero{min-height:calc(var(--lock-h,100svh) - 51px)}
+  .vertical-functions .event-poster{height:calc(var(--lock-h,100svh) - 61px)}
+}
+
 </style>
 </head>
 <body class="primary-edition">
@@ -2199,6 +2234,21 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
 <!-- Loading view: present before fonts and the large inline SVG finish painting.
      CSS has its own 4.2s escape hatch, so even a blocked script can never leave
      guests trapped behind it. -->
+<script>
+/* freeze the viewport height used by the hero and the phone cards; see CSS block 15 */
+(function(){
+  var r = document.documentElement, w = 0;
+  function lock(force){
+    if(force || window.innerWidth !== w){
+      w = window.innerWidth;
+      r.style.setProperty("--lock-h", window.innerHeight + "px");
+    }
+  }
+  lock(true);
+  window.addEventListener("resize", function(){ lock(false); });
+  window.addEventListener("orientationchange", function(){ setTimeout(function(){ lock(true); }, 300); });
+})();
+</script>
 <div class="site-loader" role="status" aria-live="polite" aria-label="Opening Apoorv and Arushi's wedding invitation">
   <div class="loader-door l" aria-hidden="true"></div>
   <div class="loader-door r" aria-hidden="true"></div>
@@ -4050,6 +4100,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   var verticalStages = [];
   var verticalRaf = 0;
   function clamp01(n){ return Math.max(0,Math.min(1,n)); }
+  var CARD_MANDALA = '<svg class="card-mandala" viewBox="0 0 200 200" aria-hidden="true"><g class="md-lines" fill="none"><circle pathLength="1" cx="100" cy="100" r="10"/><circle pathLength="1" cx="100" cy="100" r="30"/><circle pathLength="1" cx="100" cy="100" r="62"/><circle pathLength="1" cx="100" cy="100" r="80"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(0 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(30 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(60 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(90 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(120 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(150 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(180 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(210 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(240 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(270 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(300 100 100)"/><path pathLength="1" d="M100 70c9-11 9-22 0-33-9 11-9 22 0 33z" transform="rotate(330 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(15 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(60 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(105 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(150 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(195 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(240 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(285 100 100)"/><path pathLength="1" d="M100 14l6 8-6 8-6-8z" transform="rotate(330 100 100)"/></g><g class="md-dots"><circle cx="100" cy="18" r="1.8" transform="rotate(0 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(22 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(45 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(67 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(90 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(112 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(135 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(157 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(180 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(202 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(225 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(247 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(270 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(292 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(315 100 100)"/><circle cx="100" cy="18" r="1.8" transform="rotate(337 100 100)"/></g></svg>';
   function setupVerticalFunctions(){
     if(!verticalDeck || verticalStages.length) return;
     document.body.classList.add("vertical-functions");
@@ -4058,6 +4109,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
       /* Function posters have their own continuous geometry. The generic page
          reveal's translateY(34px) must never compete with that transform. */
       card.classList.add("in");
+      if(!card.querySelector(".card-mandala")){ card.insertAdjacentHTML("beforeend", CARD_MANDALA); }
       var stage = document.createElement("div");
       stage.className = "event-stage";
       verticalDeck.insertBefore(stage,card);
