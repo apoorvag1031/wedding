@@ -67,6 +67,21 @@ than pretending to send.
 Once a version is chosen, rename it to `index.html` and delete the other. The
 URL to share stays the same.
 
+## Three guest links
+
+| Link | Who it is for |
+|---|---|
+| `/wedding/` | Groom side, both days (all six functions) |
+| `/wedding/26nov/` | Groom side, 26 November only: Baraat, Reception, Pheras |
+| `/wedding/arushi/` | Bride side: Arushi's name first, Bhaat instead of Maayra, no family-name lines |
+
+`index.html` is the master. `26nov/index.html` and `arushi/index.html` are
+generated from it by `build-variants.py` in the working folder, so edit the
+master and rebuild rather than editing the folders by hand. Each version has
+its own preview image (`og-card-v2.jpg`, `og-26nov.jpg`, `og-arushi.jpg`).
+All three post to the same Google Form. These are separate pages, not access
+control: anyone who edits the URL can open another version.
+
 ## Still to fill in
 
 - Jaipur highlights: swap in your own favourites
