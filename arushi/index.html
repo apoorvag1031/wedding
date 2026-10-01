@@ -305,6 +305,10 @@ a{color:inherit}
   background:rgba(59,10,33,.92);backdrop-filter:blur(4px);
   box-shadow:0 0 0 3px rgba(59,10,33,.35),0 8px 18px -8px rgba(30,4,16,.7);
 }
+a.hero-scroll{text-decoration:none;cursor:pointer;transition:background .25s,border-color .25s}
+a.hero-scroll::after{content:"";position:absolute;inset:-9px -6px}   /* bigger tap target without making the pill taller */
+a.hero-scroll:hover,a.hero-scroll:focus-visible{background:rgba(92,18,52,.96);border-color:var(--gold-lt);outline:none}
+a.hero-scroll:focus-visible{box-shadow:0 0 0 3px rgba(232,206,122,.55),0 8px 18px -8px rgba(30,4,16,.7)}
 /* a small chevron after the words, bobbing, instead of a line through them */
 .hero-scroll span{order:2;width:.42rem;height:.42rem;border-right:1.5px solid var(--gold-lt);border-bottom:1.5px solid var(--gold-lt);rotate:45deg;translate:0 -.12rem;animation:drop 2.1s ease-in-out infinite}
 @keyframes drop{0%,100%{opacity:.45;transform:translate(0,0)}50%{opacity:1;transform:translate(.14rem,.14rem)}}
@@ -2860,7 +2864,7 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
     </div>
   </div>
 
-  <div class="hero-scroll" aria-hidden="true"><span></span>Enter the celebration</div>
+  <a class="hero-scroll" href="#countdown"><span aria-hidden="true"></span>Enter the celebration</a>
 </header>
 
 <!-- ========================= COUNTDOWN ========================= -->
@@ -3753,6 +3757,16 @@ sup.ord{font-size:.58em;letter-spacing:.04em;vertical-align:super;text-transform
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var functionLayoutMedia = window.matchMedia("(max-width: 52rem)");
   document.body.classList.toggle("vertical-functions",functionLayoutMedia.matches);
+
+  /* "Enter the celebration" scrolls on without adding #countdown to the address,
+     so a guest who copies the link from the bar still shares the hero */
+  var cue = document.querySelector("a.hero-scroll");
+  if(cue) cue.addEventListener("click", function(e){
+    var target = document.getElementById("countdown");
+    if(!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  });
 
   /* ---------- loading view ----------
      Keep it long enough to register as an intentional opening card, but never
